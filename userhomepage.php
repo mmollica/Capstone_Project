@@ -1,36 +1,66 @@
 <?php
-ini_set('display_startup_errors', TRUE);
-ini_set('display_errors',1); 
-error_reporting(E_ALL);
+//ini_set('display_startup_errors', TRUE);
+//ini_set('display_errors',1); 
+//error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","host","test", "capstone_db");
+    $con = mysqli_connect("localhost","host","test","capstone_db");
 
     if (!$con)
         {
              die('Could not connect: ' . mysqli_error($con));
         }
 
-     
-    $result1 = mysqli_query($con, "SELECT * FROM link");
-    $result2 = mysqli_query($con, "SELECT * FROM staffmessage");
+   
+$count=0;
+$user= new User();	
+    
+$id= $user->data()->id; 
+	
+$result = mysqli_query($con," SELECT * FROM staffmessage ORDER BY date "); 
+	
+$result2 = mysqli_query($con,"SELECT * FROM link ");
 
-    if(!$result1 || !$result2)
+	
+//$result3 = mysqli_query($con,"SELECT classid FROM classassign WHERE studentid= $id ");
+	
+//$result4 = mysqli_query($con,"SELECT clubid FROM clubassign WHERE studentid= $id ");
+
+
+
+    if(!$result)
         {
         die(mysqli_error($con));
         }
+		
+	if(!$result2)
+        {
+        die(mysqli_error($con));
+        }
+		
+	//if(!$result3)
+       // {
+        //die(mysqli_error($con));
+       // }
+		
+	//if(!$result4)
+       // {
+        //die(mysqli_error($con));
+        //}
+    
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -57,11 +87,11 @@ require_once 'core/init.php';
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/favicon.png">
   </head>
 
   <body>
@@ -95,42 +125,83 @@ require_once 'core/init.php';
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              
+              <li><a href="#">Content</a></li>
+              <li><a href="#">Assignments</a></li>
+              <li><a href="#">Quizzes</a></li>
+              <li><a href="#">Discussions</a></li>
+              <li><a href="#">Grades</a></li>
+
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" >
-          <div class="scrollbox" >
+        <div class="span9">
+           <div id="myCarousel" class= "carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="file:///C|/Users/Adiyiah/Desktop/52212c70ea4f2.preview-620.jpg" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
             <?php
-            echo "<table>";
-            while($row = mysqli_fetch_assoc($result2))
-                {
-                  echo "<th>" . $row['title'] . " - " . $row['date'] . "</th>";
-                  echo "<tr>";
-                  echo "<td>" . $row['msg'] . "</td>";
-                  echo "</tr>";
+			
+			while ($count < 1 && $row = mysqli_fetch_assoc($result))
+			{
+              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
+              echo '<p>'. $row['msg'] . '</p>';
+				$count++;
+			}
+              echo '<p> <a class="btn btn-med btn-success" href="#" role="button">Sign up today</a> </p>';
+            echo '</div>';
+          echo '</div>';
+        echo '</div>';
+        echo '<div class="item">';
+          echo '<img src="file:///C|/Users/Adiyiah/Desktop/Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
+          echo '<div class="container">';
+            echo '<div class="carousel-caption">';
+			while ($count < 2 && $row = mysqli_fetch_assoc($result))
+			{
+              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
+              echo '<p>'. $row['msg'] . '</p>';
+			  $count++;
+			}
+              echo '<p><a class="btn btn-med btn-success" href="#" role="button">Learn more</a></p>';
+            echo '</div>';
+          echo '</div>';
+        echo '</div>';
+        echo '<div class="item">';
+         echo ' <img src="file:///C|/Users/Adiyiah/Desktop/test_taking.jpg" alt="Third slide">';
+          echo '<div class="container">';
+            echo '<div class="carousel-caption">';
+			while ($count < 3 && $row = mysqli_fetch_assoc($result))
+			{
+              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
+              echo '<p>'. $row['msg'] . '</p>';
+			  $count++;
+			}
+              echo '<p><a class="btn btn-med btn-success" href="#" role="button">Browse gallery</a></p>';
+           echo '</div>';
+          echo '</div>';
+        echo '</div>';
+      echo '</div>';
+	  ?>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+	  
+    </div><!-- /.carousel -->
 
-                }
-            echo "</table>"; 
 
-            ?>
-            
-          </div>
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+                
           <div class="row-fluid">
             <div class="span4" style="margin-left:35px;">
               <h2 style="margin-top:-60px;">Class List</h2>
@@ -142,7 +213,7 @@ require_once 'core/init.php';
         </ul>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
-            <div class="span4" style="margin-left:50px;">
+            <div class="span4" style="margin-left:250px;">
               <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
               <ul type="square">
           			
@@ -164,7 +235,7 @@ require_once 'core/init.php';
           </ul>
               <p><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
-            <div class="span4" style="margin-left:50px; margin-top:50px">
+            <div class="span4" style="margin-left:250px; margin-top:50px">
               <h2 style="margin-top:-60px;">Upcoming Events</h2>
               <ul type="square">
         		<li type="square">Homecoming Pep Rally</li>
@@ -182,20 +253,23 @@ require_once 'core/init.php';
             </div>
             
             <div class="row-fluid">
-            <div class="span9" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px;">Helpful Links</h2>
-                
-                <?php
-                while($row = mysqli_fetch_assoc($result1))
-                    {
-                     echo "<ul>";
-                     echo "<li>" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</li>" ;
-                     echo "</ul>";
-                    }
-                echo "</table>";        
-                ?>
-                
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+            <div class="spanstaff" style="margin-top:50px;">
+              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
+               <ul style="margin-left:370px;">
+             <span class="websitefont">
+             </span>
+             <?php
+             while ($row = mysqli_fetch_assoc($result2))
+			 {
+			
+			  echo "<li>" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</li>" ;
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+              <p style="margin-left:350px;"	><a class="btn" href="#">View details &raquo;</a></p>
             </div><!--/span-->
             </div>
             
@@ -203,28 +277,63 @@ require_once 'core/init.php';
       </div><!--/row-->
 
       <hr>
+	      
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
+			<!-- Copyright Area -->
+			<hr>
+			<div class="footer">
+				<p>&copy; 2013</p>
+			</div>
+		</div>
 
-    </div><!--/.fluid-container-->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/jquery.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-transition.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-alert.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-modal.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-dropdown.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-tab.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-tooltip.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-popover.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-button.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-collapse.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-carousel.js"></script>
-    <script src="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/js/bootstrap-typeahead.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script>
+ 
+  jQuery( document ).ready(function($) {
+    
+	
+	 $('#myCarousel').carousel({
+                interval: 10000
+        });
+ 
+        $('#carousel-text').html($('#slide-content-0').html());
+ 
+        //Handles the carousel thumbnails
+        $('[id^=carousel-selector-]').click( function(){
+                var id_selector = $(this).attr("id");
+                var id = id_selector.substr(id_selector.length -1);
+                var id = parseInt(id);
+                $('#myCarousel').carousel(id);
+        });
+ 
+ 
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid', function (e) {
+                var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+	
+});
+
+ 
+  </script>
+    <script src="jquery.js"></script>
+    <script src="bootstrap-transition.js"></script>
+    <script src="bootstrap-alert.js"></script>
+    <script src="bootstrap-modal.js"></script>
+    <script src="bootstrap-dropdown.js"></script>
+    <script src="bootstrap-scrollspy.js"></script>
+    <script src="bootstrap-tab.js"></script>
+    <script src="bootstrap-tooltip.js"></script>
+    <script src="bootstrap-popover.js"></script>
+    <script src="bootstrap-button.js"></script>
+    <script src="bootstrap-collapse.js"></script>
+    <script src="bootstrap-carousel.js"></script>
+    <script src="bootstrap-typeahead.js"></script>
 
   </body>
