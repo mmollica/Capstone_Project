@@ -10,52 +10,31 @@ require_once 'core/init.php';
   echo 'submitted';
 }
 */
+
 if(Input::exists())
 {
-  if(Token::check(Input::get('token')))
-  {
-    $validate = new Validate();
   
-    $validation = $validate->check($_POST, array(
-      'username' => array('required' => true, 'min' => 2, 'max' => 20 , 'unique' => 'users'),
-      'password' => array('required' => true, 'min' => 6, 'max' => 20),
-      'password_again' => array('required' => true, 'matches' => 'password'),
-      'fname' => array('required' => true, 'max' => 25),
-      'lname' => array('required' => true, 'max' => 25),
-      'groups' => array('required' => true),
-      'address' => array('required' => true),
-      'city' => array('required' => true),
-      'state' => array('required' => true, 'max' => 2),
-      'zip' => array('required' => true, 'max' => 5),
-      'groups' => array('required' => true)
-    ));
+  
 
+    $validate = new Validate();
+
+    $validation = $validate->check($_POST, array(
+      'title' => array('required' => true),
+      'msg' => array('required' => true),
+      'date' => array('required' => true)    
+    ));
+  
     if($validation->passed())
     {
-      $user = new User();
-      $id = $user->get_number(Input::get('groups'));
-      //$u = $user->data()->username;
-      date_default_timezone_set('America/New_York');
-      $time = date("Y-m-d H:i:s");
-
-      $salt = Hash::salt(32);
-      echo "$id";
       
+      $msg = new Message();
+
       try
       {
-        $user->create(array(
-          'id' => $id,
-          'username' => Input::get('username'),
-          'password' => Hash::make(Input::get('password')),
-          'salt' => $salt,
-          'fname' => Input::get('fname'),
-          'lname' => Input::get('lname'),
-          'address' => Input::get('address'),
-          'city' => Input::get('city'),
-          'state' => Input::get('state'),
-          'zip' => Input::get('zip'),
-          'groups' => Input::get('groups'),
-          'date_added' => $time
+        $msg->create1(array(
+          'title' => Input::get('title'),
+          'msg' => Input::get('msg'),
+          'date' => Input::get('date')    
           ));
 
         Session::flash('home', 'You have registered a user');
@@ -73,14 +52,14 @@ if(Input::exists())
         echo $error, '<br>';
       }
     }
-  }
+  
 }
 
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>User Creation</title>
+    <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -120,8 +99,11 @@ if(Input::exists())
                                    <link rel="shortcut icon" href="favicon.png">
   <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+  
+  <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -156,7 +138,7 @@ if(Input::exists())
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li class="active"><a href="#">Create</a></li>
+              <li ><a href="#">Create</a></li>
               <li><a href="#">Edit</a></li>
               <li><a href="#">View</a></li>
               
@@ -176,7 +158,7 @@ if(Input::exists())
               <li><a href="#">View</a></li>
               
               <li class="nav-header"> School Messages</li>
-              <li><a href="#">Create</a></li>
+              <li class="active"><a href="#">Create</a></li>
               <li><a href="#">Edit</a></li> 
               <li><a href="#">View</a></li>
                          
@@ -184,76 +166,39 @@ if(Input::exists())
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9" style="height:850px">
-          <div class="login" >
-            <h1 style="margin-top:-60px;">Create Users</h1>
+          <div class="viewbox" >
+            <h1 style="margin-top:-60px;">Create Message</h1>
+            <br>
+            <br>
+            <form id="createmessage" action="" method="post">
             <span id="sprytextfield1">
-            <form id="log in" action="" method="post">
-            <label for="username">Usename:</label>
-            <input type="text" name="username" id="username">
+            <label for="Link Name">Message Title:</label>
+            <input type="text" name="title" id="Message Title">
           <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
-          <span id="sprytextfield2">
-          <label for="password">Password:</label>
-          <input type="password" name="password" id="password">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
+         
           <span id="sprytextfield3">
-          <label for="password_again">Confirm Password:</label>
-          <input type="password" name="password_again" id="password_again">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield4">
-          <label for="fname">First Name:</label>
-          <input type="text" name="fname" id="fname">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield5">
-          <label for="lname">Last Name:</label>
-          <input type="text" name="lname" id="lname">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield6">
-          <label for="address">Address:</label>
-          <input type="text" name="address" id="address">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield7">
-          <label for="city">City:</label>
-          <input type="text" name="city" id="city">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield8">
-          <label for="state">State:</label>
-          <input type="text" name="state" id="state" size="2">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-          <span id="sprytextfield9">
-          <label for="zip">Zip Code:</label>
-          <input type="text" name="zip" id="zip" size="5">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
-        <span id="spryselect1">
-          <label for="type">Account Type:</label>
-          <select name="groups" id="groups">
-              <option value="1">Staff</option>
-              <option value="2">Teacher</option>
-              <option value="3">Student</option>
-              <option value="4">Parent</option>
-          </select>
-          <span class="selectRequiredMsg">Please select an item.</span></span>
-          <br/>
+          <label for="Message Date">Date:</label>
+          <input type="date" name="date" id="Date">
+          <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
           <br>
-          <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-          <input type="submit" value="Add User"class="btn btn-large btn-success">
-          <a href="staffhomepage.html"><input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success"></a>
+          <span id="sprytextarea1">
+          <label for="Message">Message:</label>
+          <textarea name="msg" id="Message" cols="45" rows="10" style="width:500px"></textarea>
+          <span class="textareaRequiredMsg">A value is required.</span></span><br>
+      <br>
+          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+          
+          
+          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success">
           </form>
           </div>
           </div><!--/row-->
 
       <hr>
-
-      <footer>
-        <p>&copy; Company 2013</p>
+      
+<footer>
+    <p>&copy; Company 2013</p>
       </footer>
 
     </div><!--/.fluid-container-->
@@ -278,5 +223,9 @@ if(Input::exists())
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
+var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
+var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
   </script>
   </body>

@@ -17,11 +17,17 @@ if(Input::exists())
 		$validate = new Validate();
 	
 		$validation = $validate->check($_POST, array(
-			'username' => array('required' => true, 'min' => 5, 'max' => 20, 'unique' => 'users'),
+			'username' => array('required' => true, 'min' => 4, 'max' => 20, 'unique' => 'users'),
 			'password' => array('required' => true, 'min' => 6, 'max' => 20),
 			'password_again' => array('required' => true, 'matches' => 'password'),
 			'first' => array('required' => true, 'max' => 25),
-			'last' => array('required' => true, 'max' => 25)
+			'last' => array('required' => true, 'max' => 25),
+			'groups' => array('required' => true),
+			'address' => array('required' => true),
+			'city' => array('required' => true),
+			'state' => array('required' => true, 'max' => 2),
+			'zip' => array('required' => true, 'max' => 5)
+			
 		));
 
 		if($validation->passed())
@@ -38,7 +44,11 @@ if(Input::exists())
 					'salt' => $salt,
 					'fname' => Input::get('first'),
 					'lname' => Input::get('last'),
-					'groups' => Input::get('groups')
+					'groups' => Input::get('groups'),
+					'address' => Input::get('address'),
+					'city' => Input::get('city'),
+					'state' => Input::get('state'),
+					'zip' => Input::get('zip')
 					));
 
 				Session::flash('home', 'You have registered a user');
@@ -91,6 +101,23 @@ if(Input::exists())
 		<label for="last">Enter User Group</label>
 		<input type="text" name="groups" id="groups" value="" autocomplete="off">
 	</div>
+	<div class="field">
+		<label for="last">Address</label>
+		<input type="text" name="address" value="" autocomplete="off">
+	</div>
+	<div class="field">
+		<label for="last">Enter city</label>
+		<input type="text" name="city" value="" autocomplete="off">
+	</div>
+	<div class="field">
+		<label for="last">Enter state</label>
+		<input type="text" name="state"  value="" autocomplete="off">
+	</div>
+	<div class="field">
+		<label for="last">Enter zip</label>
+		<input type="text" name="zip"  value="" autocomplete="off">
+	</div>
+
 
 	<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 	<input type="submit" value="Register User">
