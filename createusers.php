@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once 'core/init.php';
 
-/*if(Input::exists())
+/*if(Input::exists())....dmd
 {
   echo 'submitted';
 }
