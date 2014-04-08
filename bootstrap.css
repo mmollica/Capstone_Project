@@ -1,3 +1,6 @@
+
+/* CSS Document */
+
 /*!
  * Bootstrap v2.3.2
  *
@@ -306,10 +309,12 @@ a:focus {
 
 .span9 {
   width: 700px;
+  
 }
 
 .span8 {
   width: 620px;
+  
 }
 
 .span7 {
@@ -326,10 +331,34 @@ a:focus {
 
 .span4 {
   width: 300px;
+  padding: 60px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  white-space:normal;
+  word-wrap:break-word; 
+  overflow:auto;
+  height:200px;
+  border-color: rgb(0,0,0);
+  border:10px thick rgb(0,0,0);
+}
+
+.span4foot {
+  width: 300px;
 }
 
 .span3 {
   width: 220px;
+}
+
+.spanlog {
+  width: 250px;
 }
 
 .span2 {
@@ -6119,6 +6148,7 @@ a.badge:focus {
 }
 
 .hero-unit {
+	
   padding: 60px;
   margin-bottom: 30px;
   font-size: 18px;
@@ -6129,6 +6159,13 @@ a.badge:focus {
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+  white-space:normal;
+  word-wrap:break-word; 
+  overflow:auto;
+  width:700px;
+  height:300px;
+  border-color:#FF0000;
+  border:5px;
 }
 
 .hero-unit h1 {
@@ -6179,19 +6216,19 @@ a.badge:focus {
 }
 #rounded-corner thead th.rounded-company
 {
-	background: #b9c9fe url(file:///C|/Users/Adiyiah/Desktop/New%20Html%20Style/bootstrap-2.3.2/docs/source/table-images/left.png) left -5px no-repeat;
+	background: #5bb75b url(left.png) left -5px no-repeat;
 }
 #rounded-corner thead th.rounded-q4
 {
-	background: #b9c9fe url(file:///C|/Users/Adiyiah/Desktop/New%20Html%20Style/bootstrap-2.3.2/docs/source/table-images/right.png) right -5px no-repeat;
+	background: #5bb75b url(right.png) right -5px no-repeat;
 }
 #rounded-corner th
 {
 	padding: 8px;
 	font-weight: normal;
 	font-size: 13px;
-	color: #039;
-	background: #b9c9fe;
+	color:inherit;
+	background: #5bb75b;
 }
 #rounded-corner td
 {
@@ -6202,13 +6239,141 @@ a.badge:focus {
 }
 #rounded-corner tfoot td.rounded-foot-left
 {
-	background: #e8edff url(file:///C|/Users/Adiyiah/Desktop/New%20Html%20Style/bootstrap-2.3.2/docs/source/table-images/botleft.png) left bottom no-repeat;
+	background: #e8edff url(botleft.png) left bottom no-repeat;
 }
 #rounded-corner tfoot td.rounded-foot-right
 {
-	background: #e8edff url(file:///C|/Users/Adiyiah/Desktop/New%20Html%20Style/bootstrap-2.3.2/docs/source/table-images/botright.png) right bottom no-repeat;
+	background: #e8edff url(botright.png) right bottom no-repeat;
 }
 #rounded-corner tbody tr:hover td
 {
 	background: #d0dafd;
 }
+
+div.scrollbox{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height: 190px;
+  font-family: sans-serif;
+  overflow:auto;
+	
+}
+
+div.login{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height: 300px;
+  font-family: sans-serif;
+  
+	
+}
+
+div.login2{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height: 325px;
+  font-family: sans-serif;
+  
+	
+}
+
+div.viewbox{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height:750px;
+  font-family: sans-serif;
+  
+	
+}
+
+div.viewbox2{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height:600px;
+  font-family: sans-serif;
+  
+	
+}
+
+div.scrollboxnoroll{
+	padding: 60px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  width: 700px;
+  height: 190px;
+  font-family: sans-serif;
+  
+	
+}
+
+.spanstaff {
+  width: 80px;
+  padding: 60px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 30px;
+  color: inherit;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  white-space:normal;
+  word-wrap:break-word; 
+  height:200px;
+  border-color:#FF0000;
+  border:5px;
+}
+
