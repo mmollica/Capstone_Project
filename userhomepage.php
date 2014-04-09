@@ -261,7 +261,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 					
 						 echo '<form id="class" action="classhomepage.php" method="post">';
 					 	 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
-					 	 echo "<li>" . '<input name="Create" type="submit" value=' . $row3['classname'] .' class="btn btn-small btn-success">' . "</li>" ;
+					 	 echo "<li>" . '<input name="Create" type="submit" value=' . $row3['classname'] .' class="btn btn-small btn-success" >' . "</li>" ;
                 		 echo '</form>';
 				 
 						}
@@ -327,7 +327,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 			  ?>
              
         </ul>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+             
             </div><!--/span-->
             <div class="span4" style="margin-left:250px;">
               <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
@@ -337,7 +337,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
                             <li> <a href="">Engish II Grade Posted</a></li>
                             <li> <a href="">Biology's Assignment posted.</a></li>
                     </ul>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+              
             </div><!--/span-->
             </div>
             
@@ -363,7 +363,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 						{
         					 echo "<li>" . "<a>" . $row3['clubname'] . "</li>" ;
 				  			 echo '<form id="createclub" action="" method="post">';
-				   			 echo '<input name="club" type="hidden" value="$cn">';
+				   			 echo '<input name="club" type="hidden" value=' . $cn .'>';
         
          		   			 echo '</form>';
 				 
@@ -389,7 +389,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				{
         		 echo "<li>" . "<a>" . $row['clubname'] . "</li>" ;
 				   echo '<form id="createclub" action="" method="post">';
-				   	echo '<input name="club" type="hidden" value="$cn">';
+				   	echo '<input name="club" type="hidden" value=' . $cn .'>';
         
          		   echo '</form>';
 				 
@@ -399,7 +399,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 		}
 			  ?>
           </ul>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+              
             </div><!--/span-->
             <div class="span4" style="margin-left:250px; margin-top:50px">
               <h2 style="margin-top:-60px;">Upcoming Events</h2>
@@ -414,7 +414,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
                 
                 </ul>
         </ul>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
+            
             </div><!--/span-->
             </div>
             
@@ -435,7 +435,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
          
          	?>
          </ul>
-              <p style="margin-left:350px;"	><a class="btn" href="#">View details &raquo;</a></p>
+              
             </div><!--/span-->
             </div>
             

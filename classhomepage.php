@@ -18,7 +18,7 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST["classid"];
+$classid=$_POST['classid'];
  
 $a = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");
 $b = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
@@ -114,6 +114,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
+            
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
@@ -130,9 +131,19 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
+               <?php 
+              echo '<form id="content" method="post" action="studentcontentpage.php" >';
+              echo '<input name="classid" type="hidden" value=' . $classid .'>';
+              echo '<li><a onClick="classFunction();">Content</a></li>';
+              echo '</form>';
+              ?>
               
-              <li><a href="#">Content</a></li>
-              <li><a href="#">Assignments</a></li>
+               <?php 
+              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
+              echo '<input name="classid" type="hidden" value=' . $classid .'>';
+              echo '<li><a  onClick="workFunction();">Assignments</a></li>';
+              echo '</form>';
+              ?>
               <li><a href="#">Quizzes</a></li>
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
@@ -148,6 +159,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
             	echo $row['classname'];
             }
         echo '</h2>';
+		
         ?>
            <div id="myCarousel" class= "carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -183,7 +195,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
 			}
 			
 			
-              echo '<p> <a class="btn btn-med btn-success" href="#" role="button">Sign up today</a> </p>';
+      
             echo '</div>';
           echo '</div>';
         echo '</div>';
@@ -197,7 +209,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               echo '<p>'. $row['msg'] . '</p>';
 			  $count++;
 			}
-              echo '<p><a class="btn btn-med btn-success" href="#" role="button">Learn more</a></p>';
+              
             echo '</div>';
           echo '</div>';
         echo '</div>';
@@ -211,7 +223,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               echo '<p>'. $row['msg'] . '</p>';
 			  $count++;
 			}
-              echo '<p><a class="btn btn-med btn-success" href="#" role="button">Browse gallery</a></p>';
+              
 			  
 		}
            echo '</div>';
@@ -342,6 +354,31 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
         });
 	
 });
+
+function classFunction()
+{
+	document.getElementById("content").submit();	
+}
+
+function workFunction()
+{
+	document.getElementById("assignment").submit();	
+}
+
+function quizFunction()
+{
+	document.getElementById("quiz").submit();	
+}
+
+function discussionFunction()
+{
+	document.getElementById("discuss").submit();	
+}
+
+function gradesFunction()
+{
+	document.getElementById("grade").submit();	
+}
 
  
   </script>

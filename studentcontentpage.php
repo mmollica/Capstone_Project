@@ -13,42 +13,20 @@ require_once 'core/init.php';
         }
 
    
-$count=0;
+ 
 $user= new User();	
     
 $id= $user->data()->id;
 
 $classid=$_POST['classid'];
- 
-$a = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");
-$b = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
-
-$c = mysqli_query($con,"SELECT classname FROM class WHERE classid= $classid ");	
-	
-$result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
-	
 
 
+$result = mysqli_query($con,"SELECT * FROM content WHERE classid= $classid ");
 
-    if(!$a)
+ if(!$result)
         {
         die(mysqli_error($con));
         }
-		
-	if(!$b)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$c)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$result3)
-      {
-        die(mysqli_error($con));
-      }
     
 ?>
 
@@ -127,16 +105,15 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              
              <?php 
-              echo '<form id="content" method="post" action="teachercontentpage.php" >';
+              echo '<form id="content" method="post" action="studentcontentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a  onClick="classFunction();">Content</a></li>';
               echo '</form>';
               ?>
               
                <?php 
-              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
+              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a  onClick="workFunction();">Assignments</a></li>';
               echo '</form>';
@@ -144,170 +121,28 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               <li><a href="#">Quizzes</a></li>
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
-
+	
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
-        <?php
-       echo ' <h2 style="margin-left:410px">';
-        while ($row = mysqli_fetch_assoc($c))
-			{
-            	echo $row['classname'];
-            }
-        echo '</h2>';
-        ?>
-           <div id="myCarousel" class= "carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="52212c70ea4f2.preview-620.jpg" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-            <?php
-			while ($row2 = mysqli_fetch_assoc($a))
-			{
-				$tid= $row2['teacherid'];
-				$result = mysqli_query($con," SELECT * FROM teachermessage WHERE teacherid=$tid AND classid= $classid ORDER BY date ");
-				
-				if(!$result)
-      				{
-       					 die(mysqli_error($con));
-      				} 
-				
-			while ($count < 1 && $row = mysqli_fetch_assoc($result))
-			
-			{
-				
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			
-			}
-			
-			
-              
-            echo '</div>';
-          echo '</div>';
-        echo '</div>';
-        echo '<div class="item">';
-          echo '<img src="file:///C|/Users/Adiyiah/Desktop/Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
-          echo '<div class="container">';
-            echo '<div class="carousel-caption">';
-			while ($count < 2 && $row = mysqli_fetch_assoc($result))
-			{
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			}
-              
-            echo '</div>';
-          echo '</div>';
-        echo '</div>';
-        echo '<div class="item">';
-         echo ' <img src="file:///C|/Users/Adiyiah/Desktop/test_taking.jpg" alt="Third slide">';
-          echo '<div class="container">';
-            echo '<div class="carousel-caption">';
-			while ($count < 3 && $row = mysqli_fetch_assoc($result))
-			{
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			}
-             
-			  
-		}
-           echo '</div>';
-          echo '</div>';
-        echo '</div>';
-      echo '</div>';
-	  ?>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-	  
-    </div><!-- /.carousel -->
+         <div class="span9" style="height:850px">
 
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-                
-          <div class="row-fluid">
-            <div class="span4" style="margin-left:35px;">
-              <h2 style="margin-top:-60px;">Roster List</h2>
-              <ol type="square" style="padding:10px;">
-              <?php
-			  while ($row = mysqli_fetch_assoc($result3))
-			{
-				$sid= $row['studentid'];
-				$names = mysqli_query($con," SELECT lname, fname FROM users WHERE id= $sid ORDER By lname ASC "); 
-				
-				if(!$names)
-      				{
-       					 die(mysqli_error($con));
-      				}
-				
-				  while ($row = mysqli_fetch_assoc($names))
-				{
-        		 echo "<li>"  . $row['lname'] . ',' .  $row['fname'] .  "</li>" ;
-				 
-				}
-			
+          <div class="viewbox" >
+            <h1 style="margin-top:-30px; margin-left:250px">Content</h1>
+            <br>
+            <br>
+             <ol type="square" style="padding:10px;">
+           	<?php
+        	while ($row = mysqli_fetch_assoc($result))
+			{	
+			 echo '<li style="margin-left:-40px">' . $row['title'] . '</li>';
+			 echo"<br>";
 			}
-			  ?>
-        </ol>
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px;">
-              <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
-              <ul type="square">
-          			
-                        
-                    </ul>
-           
-            </div><!--/span-->
-            </div>
-            
-            <div class="row-fluid">
-            
-            
-            </div>
-            
-            <div class="row-fluid">
-            <div class="spanstaff" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
-               <ul style="margin-left:370px;">
-             <span class="websitefont">
-             </span>
-             <?php
-             while ($row2 = mysqli_fetch_assoc($b))
-			 {
-				 $tid= $row2['teacherid'];
-				 $result2 = mysqli_query($con,"SELECT * FROM teacherlink WHERE teacherid=$tid ");
-				 
-				while ($row = mysqli_fetch_assoc($result2))
-			 { 
-			
-			  echo "<li>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['name'] . "</a>". "</span>" . "</li>" ;
-          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
-		   
-		   
-			 }
-			}
-         
-         	?>
-         </ul>
-            </div><!--/span-->
-            </div>
-            
-      
-      </div><!--/row-->
+               
+			?>
+      		 </ol>
+          </div>
+          </div><!--/row-->
 
       <hr>
 	      
