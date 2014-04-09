@@ -1,5 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+
+require_once 'core/init.php';
+
+/*if(Input::exists())
+{
+  echo 'submitted';
+}
+*/
+
+if(Input::exists())
+{
+  
+  //if(Token::check(Input::get('token'))) /*THIS IS WHERE ITS FAILING*/
+  //{
+
+    $validate = new Validate();
+
+    $validation = $validate->check($_POST, array(
+      'clubname' => array('required' => true),
+      'teacherid' => array('required' => true)
+        
+    ));
+  
+    if($validation->passed())
+    {
+      
+      $class = new Classes();
+      $id = $class->get_number_club();
+      date_default_timezone_set('America/New_York');
+      $time = date("Y-m-d H:i:s");
+      
+      try
+      {
+        $class->create2(array(
+          'id'=>$id,
+          'date_added'=>$time,
+          'clubname' => Input::get('clubname'),
+          'teacherid' => Input::get('teacherid')
+            
+          ));
+
+        Session::flash('home', 'You have registered a user');
+        Redirect::to('staffhomepage.html');
+      }
+      catch(Exception $e)
+      {
+        die($e->getMessage());
+      }
+    }
+    else
+    {
+      foreach($validation->errors() as $error)
+      {
+        echo $error, '<br>';
+      }
+    }
+  //}
+  /*else
+    {
+     echo "FAILURE";
+    }*/
+}
+
+?>
+
   <head>
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
@@ -8,7 +75,7 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="../../../../../Documents/Unnamed Site 2/cpastonebootstrap.css" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -42,11 +109,8 @@
                                    <link rel="shortcut icon" href="favicon.png">
   <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-  <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
-  
-  <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -81,59 +145,73 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li ><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createusers.html">Create</a></li>
+              <li><a href="editusers.html">Edit</a></li>
+              <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclasses.html">Create</a></li>
+              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="viewclass.html">View</a></li>
               
               <li class="nav-header">Clubs</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li class="active"><a href="createclub.html">Create</a></li>
+              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createlink.html">Create</a></li>
+              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
-              <li class="active"><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li> 
+              <li><a href="createmessage.html">Create</a></li>
+              <li><a href="editmessage.html">Edit</a></li> 
               <li><a href="#">View</a></li>
                          
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9" style="height:850px">
-          <div class="viewbox" >
-            <h1 style="margin-top:-60px;">Create Message</h1>
-            <br>
-            <br>
-            <form id="createmessage" action="" method="post">
+          <div class="login" >
+            <h1 style="margin-top:-40px; margin-left:200px;">Create Classes</h1>
+            
+            <form id="createclass" action="" method="post" ; style="margin-left:215px;">
             <span id="sprytextfield1">
-            <label for="Link Name">Message Title:</label>
-            <input type="text" name="Message Title" id="Message Title">
+            <label for="Class Name">Club Name:</label>
+            <input type="text" name="clubname" >
           <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
          
-          <span id="sprytextfield3">
-          <label for="Message Date">Date:</label>
-          <input type="date" name="Date" id="Date">
-          <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
-          <br>
-          <span id="sprytextarea1">
-          <label for="Message">Message:</label>
-          <textarea name="Message" id="Message" cols="45" rows="10" style="width:500px"></textarea>
-          <span class="textareaRequiredMsg">A value is required.</span></span><br>
-      <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
-          <br>
+
+         <span id="spryselect1">
+                          <label for="Assigned Teacher">Assigned Teacher:</label>
+                          <select name="teacherid">
+                            <?php $con = mysqli_connect("localhost","host","test", "capstone_db"); ?> 
+                        <?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 1'); ?> 
+                        <?php while($row = mysqli_fetch_assoc($result)) { ?> 
+                            <option value="<?php echo $row['id'];?>"> 
+                                <?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 
+                            </option> 
+                        <?php } ?>
+                        <?php mysqli_close($con);?> 
+                          </select>
+                          <!--error message-->
+                        <span class="selectRequiredMsg">Please select a teacher.</span></span>  
+        
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" style="margin-left:200px; margin-top:-76px">
+          
+<!--           <br> class time for later
+          <span id="spryselect3">
+      <label for="Class Time">Class Time:</label>
+      <select name="Class Time" id="Class Time">
+      </select>
+      <span class="selectRequiredMsg">Please select an item.</span></span>
+      <br>
+       -->
+      <br>
+          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success" >
+          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" >
           </form>
           </div>
           </div><!--/row-->
@@ -168,8 +246,5 @@ var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
 var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
 var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
-var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
-var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
   </script>
   </body>
-</html>

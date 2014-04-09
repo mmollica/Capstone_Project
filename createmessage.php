@@ -138,28 +138,28 @@ if(Input::exists())
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li ><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createusers.html">Create</a></li>
+              <li><a href="editusers.html">Edit</a></li>
+              <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclasses.html">Create</a></li>
+              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="viewclass.html">View</a></li>
               
               <li class="nav-header">Clubs</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclub.html">Create</a></li>
+              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createlink.html">Create</a></li>
+              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
-              <li class="active"><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li> 
+              <li class="active"><a href="createmessage.html">Create</a></li>
+              <li><a href="editmessage.html">Edit</a></li> 
               <li><a href="#">View</a></li>
                          
             </ul>
@@ -167,10 +167,10 @@ if(Input::exists())
         </div><!--/span-->
         <div class="span9" style="height:850px">
           <div class="viewbox" >
-            <h1 style="margin-top:-60px;">Create Message</h1>
+            <h1 style="margin-top:-40px; margin-left:200px;">Create Message</h1>
             <br>
             <br>
-            <form id="createmessage" action="" method="post">
+            <form id="createmessage" action="" method="post" style=" margin-left:215px;">
             <span id="sprytextfield1">
             <label for="Link Name">Message Title:</label>
             <input type="text" name="title" id="Message Title">

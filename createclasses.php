@@ -29,10 +29,15 @@ if(Input::exists())
     {
       
       $class = new Classes();
-
+      $id = $class->get_number_class();
+      date_default_timezone_set('America/New_York');
+      $time = date("Y-m-d H:i:s");
+      
       try
       {
-        $class->create(array(
+        $class->create1(array(
+          'id'=>$id,
+          'date_added'=>$time,
           'classname' => Input::get('classname'),
           'teacherid' => Input::get('teacherid'),
           'subject' => Input::get('subject')    
@@ -140,28 +145,28 @@ if(Input::exists())
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li ><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createusers.html">Create</a></li>
+              <li><a href="editusers.html">Edit</a></li>
+              <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
-              <li class="active"><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li class="active"><a href="createclasses.html">Create</a></li>
+              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="viewclass.html">View</a></li>
               
               <li class="nav-header">Clubs</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclub.html">Create</a></li>
+              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createlink.html">Create</a></li>
+              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li> 
+              <li><a href="createmessage.html">Create</a></li>
+              <li><a href="editmessage.html">Edit</a></li> 
               <li><a href="#">View</a></li>
                          
             </ul>
@@ -169,9 +174,9 @@ if(Input::exists())
         </div><!--/span-->
         <div class="span9" style="height:850px">
           <div class="login" >
-            <h1 style="margin-top:-60px;">Create Classes</h1>
+            <h1 style="margin-top:-40px; margin-left:200px;">Create Classes</h1>
             
-            <form id="createclass" action="" method="post">
+            <form id="createclass" action="" method="post" style="margin-left:215px">
             <span id="sprytextfield1">
             <label for="Class Name">Class Name:</label>
             <input type="text" name="classname" >
@@ -215,6 +220,7 @@ if(Input::exists())
        -->
       <br>
           <input name="Create" type="submit" value="Create" class="btn btn-large btn-success" >
+          
           <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" >
           </form>
           </div>
