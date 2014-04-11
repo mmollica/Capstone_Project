@@ -32,7 +32,7 @@ $result = mysqli_query($con,"SELECT * FROM content WHERE classid= $classid ");
 
   <head>
     <meta charset="utf-8">
-    <title>Homepage</title>
+    <title>Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -105,20 +105,34 @@ $result = mysqli_query($con,"SELECT * FROM content WHERE classid= $classid ");
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-             <?php 
+              <?php 
               echo '<form id="content" method="post" action="studentcontentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a  onClick="classFunction();">Content</a></li>';
+              echo '<li><a onClick="classFunction();">Content</a></li>';
               echo '</form>';
               ?>
               
-               <?php 
+              <?php 
               echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a  onClick="workFunction();">Assignments</a></li>';
+              echo '<li><a onClick="workFunction();">Assignments</a></li>';
               echo '</form>';
               ?>
-              <li><a href="#">Quizzes</a></li>
+              
+              <?php 
+              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
+              echo '</form>';
+              ?>
+              
+              <?php 
+              echo '<form id="aUpload" method="post" action="studentupload.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
+              echo '</form>';
+              ?>
+              
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 	
@@ -213,6 +227,11 @@ function gradesFunction()
 	document.getElementById("grade").submit();	
 }
  
+ function uploadFunction()
+{
+	document.getElementById("aUpload").submit();	
+}
+
   </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>

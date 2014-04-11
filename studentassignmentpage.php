@@ -105,7 +105,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid ")
 
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
+              <ul class="nav nav-list">
               <?php 
               echo '<form id="content" method="post" action="studentcontentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
@@ -113,13 +113,27 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid ")
               echo '</form>';
               ?>
               
-               <?php 
+              <?php 
               echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="workFunction();">Assignments</a></li>';
               echo '</form>';
               ?>
-              <li><a href="#">Quizzes</a></li>
+              
+              <?php 
+              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
+              echo '</form>';
+              ?>
+              
+              <?php 
+              echo '<form id="aUpload" method="post" action="studentupload.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
+              echo '</form>';
+              ?>
+              
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 	
@@ -133,18 +147,22 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid ")
             <br>
             <br>
              <ol type="1" style="padding:10px;">
-           	<?php
+      
+      		 <?php
         		while ($row = mysqli_fetch_assoc($result))
 			{	 
 				 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
                  
                  echo '<ul>';
                  echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
+				 echo '<li>' . 'Worth:' . $row['total'] . '</li>';
                  echo '</ul>';
 				 echo '<br>';
 			}
 			
 			?>
+            
+            
       		 </ol>
           </div>
           </div><!--/row-->
@@ -218,6 +236,10 @@ function gradesFunction()
 	document.getElementById("grade").submit();	
 }
  
+function uploadFunction()
+{
+	document.getElementById("aUpload").submit();	
+}
   </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>

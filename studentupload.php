@@ -13,51 +13,20 @@ require_once 'core/init.php';
         }
 
    
-$count=0;
+ 
 $user= new User();	
     
 $id= $user->data()->id;
 
 $classid=$_POST['classid'];
- 
-$a = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");
-$b = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
 
-$c = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
-
-$d = mysqli_query($con,"SELECT classname FROM class WHERE classid= $classid ");	
-	
-	
-$result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
-	
-
-
-
-    if(!$a)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$b)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$c)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$result3)
-      {
-        die(mysqli_error($con));
-      }
+    
     
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Homepage</title>
+    <title>Upload Assignments</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -96,6 +65,8 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
+  <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+  <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -114,7 +85,6 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
-            
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
@@ -131,7 +101,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                    <?php 
+              <?php 
               echo '<form id="content" method="post" action="studentcontentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="classFunction();">Content</a></li>';
@@ -152,7 +122,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               echo '</form>';
               ?>
               
-              <?php 
+             <?php 
               echo '<form id="aUpload" method="post" action="studentupload.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="uploadFunction();">Upload</a></li>';
@@ -161,169 +131,38 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
-
+	
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
-        <?php
-       echo ' <h2 style="margin-left:410px">';
-        while ($row = mysqli_fetch_assoc($d))
-			{
-            	echo $row['classname'];
-            }
-        echo '</h2>';
-		
-        ?>
-           <div id="myCarousel" class= "carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="52212c70ea4f2.preview-620.jpg" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-            <?php
-			while ($row2 = mysqli_fetch_assoc($a))
-			{
-				$tid= $row2['teacherid'];
-				$result = mysqli_query($con," SELECT * FROM teachermessage WHERE teacherid=$tid AND classid=$classid ORDER BY date ");
-				
-				if(!$result)
-      				{
-       					 die(mysqli_error($con));
-      				} 
-				
-			while ($count < 1 && $row = mysqli_fetch_assoc($result))
-			
-			{
-				
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			
-			}
-			
-			
-      
-            echo '</div>';
-          echo '</div>';
-        echo '</div>';
-        echo '<div class="item">';
-          echo '<img src="file:///C|/Users/Adiyiah/Desktop/Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
-          echo '<div class="container">';
-            echo '<div class="carousel-caption">';
-			while ($count < 2 && $row = mysqli_fetch_assoc($result))
-			{
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			}
-              
-            echo '</div>';
-          echo '</div>';
-        echo '</div>';
-        echo '<div class="item">';
-         echo ' <img src="file:///C|/Users/Adiyiah/Desktop/test_taking.jpg" alt="Third slide">';
-          echo '<div class="container">';
-            echo '<div class="carousel-caption">';
-			while ($count < 3 && $row = mysqli_fetch_assoc($result))
-			{
-              echo '<h1 style="color: rgb(255,255,255);">' . $row['title'] . '</h1>';
-              echo '<p>'. $row['msg'] . '</p>';
-			  $count++;
-			}
-              
-			  
-		}
-           echo '</div>';
-          echo '</div>';
-        echo '</div>';
-      echo '</div>';
-	  ?>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-	  
-    </div><!-- /.carousel -->
+         <div class="span9" style="height:850px">
 
-
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-                
-          <div class="row-fluid">
-            <div class="span4" style="margin-left:35px;">
-              <h2 style="margin-top:-60px;">Upcoming Events</h2>
-              <ul type="square" style="padding:10px;">
-              <?php
-			  while ($row = mysqli_fetch_assoc($c))
-			{
-				$tid= $row['teacherid'];
-				$event = mysqli_query($con," SELECT * FROM teacherevents WHERE teacherid= $tid AND classid= $classid ORDER By due_date ASC "); 
-				
-				if(!$event)
-      				{
-       					 die(mysqli_error($con));
-      				}
-				
-				  while ($row1 = mysqli_fetch_assoc($event))
-				{
-        		 	echo '<li type="square" style="margin-left:-40px">' . $row1['title'] . '</li>';
-                echo '<ul>';
-                	echo '<li style="margin-left:-20px">' . 'Due Date: ' . $row1['due_date'] . '</li>';
-                echo '</ul>';
-				 
-				}
-			
-			}
-			  ?>
-        </ul>
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px;">
-              <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
-              <ul type="square">
-          			
-                           
-                    </ul>
-           
-            </div><!--/span-->
-            </div>
+          <div class="upload" >
+            <h1 style="margin-top:-30px; margin-left:175px">Upload Assignments</h1>
+            <br>
+            <br>
+          <form action="studentupload.php" method="post" name="assignupload">
+     	    <span id="spryselect1">
+     	    <label for="uploadassignment"><b>Select Assignment:</b></label>
+     	    <select name="upload" id="uploadassignment">
+            <option value="Homework Two">Homework Two</option>
+   	      </select>
+     	    <span class="selectRequiredMsg">Please select an item.</span></span>
+            <br>
+            <br>
+            <input name="assignment" type="file" multiple >
+            <br>
+            <br>
+       <input name="submit" type="submit" value="Upload" class="btn btn-large btn-success" onclick="myFunction()">
             
-            <div class="row-fluid">
-            <div class="spanstaff" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
-               <ul style="margin-left:370px;">
-             <span class="websitefont">
-             </span>
-             <?php
-             while ($row2 = mysqli_fetch_assoc($b))
-			 {
-				 $tid= $row2['teacherid'];
-				 $result2 = mysqli_query($con,"SELECT * FROM teacherlink WHERE teacherid=$tid ");
-				 
-				while ($row = mysqli_fetch_assoc($result2))
-			 { 
-			
-			  echo "<li>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['name'] . "</a>". "</span>" . "</li>" ;
-          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
-		   
-		   
-			 }
-			}
-         
-         	?>
-         </ul>
-            </div><!--/span-->
-            </div>
-            
-      
-      </div><!--/row-->
+             <?php 
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              ?>
+          </form>
+          <br>
+          <p id="demo"></p>
+          </div>
+          </div><!--/row-->
 
       <hr>
 	      
@@ -384,6 +223,11 @@ function quizFunction()
 	document.getElementById("quiz").submit();	
 }
 
+function uploadFunction()
+{
+	document.getElementById("aUpload").submit();	
+}
+
 function discussionFunction()
 {
 	document.getElementById("discuss").submit();	
@@ -394,9 +238,16 @@ function gradesFunction()
 	document.getElementById("grade").submit();	
 }
 
-function uploadFunction()
+function myFunction()
 {
-	document.getElementById("aUpload").submit();	
+var x;
+var r=confirm("Are you sure this is the current assignement that you want to turn in?");
+if (r==true)
+  {
+  x="Your Assignment has succeesfully been saved.";
+  }
+
+document.getElementById("demo").innerHTML=alert(x);
 }
  
   </script>
@@ -413,5 +264,7 @@ function uploadFunction()
     <script src="bootstrap-collapse.js"></script>
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
-
+  <script type="text/javascript">
+var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
+    </script>
   </body>
