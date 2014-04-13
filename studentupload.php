@@ -20,8 +20,72 @@ $id= $user->data()->id;
 
 $classid=$_POST['classid'];
 
+if(Input::exists())
+{
+  
+      $upload = new Upload();
+      date_default_timezone_set('America/New_York');
+      $time = date("Y-m-d H:i:s");
+      
+      $tmpName = $_FILES['studentUpload']["tmp_name"];
+      $fileName = $_FILES['studentUpload']["name"];
+      $fileSize = $_FILES['studentUpload']['size'];            
+      $fileType = $_FILES['studentUpload']["type"];
+      $fileData = file_get_contents($_FILES['studentUpload']['tmp_name']);
+
+      if(!get_magic_quotes_gpc()) 
+      {
+          $fileName = addslashes($fileName);
+      }
+      /*move_uploaded_file($tmpName, "/temp/$fileName");
+      $tmpName = "/temp/$fileName";
+
+      $fp = fopen($tmpName, 'r');
+      $content = fread($fp, filesize($tmpName));
+      fclose($fp);*/
+
+      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+      $temp = explode(".", $_FILES['studentUpload']["name"]);
+      //$ext = end($temp);
+      $temp2 = end($temp);
+      $ext = (string) $temp2;
+
+      if ((($_FILES['studentUpload']["type"] == "image/gif")
+      || ($_FILES['studentUpload']["type"] == "image/jpeg")
+      || ($_FILES['studentUpload']["type"] == "image/jpg")
+      || ($_FILES['studentUpload']["type"] == "image/pjpeg")
+      || ($_FILES["studentUpload"]["type"] == "text/plain")
+      || ($_FILES["studentUpload"]["type"] == "application/msword")
+      || ($_FILES["studentUpload"]["type"] == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+      || ($_FILES['studentUpload']["type"] == "image/x-png")
+      || ($_FILES['studentUpload']["type"] == "application/pdf")
+      || ($_FILES['studentUpload']["type"] == "image/png"))
+      && ($_FILES['studentUpload']["size"] < 1024000)
+      && in_array($ext, $allowedExts))
+      {
+          try
+            {
+                $upload->createstudent(array(
+                  'studentid' => $id,
+                  'classid' =>  $classid,
+                  'date_added' => date("Y-m-d H:i:s"),
+                  'comment'=> Input::get('comment'),
+                  'assignmentid'=> Input::get('assignmentid'),
+                  'file_name'=>$fileName,
+                  'file_type'=>$fileType,
+                  'file_size'=>$fileSize,
+                  'file_data'=>$fileData
+                            ));
+            }
+            catch(Exception $e)
+            {
+        die($e->getMessage());
+            }
+        }
+      else
+        echo "Not acceptable file.";
     
-    
+}
 ?>
 
   <head>
@@ -141,16 +205,30 @@ $classid=$_POST['classid'];
             <h1 style="margin-top:-30px; margin-left:175px">Upload Assignments</h1>
             <br>
             <br>
-          <form action="studentupload.php" method="post" name="assignupload">
+          <form action="studentupload.php" method="post" name="assignupload" enctype="multipart/form-data">
      	    <span id="spryselect1">
-     	    <label for="uploadassignment"><b>Select Assignment:</b></label>
-     	    <select name="upload" id="uploadassignment">
-            <option value="Homework Two">Homework Two</option>
-   	      </select>
-     	    <span class="selectRequiredMsg">Please select an item.</span></span>
+     	    <span id="spryselect1">
+                          <label for="assignment">Select Assignment:</label>
+                          <select name="assignmentid">
+                            <?php $con = mysqli_connect("localhost","host","test", "capstone_db"); ?> 
+                        <?php $result = mysqli_query($con,'SELECT * FROM assignments WHERE classid= $classid'); ?> 
+                        <?php while($row = mysqli_fetch_assoc($result)) { ?> 
+                            <option value="<?php echo $row['assignmentid'];?>"> 
+                                <?php echo htmlspecialchars($row['assignment name']); ?> 
+                            </option> 
+                        <?php } ?>
+                        <?php mysqli_close($con);?> 
+                          </select>
+                          <!--error message-->
+                        <span class="selectRequiredMsg">Please select a teacher.</span></span>  
+        
             <br>
             <br>
-            <input name="assignment" type="file" multiple >
+            <label for="comment"><b>Comment:</b></label>
+            <input name='comment' type='textbox'>
+            <br>
+            <br>
+            <input name="studentUpload" type="file" >
             <br>
             <br>
        <input name="submit" type="submit" value="Upload" class="btn btn-large btn-success" onclick="myFunction()">
