@@ -21,7 +21,7 @@ $id= $user->data()->id;
 $classid=$_POST['classid'];
 
 
-$result = mysqli_query($con,"SELECT * FROM content WHERE classid= $classid ");
+$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=2");
 
  if(!$result)
         {
@@ -149,7 +149,7 @@ $result = mysqli_query($con,"SELECT * FROM content WHERE classid= $classid ");
            	<?php
         	while ($row = mysqli_fetch_assoc($result))
 			{	
-			 echo '<li style="margin-left:-40px">' . $row['title'] . '</li>';
+			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
 			 echo"<br>";
 			}
                

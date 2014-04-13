@@ -21,19 +21,18 @@ $id= $user->data()->id;
 $classid=$_POST['classid'];
 
 
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1 ");
+$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=2 ");
 
  if(!$result)
         {
         die(mysqli_error($con));
         }
     
-    
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Assignments</title>
+    <title>Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -105,9 +104,9 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
 
         <div class="span3">
           <div class="well sidebar-nav">
-              <ul class="nav nav-list">
+            <ul class="nav nav-list">
               <?php 
-              echo '<form id="content" method="post" action="studentcontentpage.php" >';
+              echo '<form id="content" method="post" action="teachercontentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="classFunction();">Content</a></li>';
               echo '</form>';
@@ -143,26 +142,30 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
          <div class="span9" style="height:850px">
 
           <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:175px">Class Assignments</h1>
+            <h1 style="margin-top:-30px; margin-left:250px">Content</h1>
+            <?php 
+              echo '<form id="edit" method="post" action="addcontentpage.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+			  echo '<input name="add" type="button" value="Add Content" style="margin-left:600px" class="btn btn-large btn-success">';
+              echo '</form>';
+              ?>
             <br>
-            <br>
-             <ol type="1" style="padding:10px;">
-      
-      		 <?php
-        		while ($row = mysqli_fetch_assoc($result))
-			{	 
-				 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
-                 
-                 echo '<ul>';
-                 echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
-				 echo '<li>' . 'Worth:' . $row['total'] . '</li>';
-                 echo '</ul>';
-				 echo '<br>';
+    
+              
+             <ol type="square" style="padding:10px;">
+           	<?php
+        	while ($row = mysqli_fetch_assoc($result))
+			{	
+			$assignmentid= $row['assignmentid'];
+			  echo '<form id="content" method="post" action="editcontentpage.php" >';
+			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
+			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+			 echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
+			 echo '</form>';
+			 echo"<br>";
 			}
-			
+               
 			?>
-            
-            
       		 </ol>
           </div>
           </div><!--/row-->
@@ -236,10 +239,11 @@ function gradesFunction()
 	document.getElementById("grade").submit();	
 }
  
-function uploadFunction()
+ function uploadFunction()
 {
 	document.getElementById("aUpload").submit();	
 }
+
   </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>
