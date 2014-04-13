@@ -21,18 +21,11 @@ $id= $user->data()->id;
 $classid=$_POST['classid'];
 
 
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=2 ");
-
- if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-    
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Content</title>
+    <title>Add Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -126,12 +119,6 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               echo '</form>';
               ?>
               
-              <?php 
-              echo '<form id="aUpload" method="post" action="studentupload.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
-              echo '</form>';
-              ?>
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
@@ -142,30 +129,26 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
          <div class="span9" style="height:850px">
 
           <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:250px">Content</h1>
-            <?php 
-              echo '<form id="edit" method="post" action="addcontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			  echo '<input name="add" type="submit" value="Add Content" style="margin-left:600px" class="btn btn-large btn-success">';
-              echo '</form>';
-              ?>
+            <h1 style="margin-top:-30px; margin-left:250px">Add Content</h1>
             <br>
     
               
              <ol type="square" style="padding:10px;">
-           	<?php
-        	while ($row = mysqli_fetch_assoc($result))
-			{	
-			$assignmentid= $row['assignmentid'];
-			  echo '<form id="content" method="post" action="editcontentpage.php" >';
-			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
-			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
-			 echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
+           	<?php	
+			 echo '<form id="content" method="post" action="addcontentpage.php" >';
+			 echo '<input name="Content Title" type="text" maxlength="50" size="30">';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<input name="Content" type="file">';
+			 echo '<br>';
+			 echo '<br>';
 			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
+			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
 			 echo '</form>';
-			 echo"<br>";
-			}
-               
+			 echo"<br>";   
 			?>
       		 </ol>
           </div>

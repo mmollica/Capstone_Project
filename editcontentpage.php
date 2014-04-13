@@ -32,7 +32,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 
   <head>
     <meta charset="utf-8">
-    <title>Content</title>
+    <title>Edit Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -126,12 +126,6 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
               echo '</form>';
               ?>
               
-              <?php 
-              echo '<form id="aUpload" method="post" action="studentupload.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
-              echo '</form>';
-              ?>
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
@@ -151,8 +145,16 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
         	while ($row = mysqli_fetch_assoc($result))
 			{	
 			  echo '<form id="content" method="post" action="editcontentpage.php" >';
-			 echo '';
-			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+			 echo '<input name="Content Title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['assignmentdescrip'] . ' </textarea>';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<input name="Content" type="file">';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<input name="Edit" type="submit" value="Update" class="btn btn-med btn-success">';
 			 echo '</form>';
 			 echo"<br>";
 			}
