@@ -19,11 +19,13 @@ $user= new User();
 $id= $user->data()->id;
 
 $classid=$_POST['classid'];
- 
-$a = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");
-$b = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
 
-$c = mysqli_query($con,"SELECT classname FROM class WHERE classid= $classid ");	
+$username= $user->data()->username;
+ 
+$a = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");
+$b = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");	
+
+$c = mysqli_query($con,"SELECT classname FROM class WHERE id= $classid ");	
 	
 $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
 	
@@ -108,10 +110,10 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="#contact">Log Out</a></li>
@@ -128,20 +130,16 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               
-             <?php 
-              echo '<form id="content" method="post" action="teachercontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a  onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+             	<?php 
+              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-               <?php 
-              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a  onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
-              <li><a href="#">Quizzes</a></li>
+              	?>
+              
+              <?php 
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              
+              	?>
+              
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 

@@ -20,12 +20,12 @@ $id= $user->data()->id;
 
 $classid=$_POST['classid'];
  
-$a = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");
-$b = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
+$a = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");
+$b = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");	
 
-$c = mysqli_query($con,"SELECT teacherid FROM class WHERE classid= $classid ");	
+$c = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");	
 
-$d = mysqli_query($con,"SELECT classname FROM class WHERE classid= $classid ");	
+$d = mysqli_query($con,"SELECT classname FROM class WHERE id= $classid ");	
 	
 	
 $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
@@ -115,7 +115,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
             </p>
             <ul class="nav">
             
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="#contact">Log Out</a></li>
@@ -131,19 +131,15 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                    <?php 
-              echo '<form id="content" method="post" action="studentcontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+             	<?php 
+              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              
+              	?>
               
               <?php 
               echo '<form id="quiz" method="post" action="studentquizpage.php" >';
@@ -153,11 +149,9 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               ?>
               
               <?php 
-              echo '<form id="aUpload" method="post" action="studentupload.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' ">Upload</a></li>';
+              
+              	?>
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>

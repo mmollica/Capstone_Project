@@ -18,7 +18,7 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST['classid'];
+$classid=$_GET['classid'];
 
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1 ");
@@ -32,7 +32,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
 
   <head>
     <meta charset="utf-8">
-    <title>Content</title>
+    <title>Assignment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -89,7 +89,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="#contact">Log Out</a></li>
@@ -105,26 +105,15 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <?php 
-              echo '<form id="content" method="post" action="teachercontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+           	<?php 
+              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              <?php 
-              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
-              echo '</form>';
-              ?>
+              	?>
               
               
               <li><a href="#">Discussions</a></li>
@@ -138,7 +127,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           <div class="viewbox" >
             <h1 style="margin-top:-30px; margin-left:250px">Assignments</h1>
             <?php 
-              echo '<form id="edit" method="post" action="addassignmentpage.php" >';
+              echo '<form id="edit" method="get" action="addassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
 			  echo '<input name="add" type="submit" value="Add Assignment" style="margin-left:550px" class="btn btn-large btn-success">';
               echo '</form>';
@@ -151,7 +140,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
         	while ($row = mysqli_fetch_assoc($result))
 			{	
 			$assignmentid= $row['assignmentid'];
-			  echo '<form id="content" method="post" action="editassignmentpage.php" >';
+			  echo '<form id="content" method="get" action="editassignmentpage.php" >';
 			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
 			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
 			 echo '<ul>';

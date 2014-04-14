@@ -18,8 +18,10 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST['classid'];
-$content=$_POST['contentid'];
+$username=$user->data()->username;
+
+$classid=$_GET['classid'];
+$content=$_GET['contentid'];
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $content");
 
@@ -86,10 +88,10 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="#contact">Log Out</a></li>
@@ -105,19 +107,15 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <?php 
-              echo '<form id="content" method="post" action="teachercontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+          <?php 
+              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              
+              	?>
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
@@ -136,7 +134,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
            	<?php
         	while ($row = mysqli_fetch_assoc($result))
 			{	
-			  echo '<form id="content" method="post" action="editcontentpage.php" >';
+			  echo '<form id="content" method="get" action="teachercontentpage.php" >';
 			  echo '<label><b>Title:</b></label>';
 			 echo '<input name="Content Title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
 			 echo '<br>';
@@ -149,6 +147,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 			 echo '<input name="Content" type="file">';
 			 echo '<br>';
 			 echo '<br>';
+			 echo '<input name="classid" type="hidden" value=' . $classid . '>';
 			 echo '<input name="Edit" type="submit" value="Update" class="btn btn-med btn-success">';
 			 echo '</form>';
 			 echo"<br>";

@@ -18,7 +18,9 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST['classid'];
+$classid=$_GET['classid'];
+
+$username=$user->data()->username;
 
 
 ?>
@@ -78,8 +80,8 @@ $classid=$_POST['classid'];
           </button>
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+             <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -98,20 +100,15 @@ $classid=$_POST['classid'];
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <?php 
-              echo '<form id="content" method="post" action="teachercontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+            <?php 
+              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
+              	?>
               
               
               <li><a href="#">Discussions</a></li>
@@ -129,7 +126,7 @@ $classid=$_POST['classid'];
               
              <ol type="square" style="padding:10px;">
            	<?php	
-			 echo '<form id="content" method="post" action="addcontentpage.php" >';
+			 echo '<form id="content" method="get" action="teachercontentpage.php" >';
 			 echo '<label><b>Title:</b></label>';
 			 echo '<input name="Content Title" type="text" maxlength="50" size="30">';
 			 echo '<br>';

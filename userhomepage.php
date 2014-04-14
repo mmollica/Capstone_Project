@@ -18,7 +18,13 @@ $group=0;
 
 $user= new User();	
     
-$id= $user->data()->id; 
+$id= $user->data()->id;
+$username=$user->data()->username;
+$fname=$user->data()->fname;
+$lname=$user->data()->lname;
+
+date_default_timezone_set('America/New_York');
+
 	
 $result = mysqli_query($con," SELECT * FROM staffmessage ORDER BY date "); 
 	
@@ -136,10 +142,10 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="#contact">Log Out</a></li>
@@ -154,17 +160,18 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              
-              <li><a href="#">Content</a></li>
-              <li><a href="#">Assignments</a></li>
-              <li><a href="#">Quizzes</a></li>
-              <li><a href="#">Discussions</a></li>
-              <li><a href="#">Grades</a></li>
-
+                <?php 
+				$time = date("l F jS Y h:i A");
+				echo '<li>' . '<h5 style=" margin:auto;margin-top:0px;">' .'Welcome To The Hive- '. $fname . ' ' . $lname .  '</h5>' . '</li>';
+				echo '<br>';
+				echo '<li>' . $time . '</li>';
+				?>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
+        
+     
         
            <div id="myCarousel" class= "carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -254,7 +261,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				  	 while ($row2 = mysqli_fetch_assoc($class))
 					{
 						$cid= $row2['classid'];
-						$names = mysqli_query($con," SELECT classname FROM class WHERE classid= $cid ");
+						$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cid ");
 						
 						while ($row3 = mysqli_fetch_assoc($names))
 						{
@@ -287,7 +294,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 			  while ($row2 = mysqli_fetch_assoc($result3))
 			{
 				$cn= $row2['classid'];
-				$names = mysqli_query($con," SELECT classname FROM class WHERE classid= $cn ");
+				$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cn ");
 			
 				
 				if( $group==3)
