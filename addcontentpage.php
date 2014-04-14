@@ -106,18 +106,12 @@ $classid=$_POST['classid'];
               ?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
+              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="workFunction();">Assignments</a></li>';
               echo '</form>';
               ?>
               
-              <?php 
-              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
-              echo '</form>';
-              ?>
               
               
               <li><a href="#">Discussions</a></li>
@@ -136,12 +130,15 @@ $classid=$_POST['classid'];
              <ol type="square" style="padding:10px;">
            	<?php	
 			 echo '<form id="content" method="post" action="addcontentpage.php" >';
+			 echo '<label><b>Title:</b></label>';
 			 echo '<input name="Content Title" type="text" maxlength="50" size="30">';
 			 echo '<br>';
 			 echo '<br>';
+			 echo '<label><b>Description:</b></label>';
 			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
 			 echo '<br>';
 			 echo '<br>';
+			 echo '<label><b>File Upload</b></label>';
 			 echo '<input name="Content" type="file">';
 			 echo '<br>';
 			 echo '<br>';

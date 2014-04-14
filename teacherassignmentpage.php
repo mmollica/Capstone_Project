@@ -19,9 +19,9 @@ $user= new User();
 $id= $user->data()->id;
 
 $classid=$_POST['classid'];
-$content=$_POST['contentid'];
 
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $content");
+
+$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1 ");
 
  if(!$result)
         {
@@ -32,7 +32,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 
   <head>
     <meta charset="utf-8">
-    <title>Edit Content</title>
+    <title>Content</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -119,6 +119,14 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
               echo '</form>';
               ?>
               
+              <?php 
+              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
+              echo '</form>';
+              ?>
+              
+              
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 	
@@ -128,7 +136,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
          <div class="span9" style="height:850px">
 
           <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:250px">Edit Content</h1>
+            <h1 style="margin-top:-30px; margin-left:250px">Assignments</h1>
+            <?php 
+              echo '<form id="edit" method="post" action="addassignmentpage.php" >';
+              echo '<input name="classid" type="hidden" value=' .$classid .'>';
+			  echo '<input name="add" type="submit" value="Add Assignment" style="margin-left:550px" class="btn btn-large btn-success">';
+              echo '</form>';
+              ?>
             <br>
     
               
@@ -136,20 +150,16 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
            	<?php
         	while ($row = mysqli_fetch_assoc($result))
 			{	
-			  echo '<form id="content" method="post" action="editcontentpage.php" >';
-			  echo '<label><b>Title:</b></label>';
-			 echo '<input name="Content Title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['assignmentdescrip'] . ' </textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="Edit" type="submit" value="Update" class="btn btn-med btn-success">';
+			$assignmentid= $row['assignmentid'];
+			  echo '<form id="content" method="post" action="editassignmentpage.php" >';
+			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
+			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+			 echo '<ul>';
+                 echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
+				 echo '<li>' . 'Worth:' . $row['total'] . '</li>';
+                 echo '</ul>';
+			 echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
+			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
 			 echo '</form>';
 			 echo"<br>";
 			}

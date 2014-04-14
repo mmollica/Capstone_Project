@@ -23,16 +23,12 @@ $content=$_POST['contentid'];
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $content");
 
- if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-    
+
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Edit Content</title>
+    <title>Add Assignment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -119,6 +115,8 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
               echo '</form>';
               ?>
               
+              
+              
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 	
@@ -128,21 +126,29 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
          <div class="span9" style="height:850px">
 
           <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:250px">Edit Content</h1>
+            <h1 style="margin-top:-30px; margin-left:225px">Edit Assignment</h1>
             <br>
     
               
              <ol type="square" style="padding:10px;">
-           	<?php
-        	while ($row = mysqli_fetch_assoc($result))
+           	<?php	
+				while ($row = mysqli_fetch_assoc($result))
 			{	
-			  echo '<form id="content" method="post" action="editcontentpage.php" >';
-			  echo '<label><b>Title:</b></label>';
-			 echo '<input name="Content Title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
+			  echo '<form id="content" method="post" action="editassignmentpage.php" >';
+			  echo '<label><b>Title</b></label>';
+			 echo '<input name="title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>Description</b></label>';
 			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['assignmentdescrip'] . ' </textarea>';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<label><b>Due Date:</b></label>';
+			 echo '<input name="duedate" type="date" value=' . $row['duedate'] . '>';
+			 echo '<br>';
+			 echo '<br>';
+			 echo '<label><b>Worth</b></label>';
+			 echo '<input name="total" type="text" value=' . $row['total'] . '>';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>File Upload</b></label>';
@@ -152,8 +158,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 			 echo '<input name="Edit" type="submit" value="Update" class="btn btn-med btn-success">';
 			 echo '</form>';
 			 echo"<br>";
-			}
-               
+			} 
 			?>
       		 </ol>
           </div>

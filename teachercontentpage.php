@@ -113,25 +113,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               ?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
+              echo '<form id="assignment" method="post" action="teacherassignmentpage.php" >';
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
               echo '<li><a onClick="workFunction();">Assignments</a></li>';
               echo '</form>';
               ?>
               
-              <?php 
-              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
-              echo '</form>';
-              ?>
-              
-              <?php 
-              echo '<form id="aUpload" method="post" action="studentupload.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
-              echo '</form>';
-              ?>
+            
               
               <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
