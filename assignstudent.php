@@ -168,7 +168,7 @@ if(Input::exists())
             <span id="spryselect1">
 				<label >Select a class:</label>
 				<select name="classid">
-					<?php $con = mysqli_connect("localhost","host","test", "capstone_db"); ?> 
+					<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
 					<?php $result = mysqli_query($con,'SELECT * FROM class'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['classid'];?>"> 
@@ -183,7 +183,7 @@ if(Input::exists())
 			<span id="spryselect2">
 				<label for="Assigned Teacher">Assigned Student:</label>
 				<select name="studentid">
-					<?php $con = mysqli_connect("localhost","host","test", "capstone_db"); ?> 
+					<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
 					<?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['id'];?>"> 

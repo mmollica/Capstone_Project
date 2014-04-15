@@ -45,7 +45,7 @@ if(Input::exists())
            }
            else
            {
-               echo "<p>Sorry, logging in failed!</p>";
+               echo '<script type="text/javascript">alert("Login has failed. Please check your credentials");</script>'; 
            }
        }
        else
@@ -58,10 +58,7 @@ if(Input::exists())
    
 
 }
-?>
-
-
-	<head>
+?><head>
 		<meta charset="utf-8">
 		<title>Log in page</title>
 		<link rel="stylesheet" type="text/css" href="bootstrap.css">
@@ -74,7 +71,10 @@ if(Input::exists())
 	<link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
 	<link href="SpryAssets/SpryValidationCheckbox.css" rel="stylesheet" type="text/css">
 	</head>
-    <style>
+    
+
+
+	<style>
 	body{
 		background-color:#000000;
 		

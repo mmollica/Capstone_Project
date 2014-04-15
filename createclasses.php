@@ -187,7 +187,7 @@ if(Input::exists())
          <span id="spryselect1">
                           <label for="Assigned Teacher">Assigned Teacher:</label>
                           <select name="teacherid">
-                            <?php $con = mysqli_connect("localhost","host","test", "capstone_db"); ?> 
+                            <?php $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db"); ?> 
                         <?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 1'); ?> 
                         <?php while($row = mysqli_fetch_assoc($result)) { ?> 
                             <option value="<?php echo $row['id'];?>"> 
