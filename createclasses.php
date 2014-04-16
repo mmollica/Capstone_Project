@@ -10,7 +10,8 @@ require_once 'core/init.php';
   echo 'submitted';
 }
 */
-
+$user = new User();
+$name = $user->data()->username;
 if(Input::exists())
 {
   
@@ -126,13 +127,13 @@ if(Input::exists())
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -145,7 +146,7 @@ if(Input::exists())
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li ><a href="createusers.html">Create</a></li>
+              <li ><a href="createusers.php">Create</a></li>
               <li><a href="editusers.html">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
               
@@ -160,14 +161,14 @@ if(Input::exists())
               <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
-              <li ><a href="createlink.html">Create</a></li>
+              <li ><a href="createlink.php">Create</a></li>
               <li><a href="editlink.html">Edit</a></li>
               <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.html">Create</a></li>
               <li><a href="editmessage.html">Edit</a></li> 
-              <li><a href="#">View</a></li>
+              
                          
             </ul>
           </div><!--/.well -->

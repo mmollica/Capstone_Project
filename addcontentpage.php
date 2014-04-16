@@ -21,7 +21,74 @@ $id= $user->data()->id;
 $classid=$_GET['classid'];
 
 $username=$user->data()->username;
+if(Input::exists())
+{
+      
+      $upload = new Upload();
+      date_default_timezone_set('America/New_York');
+      $time = date("Y-m-d H:i:s");
+      
+      $tmpName = $_FILES['content']["tmp_name"];
+      $fileName = $_FILES['content']["name"];
+      $fileSize = $_FILES['content']['size'];            
+      $fileType = $_FILES['content']["type"];
+      $fileData = file_get_contents($_FILES['content']['tmp_name']);
 
+      if(!get_magic_quotes_gpc()) 
+      {
+          $fileName = addslashes($fileName);
+      }
+      /*move_uploaded_file($tmpName, "/temp/$fileName");
+      $tmpName = "/temp/$fileName";
+
+      $fp = fopen($tmpName, 'r');
+      $content = fread($fp, filesize($tmpName));
+      fclose($fp);*/
+  
+
+   
+      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+      $temp = explode(".", $_FILES['content']["name"]);
+      //$ext = end($temp);
+      $temp2 = end($temp);
+      $ext = (string) $temp2;
+
+      if ((($_FILES['content']["type"] == "image/gif")
+      || ($_FILES['content']["type"] == "image/jpeg")
+      || ($_FILES['content']["type"] == "image/jpg")
+      || ($_FILES['content']["type"] == "image/pjpeg")
+      || ($_FILES["content"]["type"] == "text/plain")
+      || ($_FILES["content"]["type"] == "application/msword")
+      || ($_FILES["content"]["type"] == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+      || ($_FILES['content']["type"] == "image/x-png")
+      || ($_FILES['content']["type"] == "application/pdf")
+      || ($_FILES['content']["type"] == "image/png"))
+      && ($_FILES['content']["size"] < 1024000)
+      && in_array($ext, $allowedExts))
+      {
+          try
+            {
+                $upload->createassignment(array(
+                  'classid' =>  $classid,
+                  'date_added' => $time,
+                  'description'=> Input::get('description'),
+                  'assignmentname'=> Input::get('assignmentname'),
+                  'type'=> 2,
+                  'file_name'=>$fileName,
+                  'file_type'=>$fileType,
+                  'file_size'=>$fileSize,
+                  'file_data'=>$fileData
+                            ));
+            }
+            catch(Exception $e)
+            {
+        die($e->getMessage());
+            }
+        }
+      else
+        echo "Not acceptable file.";
+    
+}
 
 ?>
 
@@ -87,7 +154,7 @@ $username=$user->data()->username;
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -126,24 +193,24 @@ $username=$user->data()->username;
               
              <ol type="square" style="padding:10px;">
            	<?php	
-			 echo '<form id="content" method="get" action="teachercontentpage.php" >';
-			 echo '<label><b>Title:</b></label>';
-			 echo '<input name="Content Title" type="text" maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description:</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
-			 echo '</form>';
-			 echo"<br>";   
-			?>
+      			 echo '<form id="content" method="get" action="teachercontentpage.php" >';
+      			 echo '<label><b>Title:</b></label>';
+      			 echo '<input name="assignmentname" type="text" maxlength="50" size="30">';
+      			 echo '<br>';
+      			 echo '<br>';
+      			 echo '<label><b>Description:</b></label>';
+      			 echo '<textarea name="description" cols="5" rows="3"></textarea>';
+      			 echo '<br>';
+      			 echo '<br>';
+      			 echo '<label><b>File Upload</b></label>';
+      			 echo '<input name="content" type="file">';
+      			 echo '<br>';
+      			 echo '<br>';
+      			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
+      			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
+      			 echo '</form>';
+      			 echo"<br>";   
+      			?>
       		 </ol>
           </div>
           </div><!--/row-->

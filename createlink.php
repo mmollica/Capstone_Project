@@ -5,11 +5,7 @@ error_reporting(E_ALL);
 
 require_once 'core/init.php';
 
-/*if(Input::exists())
-{
-  echo 'submitted';
-}
-*/
+
 $user = new User();
 $name = $user->data()->username;
 if(Input::exists())
@@ -118,10 +114,10 @@ if(Input::exists())
               Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -133,7 +129,7 @@ if(Input::exists())
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-             <li class="nav-header">Users</li>
+              <li class="nav-header">Users</li>
               <li ><a href="createusers.html">Create</a></li>
               <li><a href="editusers.html">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
@@ -156,7 +152,7 @@ if(Input::exists())
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.html">Create</a></li>
               <li><a href="editmessage.html">Edit</a></li> 
-              <li><a href="#">View</a></li>
+              
                          
             </ul>
           </div><!--/.well -->

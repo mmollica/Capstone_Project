@@ -33,7 +33,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
 
 
 
-    if(!$a)
+    /*if(!$a)
         {
         die(mysqli_error($con));
         }
@@ -51,7 +51,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
 	if(!$result3)
       {
         die(mysqli_error($con));
-      }
+      }*/
     
 ?>
 
