@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","host","test","capstone_db");
+    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
     if (!$con)
         {
@@ -21,7 +21,7 @@ $id= $user->data()->id;
 $classid=$_POST['classid'];
 
 
-$result = mysqli_query($con,"SELECT * FROM quiz WHERE classid= $classid ");
+$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=3 ");
 
  if(!$result)
         {

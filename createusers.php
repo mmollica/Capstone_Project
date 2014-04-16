@@ -22,13 +22,9 @@ if(Input::exists())
       'username' => array('required' => true, 'min' => 2, 'max' => 20 , 'unique' => 'users'),
       'password' => array('required' => true, 'min' => 6, 'max' => 20),
       'password_again' => array('required' => true, 'matches' => 'password'),
-      'fname' => array('required' => true, 'max' => 25),
-      'lname' => array('required' => true, 'max' => 25),
       'groups' => array('required' => true),
-      'address' => array('required' => true),
-      'city' => array('required' => true),
-      'state' => array('required' => true, 'max' => 2),
-      'zip' => array('required' => true, 'max' => 5),
+      'state' => array('max' => 2),
+      'zip' => array('max' => 5),
       'groups' => array('required' => true)
     ));
 
@@ -41,7 +37,7 @@ if(Input::exists())
       $time = date("Y-m-d H:i:s");
 
       $salt = Hash::salt(32);
-      echo "$id";
+      
       
       try
       {
@@ -166,6 +162,7 @@ if(Input::exists())
               <li><a href="createclasses.php">Create</a></li>
               <li><a href="editclasses.html">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
+              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>

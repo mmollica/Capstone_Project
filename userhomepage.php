@@ -44,7 +44,7 @@ $result41 = mysqli_query($con,"SELECT clubid FROM clubassign WHERE studentid= $i
 $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE parentid= $id");				
 
 
-    if(!$result)
+  /*  if(!$result)
         {
         die(mysqli_error($con));
         }
@@ -67,7 +67,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 	if(!$result5)
         {
         die(mysqli_error($con));
-        }
+        }*/
 		
 		
 		
@@ -114,7 +114,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
         }
       }
     </style>
-    <link href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -122,11 +122,11 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="favicon.png">
   </head>
 
   <body>

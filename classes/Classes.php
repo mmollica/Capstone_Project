@@ -32,13 +32,76 @@ class Classes
 			$this->find($user);
 		}*/
 	}
+	public function get_number_class()
+	{	
+
+		$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+
+	    if (!$con)
+	        {
+	             die('Could not connect: ' . mysqli_error($con));
+	        }
+
+	    
+	    $query = "SELECT id FROM class ORDER BY `date_added` DESC LIMIT 1"; 
+	    $result = mysqli_query($con, $query);
+	    $row = mysqli_fetch_assoc($result);
+	    $number = $row['id'];
+
+	    if(!$result)
+	        {
+	        	die(mysqli_error($con));
+	        }
+		if($number >= 50000000)
+		{
+			return $number + 1;
+		}
+		else
+			{return 50000000;}
+	
+	}
+	public function get_number_club()
+	{	
+
+		$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+
+	    if (!$con)
+	        {
+	             die('Could not connect: ' . mysqli_error($con));
+	        }
+
+	    
+	    $query = "SELECT id FROM club ORDER BY `date_added` DESC LIMIT 1"; 
+	    $result = mysqli_query($con, $query);
+	    $row = mysqli_fetch_assoc($result);
+	    $number = $row['id'];
+
+	    if(!$result)
+	        {
+	        	die(mysqli_error($con));
+	        }
+		if($number >= 60000000)
+		{
+			return $number + 1;
+		}
+		else
+			{return 60000000;}
+	
+	}
 
 	//REGISTER A USER IN DATABASE
-	public function create($fields = array())
+	public function create1($fields = array())
 	{
 		if(!$this->_db->insert('class', $fields))
 		{
 			throw new Exception("Cannot create Class");			
+		}
+	}
+	public function create2($fields = array())
+	{
+		if(!$this->_db->insert('club', $fields))
+		{
+			throw new Exception("Cannot create Club");			
 		}
 	}
 

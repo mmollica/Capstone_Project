@@ -1,8 +1,7 @@
-	<?php
+<?php
 ini_set('display_startup_errors', TRUE);
 ini_set('display_errors',1); 
 error_reporting(E_ALL);
-
 require_once 'core/init.php';
 
 /*if(Input::exists())
@@ -35,7 +34,7 @@ if(Input::exists())
           'studentid' => Input::get('studentid')    
           ));
 
-        Session::flash('home', 'You have registered a user');
+        
         Redirect::to('staffhomepage.html');
       }
       catch(Exception $e)
@@ -133,29 +132,29 @@ if(Input::exists())
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
-              <li ><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createusers.php">Create</a></li>
+              <li ><a href="editusers.html">Edit</a></li>
+              <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
-              <li class="active"><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclasses.php">Create</a></li>
+              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="viewclass.html">View</a></li>
+              <li class="active"><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li><a href="createclub.php">Create</a></li>
+              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">View</a></li>
+              <li ><a href="createlink.php">Create</a></li>
+              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Edit</a></li> 
-              <li><a href="#">View</a></li>
+              <li><a href="createmessage.php">Create</a></li>
+              <li><a href="editmessage.html">Edit</a></li> 
                          
             </ul>
           </div><!--/.well -->
@@ -169,9 +168,9 @@ if(Input::exists())
 				<label >Select a class:</label>
 				<select name="classid">
 					<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
-					<?php $result = mysqli_query($con,'SELECT * FROM class'); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM class ORDER BY classname ASC'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
-					<option value="<?php echo $row['classid'];?>"> 
+					<option value="<?php echo $row['id'];?>"> 
 					<?php echo htmlspecialchars($row['classname']) . " - " . htmlspecialchars($row['subject']); ?> 
 					</option> 
 					<?php } ?>
@@ -184,7 +183,7 @@ if(Input::exists())
 				<label for="Assigned Teacher">Assigned Student:</label>
 				<select name="studentid">
 					<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
-					<?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2'); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 3'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['id'];?>"> 
 					<?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 

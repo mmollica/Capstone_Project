@@ -10,6 +10,8 @@ require_once 'core/init.php';
   echo 'submitted';
 }
 */
+$con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db"); 
+$result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2'); 
 $user = new User();
 $name = $user->data()->username;
 if(Input::exists())
@@ -154,6 +156,7 @@ if(Input::exists())
               <li class="active"><a href="createclasses.html">Create</a></li>
               <li><a href="editclasses.html">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
+              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.html">Create</a></li>
@@ -188,14 +191,15 @@ if(Input::exists())
          <span id="spryselect1">
                           <label for="Assigned Teacher">Assigned Teacher:</label>
                           <select name="teacherid">
-                            <?php $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db"); ?> 
-                        <?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 1'); ?> 
-                        <?php while($row = mysqli_fetch_assoc($result)) { ?> 
-                            <option value="<?php echo $row['id'];?>"> 
-                                <?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 
-                            </option> 
-                        <?php } ?>
-                        <?php mysqli_close($con);?> 
+                            <?php 
+                              
+                               
+                              while($row = mysqli_fetch_assoc($result)) 
+                              {  
+                                echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['fname']) . ' ' . htmlspecialchars($row['lname']) . '</option>';
+                              } 
+                              mysqli_close($con);
+                            ?> 
                           </select>
                           <!--error message-->
                         <span class="selectRequiredMsg">Please select a teacher.</span></span>  

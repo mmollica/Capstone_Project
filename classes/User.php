@@ -35,7 +35,7 @@ class User
 	public function get_number($groups)
 	{	
 
-		$con = mysqli_connect("localhost","host","test", "capstone_db");
+		$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
 
 	    if (!$con)
 	        {

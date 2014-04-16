@@ -154,6 +154,7 @@ if(Input::exists())
               <li><a href="createclasses.html">Create</a></li>
               <li><a href="editclasses.html">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
+              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li class="active"><a href="createclub.html">Create</a></li>
