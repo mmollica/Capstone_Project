@@ -167,7 +167,7 @@ if(Input::exists())
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-            <?php 
+                   <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
@@ -176,9 +176,17 @@ if(Input::exists())
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
               	?>
+                
+                <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
+              	?>
+                
+                <?php 
+              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
-              <li><a href="#">Discussions</a></li>
+              	?>
+              
               <li><a href="#">Grades</a></li>
 	
             </ul>

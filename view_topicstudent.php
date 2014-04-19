@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+    $con = mysqli_connect("localhost","host","test","capstone_db");
 
     if (!$con)
         {
@@ -16,18 +16,32 @@ require_once 'core/init.php';
  
 $user= new User();	
     
-$id= $user->data()->id;
-
-$username=$user->data()->username;
+$userid= $user->data()->id;
 
 $classid=$_GET['classid'];
 
+$forumid=$_GET['forumid'];
 
+$username=$user->data()->username;
+
+// get value of id that sent from address bar 
+
+
+$result = mysqli_query($con,"SELECT * FROM forum_question WHERE id= $forumid");
+	
+	if(!$result)
+      {
+        die(mysqli_error($con));
+      }
+	  
+$result2 = mysqli_query($con,"SELECT * FROM forum_answer WHERE question_id= $forumid");
+
+	
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Add Assignment</title>
+    <title>View Topic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -87,7 +101,7 @@ $classid=$_GET['classid'];
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -100,23 +114,28 @@ $classid=$_GET['classid'];
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                   <?php 
-              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+                <?php 
+              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
               
               <?php 
-              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
               	?>
-                
-                <?php 
-              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
+              
+              <?php 
+              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
               
               	?>
-                
-                <?php 
-              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
+              
+              <?php 
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
+              
+              	?>
+              
+              <?php 
+              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
               	?>
               
@@ -126,42 +145,142 @@ $classid=$_GET['classid'];
           </div><!--/.well -->
         </div><!--/span-->
          <div class="span9" style="height:850px">
+		<?php
 
-          <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:225px">Add Assignment</h1>
-            <br>
-    
-              
-             <ol type="square" style="padding:10px;">
-           	<?php	
-			 echo '<form id="content" method="get" action="teacherassignmentpage.php" >';
-			 echo '<label><b>Title:</b></label>';
-			 echo '<input name="assignmenttitle" type="text" maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description:</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Due Date:</b></label>';
-			 echo '<input name="duedate" type="date">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Total:</b></label>';
-			 echo '<input name="total" type="text">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
-			 echo '</form>';
-			 echo"<br>";   
-			?>
-      		 </ol>
-          </div>
+while($row= mysqli_fetch_assoc($result))
+{
+
+echo '<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">';
+echo '<tr>';
+echo '<td><table width="100%" border="0" cellpadding="3" cellspacing="1" bordercolor="1" bgcolor="#FFFFFF">';
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1">' . '<strong>' . $row['topic'] . '</strong>' . '</td>';
+echo '</tr>';
+
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1">' .$row['detail'] . '</td>';
+echo '</tr>';
+
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1">' . '<strong>By :</strong>' . $row['name'] . '<br><strong>Email : </strong>' . $row['email'] . '</td>';
+echo '</tr>';
+
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1">' . '<strong>Date/time : </strong>' . $row['datetime'] . '</td>';
+echo '</tr>';
+echo '</table></td>';
+echo '</tr>';
+echo '</table>';
+
+}
+?>
+<br>
+
+<?php
+
+if($result2)
+{
+	
+while($rows=mysqli_fetch_assoc($result2))
+{
+
+
+
+echo '<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">';
+echo ' <tr>';
+echo '<td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">';
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1"><strong>ID</strong></td>';
+echo ' <td bgcolor="#F8F7F1">:</td>';
+echo '<td bgcolor="#F8F7F1">' . $rows['a_id'] . '</td>';
+echo '</tr>';
+echo '<tr>';
+echo '<td width="18%" bgcolor="#F8F7F1"><strong>Name</strong></td>';
+echo '<td width="5%" bgcolor="#F8F7F1">:</td>';
+echo '<td width="77%" bgcolor="#F8F7F1">' . $rows['a_name'] . '</td>';
+echo '</tr>';
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1"><strong>Email</strong></td>';
+echo '<td bgcolor="#F8F7F1">:</td>';
+echo '<td bgcolor="#F8F7F1">' . $rows['a_email'] . '</td>';
+echo '</tr>';
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1"><strong>Answer</strong></td>';
+echo '<td bgcolor="#F8F7F1">:</td>';
+echo '<td bgcolor="#F8F7F1">' . $rows['a_answer'] . '</td>';
+echo '</tr>';
+echo '<tr>';
+echo '<td bgcolor="#F8F7F1">' . '<strong>Date/Time</strong>' . '</td>';
+echo '<td bgcolor="#F8F7F1">:</td>';
+echo '<td bgcolor="#F8F7F1">' . $rows['a_datetime'] . '</td>';
+echo '</tr>';
+echo '</table></td>';
+echo '</tr>';
+echo '</table><br>';
+}
+
+}
+
+?>
+ 
+<?php
+
+$sql3="SELECT view FROM forum_question WHERE id='$forumid'";
+$result3=mysqli_query($con,$sql3);
+$rows=mysqli_fetch_array($result3);
+$view=$rows['view'];
+// if have no counter value set counter = 1
+if($view==0)
+{
+	$view++;
+	$sql54="update forum_question set view = '$view' WHERE id= $forumid";
+	$result4=mysqli_query($con,$sql54);
+}
+// count more value
+$view++;
+$sql100="update forum_question set view = '$view' WHERE id= $forumid";
+$result100=mysqli_query($con,$sql100);
+
+
+
+mysqli_close($con);
+?>
+
+<BR>
+<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+<tr>
+<form name="form1" method="post" action="add_answerstudent.php">
+<td>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
+<tr>
+<td width="18%"><strong>Name</strong></td>
+<td width="3%">:</td>
+<td width="79%"><input name="a_name" type="text" id="a_name" size="45"></td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>:</td>
+<td><input name="a_email" type="text" id="a_email" size="45"></td>
+</tr>
+<tr>
+<td valign="top"><strong>Answer</strong></td>
+<td valign="top">:</td>
+<td><textarea name="a_answer" cols="45" rows="3" id="a_answer"></textarea></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<?php
+echo '<td><input name="forumid" type="hidden" value=' . $forumid . '></td>';
+echo '<td><input name="classid" type="hidden" value=' . $classid . '></td>';
+echo '<td><input type="submit" name="Submit" value="Submit"> <input type="reset" name="Submit2" value="Reset" style="margin-left:90px"></td>';
+echo '</tr>';
+echo '</table>';
+echo '</td>';
+echo '</form>';
+?>
+</tr>
+</table>
+          
           </div><!--/row-->
 
       <hr>

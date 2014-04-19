@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+    $con = mysqli_connect("localhost","host","test","capstone_db");
 
     if (!$con)
         {
@@ -18,16 +18,16 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$username=$user->data()->username;
-
 $classid=$_GET['classid'];
+
+$username=$user->data()->username;
 
 
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Add Assignment</title>
+    <title>Main Forum</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -87,7 +87,7 @@ $classid=$_GET['classid'];
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -100,7 +100,7 @@ $classid=$_GET['classid'];
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                   <?php 
+            <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
@@ -119,7 +119,6 @@ $classid=$_GET['classid'];
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
               	?>
-              
               <li><a href="#">Grades</a></li>
 	
             </ul>
@@ -127,41 +126,74 @@ $classid=$_GET['classid'];
         </div><!--/span-->
          <div class="span9" style="height:850px">
 
-          <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:225px">Add Assignment</h1>
-            <br>
-    
-              
-             <ol type="square" style="padding:10px;">
-           	<?php	
-			 echo '<form id="content" method="get" action="teacherassignmentpage.php" >';
-			 echo '<label><b>Title:</b></label>';
-			 echo '<input name="assignmenttitle" type="text" maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description:</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Due Date:</b></label>';
-			 echo '<input name="duedate" type="date">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Total:</b></label>';
-			 echo '<input name="total" type="text">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
-			 echo '</form>';
-			 echo"<br>";   
-			?>
-      		 </ol>
-          </div>
+          
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+require_once 'core/init.php';
+
+
+    $con = mysqli_connect("localhost","host","test","capstone_db");
+
+    if (!$con)
+        {
+             die('Could not connect: ' . mysqli_error($con));
+        }
+
+$result = mysqli_query($con,"SELECT * FROM forum_question WHERE classid= $classid ORDER BY id DESC");
+// OREDER BY id DESC is order result by descending
+  if(!$result)
+        {
+        die(mysqli_error($con));
+        }
+		
+$classname=mysqli_query($con,"SELECT * FROM class WHERE id= $classid");
+
+if(!$classname)
+        {
+        die(mysqli_error($con));
+        }
+?>
+<?php
+while($row=mysqli_fetch_assoc($classname))
+{
+	echo'<h3 style="margin-left:300px"> ' . $row['classname'] . ' Discussion Forum' . '</h3>'; 
+}
+?>
+
+<table width="90%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+<tr>
+<td width="6%" align="center" bgcolor="#5bb75b"><strong>#</strong></td>
+<td width="53%" align="center" bgcolor="#5bb75b"><strong>Topic</strong></td>
+<td width="15%" align="center" bgcolor="#5bb75b"><strong>Views</strong></td>
+<td width="13%" align="center" bgcolor="#5bb75b"><strong>Replies</strong></td>
+<td width="13%" align="center" bgcolor="#5bb75b"><strong>Date/Time</strong></td>
+</tr>
+
+<?php
+ 
+// Start looping table row
+while ($rows = mysqli_fetch_assoc($result))
+{
+
+echo '<tr>';
+echo '<td bgcolor="#FFFFFF">' . $rows['id'] . '</td>';
+echo '<td bgcolor="#FFFFFF">' . '<a href="view_topic.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
+echo '<td align="center" bgcolor="#FFFFFF">' . $rows['view'] . '</td>';
+echo '<td align="center" bgcolor="#FFFFFF">' . $rows['reply'] . '</td>';
+echo '<td align="center" bgcolor="#FFFFFF">' . $rows['datetime'] . '</td>';
+echo '</tr>';
+}
+
+mysqli_close($con);
+
+?>
+
+<tr>
+<td colspan="5" align="right" bgcolor="#5bb75b"></td>
+</tr>
+</table>
           </div><!--/row-->
 
       <hr>

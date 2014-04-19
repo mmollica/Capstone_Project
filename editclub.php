@@ -1,8 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+require_once 'core/init.php';
+
+$user = new User();
+$name = $user->data()->username;
+
+
+?>
+
   <head>
     <meta charset="utf-8">
-    <title>Edit Message</title>
+    <title>Edit Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -41,11 +51,8 @@
                                    <link rel="shortcut icon" href="favicon.png">
   <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-  <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
-  
-  <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -61,7 +68,7 @@
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name;?>
             </p>
             <ul class="nav">
               <li><a href="staffhomepage.html">Home</a></li>
@@ -79,68 +86,81 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-             <li class="nav-header">Users</li>
+               <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
-              <li ><a href="editusers.html">Edit</a></li>
+              <li><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
-              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="editclasses.php">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
               <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.html">Edit</a></li>
+              <li class="active"><a href="editclub.php">Edit</a></li>
               <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
-              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="editlink.php">Edit</a></li>
               <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
-              <li class="active"><a href="editmessage.html">Edit</a></li> 
-
+              <li><a href="editmessage.php">Edit</a></li> 
+              
                          
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9" style="height:850px">
-          <div class="viewbox" >
-            <h1 style="margin-top:-60px; margin-left:215px;">Edit Message</h1>
+          <div class="login" >
+            <h1 style="margin-top:-60px; margin-left:215px;">Edit Club</h1>
             <br>
-            <br>
-            <form id="createmessage" action="" method="post" style="margin-left:215px;">
-           
-            <span id="spryselect4">
-            <label for="Message ID">Message ID:</label>
-            <select name="Message ID" id="Message ID">
+        <form id="createclub" action="processclub.php" method="post" style="margin-left:215px;">
+        
+    
+            <label for="Club ID">Club ID:</label>
+            <select name="clubid" id="Club ID">
+            <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM club ORDER BY clubname ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['id'];?>"> 
+					<?php echo htmlspecialchars($row['id']) . " - " . htmlspecialchars($row['clubname']); ?>  
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
             </select>
-            <span class="selectRequiredMsg">Please select an item.</span></span>
             
-             <span id="sprytextfield1">
-            <label for="Link Name">Message Title:</label>
-            <input type="text" name="Message Title" id="Message Title">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
+
+        <label for="Club Name">Club Name:</label>
+            <input type="text" name="clubname" id="Club Name">
+   
           <br/>
          
-          <span id="sprytextfield3">
-          <label for="Message Date">Date:</label>
-          <input type="date" name="Date" id="Date">
-          <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
-          <br>
-          <span id="sprytextarea1">
-          <label for="Message">Message:</label>
-          <textarea name="Message" id="Message" cols="45" rows="10" style="width:500px"></textarea>
-          <span class="textareaRequiredMsg">A value is required.</span></span><br>
+          <label for="Assigned Teacher">Assigned Teacher:</label>
+          <select name="assignedteacher" id="Assigned Teacher">
+             <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2 ORDER BY lname ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['id'];?>"> 
+					<?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
+          </select>
+          <br/>
+         
       <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+      <br>
+            <input name="process" type="submit" value="Update" class="btn btn-med btn-success">
+          <br>
+          <input name="process" type="submit" value="Delete" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">
           <br>
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" style="margin-left:200px; margin-top:-76px">
+          <input name="cancel" id="cancel" type="button" value="Cancel" class="btn btn-med btn-success" style="margin-left:300px; margin-top:-60px">
           </form>
           </div>
           </div><!--/row-->
@@ -170,14 +190,17 @@
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
   <script type="text/javascript">
+  
+  	document.getElementById("cancel").onclick = function ()
+		 {
+        location.href = "staffhomepage.html";
+		 }
+		 
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
 var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
 var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
-var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
-var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
 var spryselect4 = new Spry.Widget.ValidationSelect("spryselect4");
   </script>
   </body>
-</html>

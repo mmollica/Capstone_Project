@@ -90,10 +90,10 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -106,35 +106,30 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <?php 
-              echo '<form id="content" method="post" action="studentcontentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="classFunction();">Content</a></li>';
-              echo '</form>';
-              ?>
+                   <?php 
+              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="assignment" method="post" action="studentassignmentpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="workFunction();">Assignments</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
+              
+              	?>
               
               <?php 
-              echo '<form id="aUpload" method="post" action="studentupload.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="uploadFunction();">Upload</a></li>';
-              echo '</form>';
-              ?>
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
               
-              <li><a href="#">Discussions</a></li>
+              	?>
+              
+              <?php 
+              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
+              
+              	?>
               <li><a href="#">Grades</a></li>
 	
             </ul>

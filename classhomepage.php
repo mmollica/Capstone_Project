@@ -118,7 +118,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -142,18 +142,19 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               	?>
               
               <?php 
-              echo '<form id="quiz" method="post" action="studentquizpage.php" >';
-              echo '<input name="classid" type="hidden" value=' .$classid .'>';
-              echo '<li><a onClick="quizFunction();">Quizzes</a></li>';
-              echo '</form>';
-              ?>
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' ">Upload</a></li>';
+              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
               
               	?>
               
-              <li><a href="#">Discussions</a></li>
+              <?php 
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
+              
+              	?>
+              
+              <?php 
+              echo '<li><a href="mainforum_student.php?classid= ' . $classid . ' ">Discussion</a></li>';
+              
+              	?>
               <li><a href="#">Grades</a></li>
 
             </ul>

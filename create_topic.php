@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+    $con = mysqli_connect("localhost","host","test","capstone_db");
 
     if (!$con)
         {
@@ -18,16 +18,16 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$username=$user->data()->username;
-
 $classid=$_GET['classid'];
+
+$username=$user->data()->username;
 
 
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Add Assignment</title>
+    <title>Create Topic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -87,7 +87,7 @@ $classid=$_GET['classid'];
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -100,7 +100,7 @@ $classid=$_GET['classid'];
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                   <?php 
+            <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
@@ -127,41 +127,47 @@ $classid=$_GET['classid'];
         </div><!--/span-->
          <div class="span9" style="height:850px">
 
-          <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:225px">Add Assignment</h1>
-            <br>
-    
-              
-             <ol type="square" style="padding:10px;">
-           	<?php	
-			 echo '<form id="content" method="get" action="teacherassignmentpage.php" >';
-			 echo '<label><b>Title:</b></label>';
-			 echo '<input name="assignmenttitle" type="text" maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description:</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"></textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Due Date:</b></label>';
-			 echo '<input name="duedate" type="date">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Total:</b></label>';
-			 echo '<input name="total" type="text">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			 echo '<input name="add" type="submit" value="Add" class="btn btn-large btn-success">';
-			 echo '</form>';
-			 echo"<br>";   
-			?>
-      		 </ol>
-          </div>
+          
+           <table width="400" border="2px" align="center" cellpadding="0" cellspacing="1" bgcolor="#000000" style="margin-top:100px; margin-left:150px" >
+<tr>
+<form id="form1" name="form1" method="post" action="add_topic.php">
+<td>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+<tr>
+<td colspan="3" bgcolor="#5bb75b"><strong style="color:#FFFFFF">Create New Topic</strong> </td>
+</tr>
+<tr>
+<td width="14%"><strong>Topic</strong></td>
+<td width="2%">:</td>
+<td width="84%"><input name="topic" type="text" id="topic" size="50" /></td>
+</tr>
+<tr>
+<td valign="top"><strong>Detail</strong></td>
+<td valign="top">:</td>
+<td><textarea name="detail" cols="50" rows="3" id="detail"></textarea></td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td>:</td>
+<td><input name="name" type="text" id="name" size="50" /></td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>:</td>
+<td><input name="email" type="text" id="email" size="50" /></td>
+</tr>
+<tr>
+
+<td><?php echo '<input name="classid" type="hidden" value=' . $classid .'>'; ?></td>
+<td>&nbsp;</td>
+<td><input type="submit" name="Submit" value="Submit" /> <input type="reset" name="Submit2" value="Reset" style="margin-left:90px" /></td>
+</tr>
+</table>
+</td>
+</form>
+</tr>
+</table>
+          
           </div><!--/row-->
 
       <hr>

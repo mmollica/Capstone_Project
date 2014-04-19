@@ -1,5 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+require_once 'core/init.php';
+
+$user = new User();
+$name = $user->data()->username;
+
+
+?>
+
   <head>
     <meta charset="utf-8">
     <title>Edit Class</title>
@@ -59,7 +69,7 @@
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name;?>
             </p>
             <ul class="nav">
               <li><a href="staffhomepage.html">Home</a></li>
@@ -79,28 +89,28 @@
             <ul class="nav nav-list">
                <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
-              <li ><a href="editusers.html">Edit</a></li>
+              <li ><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
                             
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
-              <li class="active"><a href="editclasses.html">Edit</a></li>
+              <li class="active"><a href="editclasses.php">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
               <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="editclub.php">Edit</a></li>
               <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
-              <li><a href="editlink.html">Edit</a></li>
+              <li><a href="editlink.php">Edit</a></li>
               <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.html">Edit</a></li> 
+              <li><a href="editmessage.php">Edit</a></li> 
             
             </ul>
           </div><!--/.well -->
@@ -109,43 +119,56 @@
           <div class="login2" >
             <h1 style="margin-top:-60px; margin-left:215px;">Edit Classes</h1>
             
-            <form id="createclass" action="" method="post" style="margin-left:215px;">
-            <span id="spryselect4">
+            <form id="updateclass" action="processclasses.php" method="post" style="margin-left:215px;">
             <label for="Class ID">Class ID:</label>
-            <select name="Class ID" id="Class ID">
+            <select name="classid" id="Class ID">
+             <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM class ORDER BY classname ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['id'];?>"> 
+					<?php echo htmlspecialchars($row['id']) . " - " . htmlspecialchars($row['classname']); ?>  
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
             </select>
-            <span class="selectRequiredMsg">Please select an item.</span></span> 
+    
             
-            <span id="sprytextfield1">
+ 
             <label for="Class Name">Class Name:</label>
-            <input type="text" name="Class Name" id="Class Name">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
+            <input type="text" name="classname" id="Class Name">
+
           <br/>
          
-        <span id="spryselect1">
           <label for="Assigned Teacher">Assigned Teacher:</label>
-          <select name="Assigned Teacher" id="Assigned Teacher">
+          <select name="assignedteacher" id="Assigned Teacher">
+           <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2 ORDER BY lname ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['id'];?>"> 
+					<?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
           </select>
-          <span class="selectRequiredMsg">Please select an item.</span></span>
           <br/>
-          
-          <span id="spryselect2">
+         
       <label for="Class Subject">Class Subject:</label>
-      <select name="Class Subject" id="Class Subject">
+     <select name="subject" id="Class Subject">
+        <option value="english">English</option>
+        <option value="history">History</option>
+        <option value="math">Math</option>
+        <option value="science">Science</option>
       </select>
-      <span class="selectRequiredMsg">Please select an item.</span></span>
+
+
+      <br>
+      <br>
+          <input name="process" type="submit" value="Update" class="btn btn-med btn-success">
           <br>
-          <span id="spryselect3">
-      <label for="Class Time">Class Time:</label>
-      <select name="Class Time" id="Class Time">
-      </select>
-      <span class="selectRequiredMsg">Please select an item.</span></span>
-      <br>
-      <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+          <input name="process" type="submit" value="Delete" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">
           <br>
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" style="margin-left:200px; margin-top:-76px">
+          <input name="cancel" id="cancel" type="button" value="Cancel" class="btn btn-med btn-success" style="margin-left:300px; margin-top:-60px">
           </form>
           </div>
           </div><!--/row-->
@@ -175,6 +198,12 @@
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
   <script type="text/javascript">
+  
+  	document.getElementById("cancel").onclick = function ()
+		 {
+        location.href = "staffhomepage.html";
+		 }
+		 
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
@@ -183,4 +212,3 @@ var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
 var spryselect4 = new Spry.Widget.ValidationSelect("spryselect4");
   </script>
   </body>
-</html>

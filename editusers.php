@@ -1,8 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+require_once 'core/init.php';
+
+$user = new User();
+$name = $user->data()->username;
+
+
+
+?>
   <head>
     <meta charset="utf-8">
-    <title>Edit Link</title>
+    <title>Edit Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -41,8 +51,10 @@
                                    <link rel="shortcut icon" href="favicon.png">
   <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationPassword.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+  <link href="SpryAssets/SpryValidationPassword.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -58,7 +70,7 @@
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name; ?>
             </p>
             <ul class="nav">
               <li><a href="staffhomepage.html">Home</a></li>
@@ -71,78 +83,125 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class= "container-fluid">
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-             <li class="nav-header">Users</li>
+              <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
-              <li ><a href="editusers.html">Edit</a></li>
+              <li class="active" ><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
-              <li><a href="editclasses.html">Edit</a></li>
+              <li><a href="editclasses.php">Edit</a></li>
               <li><a href="viewclass.html">View</a></li>
               <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.html">Edit</a></li>
+              <li><a href="editclub.php">Edit</a></li>
               <li><a href="viewclub.html">View</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
-              <li class="active"><a href="editlink.html">Edit</a></li>
+              <li><a href="editlink.php">Edit</a></li>
               <li><a href="viewlink.html">View</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.html">Edit</a></li> 
+              <li><a href="editmessage.php">Edit</a></li> 
               
                          
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" style="height:850px">
-          <div class="login" >
-            <h1 style="margin-top:-60px; margin-left:215px;">Edit Link</h1>
-            <br>
-            
-		<form id="createlink" action="" method="post" style="margin-left:215px;">
+        <div class="span9" style="height:850px;">
+          <div class="viewbox" >
+            <h1 style="margin-top:-60px; margin-left:215px;">Edit User</h1>
+       
+            <form id="updateusers" action="process.php" method="post" style="margin-left:215px;">
+          
+           <label for="Username">Username:</label>
+           <select name="userid" id="Username">
+           <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM users ORDER BY lname ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['id'];?>"> 
+					<?php echo htmlspecialchars($row['username']) . " - " . htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
+           </select>
+           
+           <br/>
+          
+          <label for="Password"> New Password:</label>
+          <input type="password" name="password" id="Password">
+       
+        <br/>
+ 
+        <label for="Confirm">Confrim Password:</label>
+        <input type="password" name="Confirm" id="Confirm">
+     
+        <br/>
+          
+          <label for="fname">First Name:</label>
+          <input type="text" name="fname" id="fname">
+         
+          <br/>
         
-        	<span id="spryselect4">
-            <label for="Link ID">Link ID:</label>
-            <select name="Link ID" id="Link ID">
-            </select>
-            <span class="selectRequiredMsg">Please select an item.</span></span>
-        
-        <span id="sprytextfield1">
-        <label for="Link Name">Link Name:</label>
-            <input type="text" name="Link Name" id="Link Name">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
+          <label for="lname">Last Name:</label>
+          <input type="text" name="lname" id="lname">
+          
+          <br/>
+          
+          <label for="address">Address:</label>
+          <input type="text" name="address" id="address">
+          
+          <br/>
+          
+          <label for="city">City:</label>
+          <input type="text" name="city" id="city">
+          
           <br/>
          
-          <span id="sprytextfield3">
-          <label for="Link URL">Link URL:</label>
-          <input type="text" name="Link URL" id="Link URL">
-          <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
-         
-      <br>
-      <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+          <label for="state">State:</label>
+          <input type="text" name="state" id="state" size="2">
+        
+          <br/>
+          
+          <label for="zip">Zip Code:</label>
+          <input type="text" name="zip" id="zip" size="5">
+          
+          <br/>
+          
+       
+        <label for="type">Account Type:</label>
+          <select name="groups" id="groups">
+              <option value="1">Staff</option>
+              <option value="2">Teacher</option>
+              <option value="3">Student</option>
+              <option value="4">Parent</option>
+          </select>
+       
+          <br/>
+          <br>
+          <input name="process" type="submit" value="Update" class="btn btn-med btn-success">
+          <br>
+          <input name="process" type="submit" value="Delete" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">
           <br>
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" style="margin-left:200px; margin-top:-76px">
+          <input name="cancel" id="cancel" type="button" value="Cancel" class="btn btn-med btn-success"  style="margin-left:300px; margin-top:-60px">
           </form>
           </div>
           </div><!--/row-->
 
       <hr>
-      
-<footer>
-    <p>&copy; Company 2013</p>
+
+      <footer>
+        <p>&copy; Company 2013</p>
       </footer>
 
     </div><!--/.fluid-container-->
@@ -164,13 +223,21 @@
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
   <script type="text/javascript">
-var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
-var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
-var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
-var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
-var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
-var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
-var spryselect4 = new Spry.Widget.ValidationSelect("spryselect4");
-  </script>
+  
+  function deleteUser()
+{
+document.getElementById("updateusers").submit();
+}
+
+  function updateUser()
+{
+document.getElementById("updateusers").submit();
+}
+
+    	document.getElementById("cancel").onclick = function ()
+		 {
+        location.href = "staffhomepage.html";
+		 }
+</script>
+
   </body>
-</html>

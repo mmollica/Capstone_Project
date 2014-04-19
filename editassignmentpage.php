@@ -90,7 +90,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -103,7 +103,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-           <?php 
+                   <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
@@ -112,10 +112,17 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
               	?>
+                
+                <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
+              	?>
+                
+                <?php 
+              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
+              	?>
               
-              <li><a href="#">Discussions</a></li>
               <li><a href="#">Grades</a></li>
 	
             </ul>

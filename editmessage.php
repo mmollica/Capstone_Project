@@ -1,8 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+require_once 'core/init.php';
+
+$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+
+    if (!$con)
+        {
+             die('Could not connect: ' . mysqli_error($con));
+        }
+		
+		
+$user = new User();
+$name = $user->data()->username;
+
+		
+?>
   <head>
     <meta charset="utf-8">
-    <title>Edit Users</title>
+    <title>Edit Message</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -41,10 +58,11 @@
                                    <link rel="shortcut icon" href="favicon.png">
   <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
-  <script src="SpryAssets/SpryValidationPassword.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
-  <link href="SpryAssets/SpryValidationPassword.css" rel="stylesheet" type="text/css">
+  
+  <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -60,7 +78,7 @@
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name;?>
             </p>
             <ul class="nav">
               <li><a href="staffhomepage.html">Home</a></li>
@@ -73,14 +91,14 @@
       </div>
     </div>
 
-    <div class= "container-fluid">
+    <div class="container-fluid">
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Users</li>
+             <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
-              <li class="active" ><a href="editusers.html">Edit</a></li>
+              <li ><a href="editusers.html">Edit</a></li>
               <li><a href="viewusers.html">View</a></li>
               
               <li class="nav-header">Classes</li>
@@ -101,52 +119,64 @@
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.html">Edit</a></li> 
-              
+              <li class="active"><a href="editmessage.html">Edit</a></li> 
+
                          
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" style="height:850px;">
-          <div class="login" >
-            <h1 style="margin-top:-60px; margin-left:215px;">Edit User</h1>
-            <span id= "sprytextfield1">
-            <form id="log in" action="" method="post" style="margin-left:215px;">
-           <span id="spryselect2">
-           <label for="Username">Username:</label>
-           <select name="Username" id="Username">
-           </select>
-           <span class="selectRequiredMsg">Please select an item.</span></span>
-           <br/>
-          <span id="sprytextfield2">
-          <label for="Password"> New Password:</label>
-          <input type="text" name="Password" id="Password">
-        <span class="textfieldRequiredMsg">A value is required.</span></span>
-        <br/>
-        <span id="sprypassword1">
-        <label for="Confirm">Confrim Password:</label>
-        <input type="password" name="Confirm" id="Confirm">
-        <span class="passwordRequiredMsg">A value is required.</span></span>
-        <br>
-         <span id="spryselect1">
-        <label for="Account Type">Account Type:</label>
-          <select name="Account Type" id="Account Type">
-          </select>
-          <span class="selectRequiredMsg">Please select an item.</span></span>
+        <div class="span9" style="height:850px">
+          <div class="viewbox" >
+            <h1 style="margin-top:-60px; margin-left:215px;">Edit Message</h1>
+            <br>
+            <br>
+            
+            <form id="createmessage" action="processmessage.php" method="post" style="margin-left:215px;">
+           
+           
+            <label for="Message ID">Message ID:</label>
+            <select name="messageid" id="Message ID">
+             <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM staffmessage ORDER BY date ASC'); ?> 
+					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
+					<option value="<?php echo $row['smsgid'];?>"> 
+					<?php echo htmlspecialchars($row['smsgid']) . " - " . htmlspecialchars($row['title']) . " ( ".  htmlspecialchars($row['date']) . " ) " ; ?> 
+					</option> 
+					<?php } ?>
+					<?php mysqli_close($con);?> 
+            </select>
+            
+            
+             
+            <label for="Link Name">Message Title:</label>
+            <input type="text" name="title" id="Message Title">
+         
           <br/>
+         
+          <label for="Message Date">Date:</label>
+          <input type="date" name="date" id="Date">
+          
           <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+       
+          <label for="Message">Message:</label>
+          <textarea name="content" id="Message" cols="45" rows="10" style="width:500px"></textarea>
+     
+      
+      <br>
+         <input name="process" type="submit" value="Update" class="btn btn-med btn-success">
+          <br>
+          <input name="process" type="submit" value="Delete" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">
           <br>
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" style="margin-left:200px; margin-top:-76px">
+          <input name="cancel" id="cancel" type="button" value="Cancel" class="btn btn-med btn-success" style="margin-left:300px; margin-top:-60px">
           </form>
           </div>
           </div><!--/row-->
 
       <hr>
-
-      <footer>
-        <p>&copy; Company 2013</p>
+      
+<footer>
+    <p>&copy; Company 2013</p>
       </footer>
 
     </div><!--/.fluid-container-->
@@ -168,11 +198,19 @@
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
   <script type="text/javascript">
+  
+  	document.getElementById("cancel").onclick = function ()
+		 {
+        location.href = "staffhomepage.html";
+		 }
+		 
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
 var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
-var sprypassword1 = new Spry.Widget.ValidationPassword("sprypassword1");
+var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
+var spryselect4 = new Spry.Widget.ValidationSelect("spryselect4");
   </script>
   </body>
-</html>
