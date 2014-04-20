@@ -201,7 +201,7 @@ if(Input::exists())
               
              <ol type="square" style="padding:10px;">
            	<?php	
-      			 echo '<form id="content" method="get" action="teachercontentpage.php" >';
+      			 echo '<form id="content" method="post" action="teachercontentpage.php" >';
       			 echo '<label><b>Title:</b></label>';
       			 echo '<input name="assignmentname" type="text" maxlength="50" size="30">';
       			 echo '<br>';

@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","host","test","capstone_db");
+    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
     if (!$con)
         {
@@ -18,7 +18,7 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST['classid'];
+$classid=$_GET['classid'];
 
 if(Input::exists() && !$classid)
 {

@@ -18,7 +18,7 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$classid=$_POST['classid'];
+$classid=$_GET['classid'];
 
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=3 ");
