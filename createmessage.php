@@ -140,28 +140,27 @@ if(Input::exists())
             <ul class="nav nav-list">
               <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
-              <li><a href="editusers.html">Edit</a></li>
-              <li><a href="viewusers.html">View</a></li>
+              <li><a href="editusers.php">Edit</a></li>
+              <li><a href="viewusers.php">View</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
-              <li><a href="editclasses.html">Edit</a></li>
-              <li><a href="viewclass.html">View</a></li>
+              <li><a href="editclasses.php">Edit</a></li>
+              <li><a href="viewclass.php">View</a></li>
               <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.html">Edit</a></li>
-              <li><a href="viewclub.html">View</a></li>
+              <li><a href="editclub.php">Edit</a></li>
+              <li><a href="viewclub.php">View</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
-              <li><a href="editlink.html">Edit</a></li>
-              <li><a href="viewlink.html">View</a></li>
+              <li><a href="editlink.php">Edit</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li class="active"><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.html">Edit</a></li> 
+              <li><a href="editmessage.php">Edit</a></li> 
               
                          
             </ul>
