@@ -109,47 +109,57 @@
         <div class="span9" style="height:1000px">
           <div class="viewbox2" >
 
-<table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">Club Info</h3>
-    	<tr>
-        	<th scope="col" class="rounded-company">Class. ID</th>
-        	<th scope="col" class="rounded-q1">Club Name</th>
-            <th scope="col" class="rounded-q4">Assigned Teacher</th>
-            
-            
-        </tr>
-    </thead>
-        
-    <tbody>
-    	<tr>
-        	<td></td>
-            <td></td>
-            <td></td>
-            
-            
-        </tr>
-        
-    </tbody>
-</table>
+
 
  <table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">Club Members</h3>
+  <thead> <h3 style="margin-left:250px;">Club Info</h3>
     	<tr>
-        	<th scope="col" class="rounded-company">User. ID</th>
-        	<th scope="col" class="rounded-q1">First Name</th>
-            <th scope="col" class="rounded-q4">Last Name</th>
+        	<th scope="col" class="rounded-company">Club ID</th>
+        	<th scope="col" class="rounded-q1">Club Name</th>
+            <th scope="col" class="rounded-q4">Teacher Assigned</th>
           
         </tr>
     </thead>
         
     <tbody>
-    	<tr>
-        	<td></td>
-            <td></td>
-            <td></td>
+   <?php
+            ini_set('display_startup_errors', TRUE);
+            ini_set('display_errors',1); 
+            error_reporting(E_ALL);
             
-        </tr>
-        
+            $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+
+            if (!$con)
+            {
+                 die('Could not connect: ' . mysqli_error($con));
+            }
+
+             
+            $result = mysqli_query($con, "SELECT * FROM club");
+
+            if(!$result)
+            {
+                die(mysqli_error($con));
+            }
+
+            while($row = mysqli_fetch_assoc($result))
+                {
+                $clubid = $row['id'];
+                echo "<tr>";  
+                echo "<td scope='col' class='rounded-company'>". $row['id'] . "</td>";
+                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row['clubname'] . '</a></td>';
+                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                $teacherid = $row['teacherid'];
+                $result2 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+                while($row2 = mysqli_fetch_assoc($result2))
+                {
+                    $id = $row2['id'];
+                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . $row2['lname'] . '</a></td>';
+                }
+                echo "</tr>";
+                mysqli_close($DB);
+            }
+?> 
     </tbody>
 </table>
 

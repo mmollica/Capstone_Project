@@ -1,4 +1,20 @@
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
 
+$con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+
+if (!$con)
+    {
+         die('Could not connect: ' . mysqli_error($con));
+    }
+
+$classid=$_GET['clubid'];
+ 
+
+$query2 = mysqli_query($con,"SELECT * FROM class WHERE id= $clubid ");
+?>
   <head>
     <meta charset="utf-8">
     <title>View Class</title>
@@ -62,7 +78,7 @@
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
-              <li><a href="staffhomepage.html">Home</a></li>
+               <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -85,7 +101,7 @@
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
               <li><a href="editclasses.php">Edit</a></li>
-              <li class="active"><a href="viewclass.php">View</a></li>
+              <li><a href="viewclass.php">View</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
@@ -99,8 +115,7 @@
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.php">Edit</a></li> 
-              
+              <li><a href="editmessage.php">Edit</a></li>
                          
             </ul>
           </div><!--/.well -->
@@ -110,11 +125,10 @@
 
 <table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
   <thead> <h3 style="margin-left:250px;">Class Info</h3>
-        <tr>
-            <th scope="col" class="rounded-company">Class. ID</th>
-            <th scope="col" class="rounded-q1">Class Name</th>
-            <th scope="col" class="rounded-q2">Class Subject</th>
-           <!--  <th scope="col" class="rounded-q3">Class Time</th> -->
+    	<tr>
+        	<th scope="col" class="rounded-company">Club ID</th>
+        	<th scope="col" class="rounded-q1">Club Name</th>
+            
             <th scope="col" class="rounded-q4">Assigned Teacher</th>
             
             
@@ -122,49 +136,60 @@
     </thead>
         
     <tbody>
-    <?php
-            ini_set('display_startup_errors', TRUE);
-            ini_set('display_errors',1); 
-            error_reporting(E_ALL);
-            
-            $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
-
-            if (!$con)
-            {
-                 die('Could not connect: ' . mysqli_error($con));
-            }
-
-             
-            $result = mysqli_query($con, "SELECT * FROM class");
-
-            if(!$result)
-            {
-                die(mysqli_error($con));
-            }
-
-            while($row = mysqli_fetch_assoc($result))
-                {
-                $classid = $row['id'];
-                echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row['classname'] . '</a></td>';
-                echo "<td scope='col' class='rounded-q1'>". $row['subject'] . "</td>";
-                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
-                $teacherid = $row['teacherid'];
-                $result2 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
-                while($row2 = mysqli_fetch_assoc($result2))
-                {
-                    $id = $row2['id'];
-                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . $row2['lname'] . '</a></td>';
-                }
-                echo "</tr>";
-                mysqli_close($DB);
-            }
-?> 
+    	<?php
+      while($row = mysqli_fetch_assoc($query2))
+      {
+        echo "<tr>";
+        echo "<td scope='col' class='rounded-company'>". $row['id'] . "</td>";
+        echo "<td scope='col' class='rounded-q2'>". $row['clubname'] . "</td>";
+        $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+        $teacherid = $row['teacherid'];
+        $result = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+        while($row2 = mysqli_fetch_assoc($result))
+        {
+            $id = $row2['id'];
+            echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> ' . $row2['fname'] . $row2['lname'] . '</a></td>';
+        }
+        echo "</tr>";
+        mysqli_close($DB);
+      }
+      ?>
+        
     </tbody>
 </table>
 
- 
+ <table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
+  <thead> <h3 style="margin-left:250px;">Students Info</h3>
+    	<tr>
+        	<th scope="col" class="rounded-company">User. ID</th>
+        	<th scope="col" class="rounded-q1">Name</th>
+           
+          
+        </tr>
+    </thead>
+        
+    <tbody>
+    	<?php
+           
+            $query1 = mysqli_query($con,"SELECT * FROM clubassign WHERE clubid= $clubid ");
+           
+            while($row3 = mysqli_fetch_assoc($query1))
+                {
+                $id = $row3['studentid'];
+                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                $result2 = mysqli_query($DB, "SELECT * FROM users WHERE id=$id");
+                while($row4=mysqli_fetch_assoc($result2))
+                {
+                  echo "<tr>";
+                  echo "<td scope='col' class='rounded-company'>". $row4['id'] . "</td>";
+                  echo '<td scope="col" class="rounded-q2"><a href="viewuserdetails.php?userid= ' . $id . ' "> ' . $row4['fname'] . $row4['lname'] . '</a></td>';
+                  mysqli_close($DB);
+                }
+            }
+?> 
+        
+    </tbody>
+</table>
 
 
           </div>

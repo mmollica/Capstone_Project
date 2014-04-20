@@ -230,6 +230,45 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
             }
 
           }
+            echo   '</tbody>';
+            echo  '</table>';
+
+            echo '<table id="rounded-corner"  style="margin-left:100px;">';
+            echo "<thead> <h3 style='margin-left:250px;'>User's Clubs</h3>";
+            echo '<tr>';
+            echo '<th scope="col" class="rounded-company">Club. ID</th>';
+            echo '<th scope="col" class="rounded-q1">Class Name</th>';
+            echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+                          
+                          
+            echo    '</tr>';
+            echo    '</thead>';
+                      
+            echo    '<tbody>';
+            $query17 = mysqli_query($con, "SELECT * FROM club");
+
+            if(!$query17)
+            {
+                die(mysqli_error($con));
+            }
+
+            while($row19 = mysqli_fetch_assoc($query17))
+                {
+                $classid = $row19['id'];
+                echo "<tr>";
+                echo "<td scope='col' class='rounded-company'>". $row19['id'] . "</td>";
+                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row19['clubname'] . '</a></td>';
+                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                $teacherid = $row19['teacherid'];
+                $query18 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+                while($row20 = mysqli_fetch_assoc($query18))
+                {
+                    $id = $row20['id'];
+                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row20['fname'] . $row20['lname'] . '</a></td>';
+                }
+                echo "</tr>";
+                mysqli_close($DB);
+            }
           break;
           case '4':
           $parentid = 0;
@@ -292,6 +331,47 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                       }
                     }
                   }
+
+            echo   '</tbody>';
+            echo  '</table>';
+
+            echo '<table id="rounded-corner"  style="margin-left:100px;">';
+            echo "<thead> <h3 style='margin-left:250px;'>Student's Clubs</h3>";
+            echo '<tr>';
+            echo '<th scope="col" class="rounded-company">Club. ID</th>';
+            echo '<th scope="col" class="rounded-q1">Class Name</th>';
+            echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+                          
+                          
+            echo    '</tr>';
+            echo    '</thead>';
+                      
+            echo    '<tbody>';
+            $query15 = mysqli_query($con, "SELECT * FROM club");
+
+            if(!$query15)
+            {
+                die(mysqli_error($con));
+            }
+
+            while($row17 = mysqli_fetch_assoc($query15))
+                {
+                $classid = $row17['id'];
+                echo "<tr>";
+                echo "<td scope='col' class='rounded-company'>". $row17['id'] . "</td>";
+                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row17['clubname'] . '</a></td>';
+                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                $teacherid = $row17['teacherid'];
+                $query16 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+                while($row18 = mysqli_fetch_assoc($query16))
+                {
+                    $id = $row18['id'];
+                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row18['fname'] . $row18['lname'] . '</a></td>';
+                }
+                echo "</tr>";
+                mysqli_close($DB);
+            }
+
             case '2':
             echo "<table id='rounded-corner' style='margin-left:100px;' >";
             echo "  <thead> <h3 style='margin-left:250px;'>User's Classes</h3>";
@@ -324,36 +404,57 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
               
                   }
             }
-        
+            
+            
+
+
+    echo   '</tbody>';
+    echo  '</table>';
+
+    echo '<table id="rounded-corner"  style="margin-left:100px;">';
+    echo "<thead> <h3 style='margin-left:250px;'>User's Clubs</h3>";
+    echo '<tr>';
+    echo '<th scope="col" class="rounded-company">Club. ID</th>';
+    echo '<th scope="col" class="rounded-q1">Class Name</th>';
+    echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+                  
+                  
+    echo    '</tr>';
+    echo    '</thead>';
+              
+    echo    '<tbody>';
+            $query12 = mysqli_query($con, "SELECT * FROM club");
+
+            if(!$query12)
+            {
+                die(mysqli_error($con));
+            }
+
+            while($row15 = mysqli_fetch_assoc($query12))
+                {
+                $classid = $row15['id'];
+                echo "<tr>";
+                echo "<td scope='col' class='rounded-company'>". $row15['id'] . "</td>";
+                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row15['clubname'] . '</a></td>';
+                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                $teacherid = $row15['teacherid'];
+                $query14 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+                while($row16 = mysqli_fetch_assoc($query14))
+                {
+                    $id = $row16['id'];
+                    echo '<td scope="col" class="rounded-q1"> '. $row16['fname'] . $row16['lname'] . '</td>';
+                }
+                echo "</tr>";
+                mysqli_close($DB);
+            }
+
           break;
       }
 ?> 
     </tbody>
 </table>
 
-<table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">User's Clubs</h3>
-    	<tr>
-        	<th scope="col" class="rounded-company">Club. ID</th>
-        	<th scope="col" class="rounded-q1">Class Name</th>
-            <th scope="col" class="rounded-q4">Assigned Teacher</th>
-            
-            
-        </tr>
-    </thead>
-        
-    <tbody>
-    	<tr>
-        	<td></td>
-            <td></td>
-            <td></td>
-           
-            
-            
-        </tr>
-        
-    </tbody>
-</table>
+
 
 
 
