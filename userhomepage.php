@@ -148,7 +148,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

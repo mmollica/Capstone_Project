@@ -117,9 +117,15 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               
               	?>
               
-            
+                   <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-              <li><a href="#">Discussions</a></li>
+                ?>
+
+              <?php 
+              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
+              
+                ?>
               <li><a href="#">Grades</a></li>
 	
             </ul>

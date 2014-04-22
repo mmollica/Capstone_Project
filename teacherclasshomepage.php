@@ -139,8 +139,15 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
               	?>
+                   <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-              <li><a href="#">Discussions</a></li>
+                ?>
+
+              <?php 
+              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
+              
+                ?>
               <li><a href="#">Grades</a></li>
 
             </ul>
