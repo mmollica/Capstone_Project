@@ -17,7 +17,7 @@ if(Input::exists())
 
    
       $assign = new ParentStudentMatch();
-
+      
       try
       {
         $assign->create(array(
@@ -156,7 +156,7 @@ if(Input::exists())
 				<select name="studentid" onChange="htmlData('removeparent.php', 'parent='+this.value)" />
   				<option value="#">-Select-</option>
   				<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
-					<?php $result = mysqli_query($con,'SELECT * FROM users Where groups = 3 ORDER BY lname ASC'); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM users Where groups = 3 AND id NOT IN(SELECT studentid FROM parent_student_match)ORDER BY lname ASC'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['id'];?>"> 
 					<?php echo htmlspecialchars($row['username']) . "-" . htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?>  
