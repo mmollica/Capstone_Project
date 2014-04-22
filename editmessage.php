@@ -100,6 +100,7 @@ $name = $user->data()->username;
               <li ><a href="createusers.php">Create</a></li>
               <li ><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.php">View</a></li>
+              <li><a href="assignparent.php">Assign a Parent to a Student</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
@@ -111,11 +112,12 @@ $name = $user->data()->username;
               <li><a href="createclub.php">Create</a></li>
               <li><a href="editclub.php">Edit</a></li>
               <li><a href="viewclub.php">View</a></li>
+              <li><a href="assignclub.php">Assign a Student to a Club</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
               <li><a href="editlink.php">Edit</a></li>
-              
+              <li><a href="viewlink.php">View</a></li>
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>

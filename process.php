@@ -13,7 +13,6 @@ $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
 
 // Get value of id that sent from hidden field 
 $userid=$_POST['userid'];
-$pass=$_POST['password'];
 $firstname=$_POST['fname'];
 $lastname=$_POST['lname'];
 $address=$_POST['address'];
@@ -30,7 +29,7 @@ switch ($_POST['process']) {
       
       case 'Update':
 	  
-        $sql3="UPDATE users SET password='$pass', fname='$firstname', lname='$lastname', address='$address', city='$city', state='$state', zip='$zip', groups='$group' WHERE id= $userid";
+        $sql3="UPDATE users SET fname='$firstname', lname='$lastname', address='$address', city='$city', state='$state', zip='$zip', groups='$group' WHERE id= $userid";
 		$result3=mysqli_query($con,$sql3);  
 		
 		echo '<form id="processuser" name="form1" method="get" action="staffhomepage.html">';
