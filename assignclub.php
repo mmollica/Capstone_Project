@@ -14,8 +14,9 @@ require_once 'core/init.php';
 if(Input::exists())
 {
 	$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
-	$class=$_POST['classid'];
-  $result2 = mysqli_query($con,"SELECT * FROM class WHERE id = $class");
+	$club=$_POST['clubid'];
+	echo $club;
+  $result2 = mysqli_query($con,"SELECT * FROM club WHERE id = $club");
   
   $teacherid=0;
   
@@ -28,12 +29,12 @@ if(Input::exists())
 
 
    
-      $assign = new Classassign();
+      $assign = new Clubassign();
 
       try
       {
         $assign->create(array(
-          'classid' => Input::get('classid'),
+          'clubid' => Input::get('clubid'),
           'studentid' => Input::get('studentid') ,
 		  'teacherid'=>$teacherid    
           ));
@@ -129,23 +130,22 @@ if(Input::exists())
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-               <li class="nav-header">Users</li>
+              <li class="nav-header">Users</li>
               <li ><a href="createusers.php">Create</a></li>
               <li ><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.php">View</a></li>
-              <li><a href="assignparent.php">Assign a Parent to a Student</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
               <li><a href="editclasses.php">Edit</a></li>
               <li><a href="viewclass.php">View</a></li>
-              <li class="active"><a href="assignstudent.php">Assign a Student to a Class</a></li>
+              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
               <li><a href="editclub.php">Edit</a></li>
               <li><a href="viewclub.php">View</a></li>
-              <li><a href="assignclub.php">Assign a Student to a Club</a></li>
+              <li class="active"><a href="assignclub.php">Assign a Student to a Club</a></li>
               
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
@@ -165,14 +165,14 @@ if(Input::exists())
             
             <form id="createclass" action="" method="post">
         
-				<label >Select a class:</label>
-				<select name="classid" onChange="htmlData('remove.php', 'class='+this.value)" />
+				<label >Select a club:</label>
+				<select name="clubid" onChange="htmlData('removeclub.php', 'club='+this.value)" />
   				<option value="#">-Select-</option>
   				<?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
-					<?php $result = mysqli_query($con,'SELECT * FROM class ORDER BY classname ASC'); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM club ORDER BY clubname ASC'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['id'];?>"> 
-					<?php echo htmlspecialchars($row['id']) . " - " . htmlspecialchars($row['classname']); ?>  
+					<?php echo htmlspecialchars($row['id']) . " - " . htmlspecialchars($row['clubname']); ?>  
 					</option> 
 					<?php } ?>
 					<?php mysqli_close($con);?> 
