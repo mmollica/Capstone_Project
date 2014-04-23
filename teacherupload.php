@@ -96,6 +96,9 @@ if(Input::exists())
 	    }
 	        else
     {
+    	$upload = new Upload();
+	    date_default_timezone_set('America/New_York');
+	    $time = date("Y-m-d H:i:s");
     	try
 	            {
 	                $upload->createassignment(array(
@@ -115,12 +118,13 @@ if(Input::exists())
 	        die($e->getMessage());
 	            }
 	}
+	echo '<form id="processuser" name="form1" method="get" action="teacherassignmentpage.php">';
+	echo '<input name="classid" type="hidden" value=' . $classid . ' class="btn btn-large btn-success">';
+	echo '</form>';   
+    break;
 }
 		
-		echo '<form id="processuser" name="form1" method="get" action="teacherassignmentpage.php">';
-		echo '<input name="classid" type="hidden" value=' . $classid . ' class="btn btn-large btn-success">';
-		echo '</form>';   
-            break;
+		
 
       case 'content':
 	 
@@ -138,8 +142,8 @@ if(Input::exists())
 	      $fileType = $_FILES['content']["type"];
 	      $fileData = file_get_contents($_FILES['content']['tmp_name']);
 	      
-	      $total = Input::get('total');
-	      echo $total;
+	
+	      
 
 	      if(!get_magic_quotes_gpc()) 
 	      {
@@ -179,10 +183,8 @@ if(Input::exists())
 	                  'classid' =>  $classid,
 	                  'date_added' => $time,
 	                  'description'=> Input::get('description'),
-	                  'assignmentname'=> Input::get('assignmentname'),
-	                  'duedate'=>Input::get('duedate'),
-	                  'type'=> 2,
-	                  'total'=>Input::get('total'),
+	                  'assignmentname'=> Input::get('assignmentname'),	                 
+	                  'type'=> 2,                  
 	                  'file_name'=>$fileName,
 	                  'file_type'=>$fileType,
 	                  'file_size'=>$fileSize,
@@ -200,6 +202,9 @@ if(Input::exists())
     }
     else
     {
+    	$upload = new Upload();
+	     date_default_timezone_set('America/New_York');
+	     $time = date("Y-m-d H:i:s");
     	try
 	            {
 	                $upload->createassignment(array(
@@ -207,9 +212,7 @@ if(Input::exists())
 	                  'date_added' => $time,
 	                  'description'=> Input::get('description'),
 	                  'assignmentname'=> Input::get('assignmentname'),
-	                  'duedate'=>Input::get('duedate'),
-	                  'type'=> 2,
-	                  'total'=>Input::get('total'),
+	                  'type'=> 2
 	             
 	                            ));
 
@@ -219,13 +222,15 @@ if(Input::exists())
 	        die($e->getMessage());
 	            }
 	}
+	echo $classid;
+	echo '<form id="processuser" name="form1" method="get" action="teachercontentpage.php">';
+	echo '<input name="classid" type="hidden" value=' . $classid . ' class="btn btn-large btn-success">';
+	echo '</form>';   
+    break;
+
 }
 		
-		echo '<form id="processuser" name="form1" method="get" action="teacherassignmentpage.php">';
-		echo '<input name="classid" type="hidden" value=' . $classid . ' class="btn btn-large btn-success">';
-		echo '</form>';   
-        break;
-
+		
 }
 
 ?>

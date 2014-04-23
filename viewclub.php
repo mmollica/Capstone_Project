@@ -99,7 +99,7 @@
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
               <li><a href="editlink.php">Edit</a></li>
-              <li><a href="viewlink.php">View</a></li>
+  
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>

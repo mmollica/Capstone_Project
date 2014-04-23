@@ -145,7 +145,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>Description</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['assignmentdescrip'] . ' </textarea>';
+			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['description'] . ' </textarea>';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>Due Date:</b></label>';

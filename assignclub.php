@@ -134,6 +134,7 @@ if(Input::exists())
               <li ><a href="createusers.php">Create</a></li>
               <li ><a href="editusers.php">Edit</a></li>
               <li><a href="viewusers.php">View</a></li>
+              <li><a href="assignparent.php">Assign a Parent to a Student</a></li>
               
               <li class="nav-header">Classes</li>
               <li><a href="createclasses.php">Create</a></li>
