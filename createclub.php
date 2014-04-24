@@ -70,7 +70,7 @@ if(Input::exists())
 
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Create Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -178,7 +178,7 @@ if(Input::exists())
         </div><!--/span-->
         <div class="span9" style="height:850px">
           <div class="login" >
-            <h1 style="margin-top:-40px; margin-left:200px;">Create Classes</h1>
+            <h1 style="margin-top:-40px; margin-left:200px;">Create Club</h1>
             
             <form id="createclass" action="" method="post" ; style="margin-left:215px;">
             <span id="sprytextfield1">
@@ -192,7 +192,7 @@ if(Input::exists())
                           <label for="Assigned Teacher">Assigned Teacher:</label>
                           <select name="teacherid">
                             <?php $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db"); ?> 
-                        <?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 1'); ?> 
+                        <?php $result = mysqli_query($con,'SELECT * FROM users WHERE groups= 2'); ?> 
                         <?php while($row = mysqli_fetch_assoc($result)) { ?> 
                             <option value="<?php echo $row['id'];?>"> 
                                 <?php echo htmlspecialchars($row['fname']) . " " . htmlspecialchars($row['lname']); ?> 

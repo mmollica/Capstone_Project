@@ -223,15 +223,15 @@ if(Input::exists())
           <input type="text" name="city" id="city">
           <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
-          <span id="sprytextfield8">
+          
           <label for="state">State:</label>
-          <input type="text" name="state" id="state" size="2">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
+          <input type="text" name="state" id="state" size="2" maxlength="2">
+          <span class="textfieldRequiredMsg">A value is required.</span>
           <br/>
-          <span id="sprytextfield9">
+       
           <label for="zip">Zip Code:</label>
-          <input type="text" name="zip" id="zip" size="5">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
+          <input type="text" name="zip" id="zip" size="5" maxlength="5">
+          <span class="textfieldRequiredMsg">A value is required.</span>
           <br/>
         <span id="spryselect1">
           <label for="type">Account Type:</label>

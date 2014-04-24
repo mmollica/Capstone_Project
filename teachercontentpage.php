@@ -73,6 +73,12 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
+  <script language="JavaScript">
+            function download (id)
+            {
+                window.open ("download.php?fileId="+id, "hiddenFrame");
+            }
+</script>
   </head>
 
   <body>
@@ -94,7 +100,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -148,14 +154,30 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
            	<?php
         	while ($row = mysqli_fetch_assoc($result))
 			{	
-			$assignmentid= $row['assignmentid'];
-			  echo '<form id="content" method="get" action="editcontentpage.php" >';
-			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
-			 echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
-			 echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
-			 echo '<input name="classid" type="hidden" value=' .$classid .'>';
-			 echo '</form>';
-			 echo"<br>";
+  			if($row['file_name']==true)
+        {
+          $assignmentid= $row['assignmentid'];
+    			echo '<form id="content" method="get" action="editcontentpage.php" >';
+          echo "<li style='margin-left:-40px'><a href='javascript:download(".$row['assignmentid'].")'> ".$row['assignmentname']."</a></li>";
+          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+    			echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+    			echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
+    			echo '<input name="classid" type="hidden" value=' .$classid .'>';
+    			echo '</form>';
+    			echo"<br>";
+        }
+        else
+        {
+          $assignmentid= $row['assignmentid'];
+          echo '<form id="content" method="get" action="editcontentpage.php" >';
+          echo "<li style='margin-left:-40px'>".$row['assignmentname']."</a></li>";
+          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+          echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+          echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
+          echo '<input name="classid" type="hidden" value=' .$classid .'>';
+          echo '</form>';
+          echo"<br>";
+        }
 			}
                
 			?>
