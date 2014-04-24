@@ -17,7 +17,7 @@ $query2 = mysqli_query($con,"SELECT * FROM club WHERE id= $clubid ");
 ?>
   <head>
     <meta charset="utf-8">
-    <title>View Class</title>
+    <title>View Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">

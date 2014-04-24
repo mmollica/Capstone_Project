@@ -17,7 +17,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 ?>
   <head>
     <meta charset="utf-8">
-    <title>View</title>
+    <title>View Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -248,7 +248,14 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
             echo    '</thead>';
                       
             echo    '<tbody>';
-            $query17 = mysqli_query($con, "SELECT * FROM club");
+            $clubid = 0;
+            $clublist = mysqli_query($con, "SELECT * FROM clubassign WHERE studentid=$userid");
+            while($clubthing = mysqli_fetch_assoc($clublist))
+            {
+              $clubid = $clubthing['clubid'];
+              
+            }
+            $query17 = mysqli_query($con, "SELECT * FROM club WHERE id = $clubid");
 
             if(!$query17)
             {
@@ -275,7 +282,8 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           break;
           case '4':
           $parentid = 0;
-            while($row6 = mysqli_fetch_assoc($query1))
+            $parentquery = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
+            while($row6 = mysqli_fetch_assoc($parentquery))
             {
               $parentid = $row6['id'];
             }
@@ -286,12 +294,25 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 $query6 = mysqli_query($con, "SELECT * FROM users WHERE id = $studentid");
                 while($row8 = mysqli_fetch_assoc($query6))
                 {
+                  echo "<table id='rounded-corner' style='margin-left:100px;' >";
+                  echo "  <thead> <h3 style='margin-left:250px;'>Parent's Student</h3>";
                   echo "<tr>";
-                  echo "<th scope='col' class='rounded-company'>". $row8['id'] . "</th>";
-                  echo "<th scope='col' class='rounded-q2'>". $row8['fname'] . $row8['lname'] . "</th>";
-                  echo '<th scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $studentid . ' "> '. $row8['username'] . '</a></th>';
-                  echo "<th scope='col' class='rounded-q1'>". $row8['address'] . " " . $row8['city'] . " " . $row8['state'] . " " . $row8['zip'] .  "</th>";
-                  echo "<th scope='col' class='rounded-q1'>Student</th>";   
+                  echo "<th scope='col' class='rounded-company'>ID</th>";
+                  echo "<th scope='col' class='rounded-q1'>Name</th>";
+                  echo "<th scope='col' class='rounded-q1'>Username</th>";
+                  echo "<th scope='col' class='rounded-q2'>Address</th>";
+                  
+                 
+                  echo "</tr>";
+                  echo "</thead>";
+
+                  echo "<tbody>";
+                  echo "<tr>";
+                  echo "<td scope='col' class='rounded-company'>". $row8['id'] . "</td>";
+                  echo "<td scope='col' class='rounded-q2'>". $row8['fname'] . $row8['lname'] . "</td>";
+                  echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $studentid . ' "> '. $row8['username'] . '</a></td>';
+                  echo "<td scope='col' class='rounded-q1'>". $row8['address'] . " " . $row8['city'] . " " . $row8['state'] . " " . $row8['zip'] .  "</td>";
+                     
                   echo "<table id='rounded-corner' style='margin-left:100px;' >";
                   echo "  <thead> <h3 style='margin-left:250px;'>Student's Classes</h3>";
                   echo "<tr>";
@@ -315,16 +336,16 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                             {
                             $classid = $row10['id'];
                             echo "<tr>";
-                            echo "<th scope='col' class='rounded-company'>". $row10['id'] . "</th>";
-                            echo '<th scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid=' . $classid . ' "> '. $row10['classname'] . '</a></th>';
-                            echo "<th scope='col' class='rounded-q1'>". $row10['subject'] . "</th>";
+                            echo "<td scope='col' class='rounded-company'>". $row10['id'] . "</td>";
+                            echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid=' . $classid . ' "> '. $row10['classname'] . '</a></td>';
+                            echo "<td scope='col' class='rounded-q1'>". $row10['subject'] . "</td>";
                             $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                             $teacherid = $row10['teacherid'];
                             $query9 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                             while($row11 = mysqli_fetch_assoc($query9))
                             {
                                 $id = $row11['id'];
-                                echo '<th scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid=' . $id . ' "> '. $row11['fname'] . $row11['lname'] . '</a></th>';
+                                echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid=' . $id . ' "> '. $row11['fname'] . $row11['lname'] . '</a></td>';
                             }
                             echo "</tr>";
                             mysqli_close($DB);
@@ -374,6 +395,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 echo "</tr>";
                 mysqli_close($DB);
             }
+            break;
 
             case '2':
             echo "<table id='rounded-corner' style='margin-left:100px;' >";
@@ -435,30 +457,27 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
             {
               $teacherid = $row12['id'];
             }
-            $query12 = mysqli_query($con, "SELECT * FROM club");
+            
 
-            if(!$query12)
-            {
-                die(mysqli_error($con));
-            }
-
-            while($row15 = mysqli_fetch_assoc($query12))
-                {
-                $clubid = $row15['id'];
-                echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row15['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row15['clubname'] . '</a></td>';
-                $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
-                $teacherid = $row15['teacherid'];
-                $query14 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
-                while($row16 = mysqli_fetch_assoc($query14))
-                {
-                    $id = $row16['id'];
-                    echo '<td scope="col" class="rounded-q1"> '. $row16['fname'] . $row16['lname'] . '</td>';
-                }
-                echo "</tr>";
-                mysqli_close($DB);
-            }
+              $query12 = mysqli_query($con, "SELECT * FROM club WHERE teacherid=$teacherid");
+              while($row15 = mysqli_fetch_assoc($query12))
+              {
+                  $clubid = $row15['id'];
+                  echo "<tr>";
+                  echo "<td scope='col' class='rounded-company'>". $row15['id'] . "</td>";
+                  echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row15['clubname'] . '</a></td>';
+                  $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+                  $teacherid = $row15['teacherid'];
+                  $query14 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
+                  while($row16 = mysqli_fetch_assoc($query14))
+                  {
+                      $id = $row16['id'];
+                      echo '<td scope="col" class="rounded-q1"> '. $row16['fname'] . $row16['lname'] . '</td>';
+                  }
+                  echo "</tr>";
+                  mysqli_close($DB);
+              }
+            
 
           break;
       }

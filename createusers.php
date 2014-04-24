@@ -78,7 +78,7 @@ if(Input::exists())
 
   <head>
     <meta charset="utf-8">
-    <title>User Creation</title>
+    <title>Create User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
