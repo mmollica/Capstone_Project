@@ -10,10 +10,10 @@ if (!$con)
          die('Could not connect: ' . mysqli_error($con));
     }
 
-$classid=$_GET['clubid'];
+$clubid=$_GET['clubid'];
  
 
-$query2 = mysqli_query($con,"SELECT * FROM class WHERE id= $clubid ");
+$query2 = mysqli_query($con,"SELECT * FROM club WHERE id= $clubid ");
 ?>
   <head>
     <meta charset="utf-8">
@@ -103,12 +103,12 @@ $query2 = mysqli_query($con,"SELECT * FROM class WHERE id= $clubid ");
               <li><a href="createclasses.php">Create</a></li>
               <li><a href="editclasses.php">Edit</a></li>
               <li><a href="viewclass.php">View</a></li>
-              <li class="active"><a href="assignstudent.php">Assign a Student to a Class</a></li>
+              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
               
               <li class="nav-header">Clubs</li>
               <li><a href="createclub.php">Create</a></li>
               <li><a href="editclub.php">Edit</a></li>
-              <li class="active"><a href="viewclub.php">View</a></li>
+              <li><a href="viewclub.php">View</a></li>
               <li><a href="assignclub.php">Assign a Student to a Club</a></li>
               
               <li class="nav-header">Links</li>
@@ -127,7 +127,7 @@ $query2 = mysqli_query($con,"SELECT * FROM class WHERE id= $clubid ");
           <div class="viewbox2" >
 
 <table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">Class Info</h3>
+  <thead> <h3 style="margin-left:250px;">Club Info</h3>
     	<tr>
         	<th scope="col" class="rounded-company">Club ID</th>
         	<th scope="col" class="rounded-q1">Club Name</th>

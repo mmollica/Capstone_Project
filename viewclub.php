@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
   <head>
     <meta charset="utf-8">
     <title>View Club</title>
@@ -197,4 +196,3 @@
 
   </script>
   </body>
-</html>

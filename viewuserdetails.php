@@ -260,7 +260,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 $classid = $row19['id'];
                 echo "<tr>";
                 echo "<td scope='col' class='rounded-company'>". $row19['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row19['clubname'] . '</a></td>';
+                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row19['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row19['teacherid'];
                 $query18 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
@@ -362,7 +362,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 $classid = $row17['id'];
                 echo "<tr>";
                 echo "<td scope='col' class='rounded-company'>". $row17['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row17['clubname'] . '</a></td>';
+                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row17['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row17['teacherid'];
                 $query16 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
@@ -387,16 +387,19 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
             echo "<tbody>";
             $teacherid = 0;
-            while($row12 = mysqli_fetch_assoc($query1))
+            $teacherquery = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
+            while($row12 = mysqli_fetch_assoc($teacherquery))
             {
               $teacherid = $row12['id'];
             }
+            
             $query10 = mysqli_query($con,"SELECT * FROM classassign WHERE teacherid = $teacherid ");
             while($row13 = mysqli_fetch_assoc($query10))
             {
               $classid = $row13['classid'];
-              $query11 = mysqli_query($con,"SELECT * FROM class WHERE id= $classid ");
             
+              $query11 = mysqli_query($con,"SELECT * FROM class WHERE id= $classid ");
+              
               while($row14 = mysqli_fetch_assoc($query11))
                   {
                   $classid = $row14['id'];
@@ -426,6 +429,12 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
     echo    '</thead>';
               
     echo    '<tbody>';
+            $teacherid = 0;
+            $teacherquery = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
+            while($row12 = mysqli_fetch_assoc($teacherquery))
+            {
+              $teacherid = $row12['id'];
+            }
             $query12 = mysqli_query($con, "SELECT * FROM club");
 
             if(!$query12)
@@ -435,10 +444,10 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
             while($row15 = mysqli_fetch_assoc($query12))
                 {
-                $classid = $row15['id'];
+                $clubid = $row15['id'];
                 echo "<tr>";
                 echo "<td scope='col' class='rounded-company'>". $row15['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . '"> ' . $row15['clubname'] . '</a></td>';
+                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row15['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row15['teacherid'];
                 $query14 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");

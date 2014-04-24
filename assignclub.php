@@ -10,12 +10,13 @@ require_once 'core/init.php';
 }
 */
 
-
+$user = new User();
+$name = $user->data()->username;
 if(Input::exists())
 {
 	$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
 	$club=$_POST['clubid'];
-	echo $club;
+	
   $result2 = mysqli_query($con,"SELECT * FROM club WHERE id = $club");
   
   $teacherid=0;
@@ -54,7 +55,7 @@ if(Input::exists())
 
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Assign Student to Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -112,7 +113,7 @@ if(Input::exists())
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
               <li class="active"><a href="staffhomepage.html">Home</a></li>
@@ -185,7 +186,7 @@ if(Input::exists())
 			 
 
       <br>
-          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success" >
+          <input name="Create" type="submit" value="Assign" class="btn btn-large btn-success" >
           <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" >
           </form>
           </div>
