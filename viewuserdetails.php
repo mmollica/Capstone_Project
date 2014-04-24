@@ -3,15 +3,17 @@ ini_set('display_startup_errors', TRUE);
 ini_set('display_errors',1); 
 error_reporting(E_ALL);
 
+
 $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
 if (!$con)
     {
          die('Could not connect: ' . mysqli_error($con));
     }
-
+require_once 'class/init.php';
 $userid=$_GET['userid'];
- 
+ $user = new User();
+$name = $user->data()->username;
 $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
 ?>
@@ -75,7 +77,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
             <li><a href="staffhomepage.html">Home</a></li>
