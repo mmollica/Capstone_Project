@@ -16,7 +16,8 @@ $classid=$_POST['classid'];
 
 
 // branch on the basis of 'calculate' value 
-switch ($_POST['process']) {
+switch ($_POST['process']) 
+{
       
       case 'assignment':
 	  
@@ -229,7 +230,6 @@ if(Input::exists())
     break;
 
 }
-		
 		
 }
 

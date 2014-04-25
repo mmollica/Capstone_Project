@@ -131,11 +131,7 @@ if(Input::exists())
               <span class="selectRequiredMsg">Please select an user type.</span></span>
               <br/> -->
               
-            <span id="sprycheckbox1">
-            <input type="checkbox" name="Remember Me" id="Remember Me">
-            <label for="Remember Me">Remember Me</label>
-            
-              
+     
               <br/>   
               <input name="Sign-In" type="submit" value="Sign-In" class="btn btn-large btn-success">
               </form> 
