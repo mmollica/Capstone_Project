@@ -141,10 +141,6 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               
               	?>
               
-              <?php 
-              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
-              
-              	?>
               
               <?php 
               echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
