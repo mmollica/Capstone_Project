@@ -1,4 +1,12 @@
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
 
+require_once 'core/init.php';
+$user = new User();
+$name = $user->data()->username;
+?>
   <head>
     <meta charset="utf-8">
     <title>View Club</title>
@@ -160,7 +168,7 @@ vertical-align: middle;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
               <li><a href="staffhomepage.html">Home</a></li>

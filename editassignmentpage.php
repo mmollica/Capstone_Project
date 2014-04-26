@@ -139,13 +139,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
            	<?php	
 				while ($row = mysqli_fetch_assoc($result))
 			{	
-			  echo '<form id="content" method="get" action="teacherassignmentpage.php" >';
+			  echo '<form method="post" action="teacherdelete.php" enctype="multipart/form-data">';
 			  echo '<label><b>Title</b></label>';
-			 echo '<input name="title" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
+			 echo '<input name="assignmentname" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>Description</b></label>';
-			 echo '<textarea name="Description" cols="5" rows="3"> ' . $row['description'] . ' </textarea>';
+			 echo '<textarea name="description" cols="5" rows="3"> ' . $row['description'] . ' </textarea>';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>Due Date:</b></label>';
@@ -157,11 +157,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<label><b>File Upload</b></label>';
-			 echo '<input name="Content" type="file">';
+			 echo '<input name="content" type="file">';
 			 echo '<br>';
 			 echo '<br>';
 			 echo '<input name="classid" type="hidden" value=' . $classid . '>';
-			 echo '<input name="Edit" type="submit" value="Update" class="btn btn-med btn-success">';
+       echo '<input name="assignmentid" type="hidden" value=' . $content . '>';
+       echo '<input name="process" type="submit" value="Update Assignment" class="btn btn-med btn-success">';
+       echo '<input name="process" type="submit" value="Delete Assignment" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">';
 			 echo '</form>';
 			 echo"<br>";
 			} 

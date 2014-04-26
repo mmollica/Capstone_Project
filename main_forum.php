@@ -119,6 +119,11 @@ $username=$user->data()->username;
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
               	?>
+                 
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
+              
+                ?>
               <li><a href="#">Grades</a></li>
 	
             </ul>
@@ -134,7 +139,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","host","test","capstone_db");
+    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
     if (!$con)
         {

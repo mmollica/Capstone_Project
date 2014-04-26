@@ -141,10 +141,6 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               
               	?>
               
-              <?php 
-              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
-              
-              	?>
               
               <?php 
               echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
@@ -152,7 +148,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               	?>
               
               <?php 
-              echo '<li><a href="mainforum_student.php?classid= ' . $classid . ' ">Discussion</a></li>';
+              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
               	?>
               <li><a href="#">Grades</a></li>

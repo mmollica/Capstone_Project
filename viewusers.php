@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  <?php
 ini_set('display_startup_errors', TRUE);
 ini_set('display_errors',1); 
@@ -19,6 +20,17 @@ date_default_timezone_set('America/New_York');
     
 ?>
 
+=======
+<?php
+ini_set('display_startup_errors', TRUE);
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
+
+require_once 'core/init.php';
+$user = new User();
+$name = $user->data()->username;
+?>
+>>>>>>> 8ce1ce81cd0a5db19c2f24297fb064bcb39a4255
   <head>
     <meta charset="utf-8">
     <title>View Users</title>
@@ -182,7 +194,11 @@ vertical-align: middle;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
+<<<<<<< HEAD
               Logged in as <?php echo $username; ?>
+=======
+              Logged in as <?php echo $name ?>
+>>>>>>> 8ce1ce81cd0a5db19c2f24297fb064bcb39a4255
             </p>
             <ul class="nav">
                 <li><a href="staffhomepage.html">Home</a></li>
@@ -296,7 +312,11 @@ vertical-align: middle;
                     break;
                 }
                 echo "</tr>";
+<<<<<<< HEAD
                
+=======
+                
+>>>>>>> 8ce1ce81cd0a5db19c2f24297fb064bcb39a4255
             }
 ?> 
     

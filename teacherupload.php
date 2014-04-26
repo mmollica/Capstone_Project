@@ -16,7 +16,8 @@ $classid=$_POST['classid'];
 
 
 // branch on the basis of 'calculate' value 
-switch ($_POST['process']) {
+switch ($_POST['process']) 
+{
       
       case 'assignment':
 	  
@@ -50,7 +51,7 @@ if(Input::exists())
 	  
 
 	   
-	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
 	      $temp = explode(".", $_FILES['content']["name"]);
 	      //$ext = end($temp);
 	      $temp2 = end($temp);
@@ -158,7 +159,7 @@ if(Input::exists())
 	  
 
 	   
-	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
 	      $temp = explode(".", $_FILES['content']["name"]);
 	      //$ext = end($temp);
 	      $temp2 = end($temp);
@@ -229,7 +230,6 @@ if(Input::exists())
     break;
 
 }
-		
 		
 }
 

@@ -2,41 +2,75 @@
 ini_set('display_startup_errors', TRUE);
 ini_set('display_errors',1); 
 error_reporting(E_ALL);
+
 require_once 'core/init.php';
 
+/*if(Input::exists())
+{
+  echo 'submitted';
+}
+*/
+$classid = $_GET['classid'];
+$user = new User();
+$name = $user->data()->username;
+$id = $user->data()->id;
+if(Input::exists())
+{
+  
+  
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+    $validate = new Validate();
 
-    if (!$con)
-        {
-             die('Could not connect: ' . mysqli_error($con));
-        }
+    $validation = $validate->check($_POST, array(
+      'title' => array('required' => true),
+      'msg' => array('required' => true),
+      'date_added' => array('required' => true)    
+    ));
+  
+    if($validation->passed())
+    {
+      
+      $msg = new Message();
 
-   
- 
-$user= new User();	
-    
-$id= $user->data()->id;
+      try
+      {
+        $msg->create2(array(
+          'title' => Input::get('title'),
+          'msg' => Input::get('msg'),
+          'date_added' => Input::get('date_added'),
+          'classid' => $classid,
+          'teacherid'=> $id
+          ));
 
-$username=$user->data()->username;
-
-$classid=$_GET['classid'];
-$content=$_GET['contentid'];
-
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $content");
+        Session::flash('home', 'You have registered a user');
+        Redirect::to('teacherclasshomepage.php');
+      }
+      catch(Exception $e)
+      {
+        die($e->getMessage());
+      }
+    }
+    else
+    {
+      foreach($validation->errors() as $error)
+      {
+        echo $error, '<br>';
+      }
+    }
+  
+}
 
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Edit Content</title>
+    <title>Create Message</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
-    <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -68,6 +102,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
+  <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
+  <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+  <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+  
+  <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -83,10 +124,10 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+              Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
-              <li class="active"><a href="userhomepage.php">Home</a></li>
+              <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -98,147 +139,78 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 
     <div class="container-fluid">
       <div class="row-fluid">
-
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                   <?php 
+            <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
-                
-                <?php 
+                ?>
+                   <?php 
               echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-              	?>
-                
-                <?php 
+                ?>
+
+              
+              <?php 
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
-              	?>
+                ?>
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
+                ?>
               <li><a href="#">Grades</a></li>
-	
+  
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-         <div class="span9" style="height:850px">
-
+        <div class="span9" style="height:850px">
           <div class="viewbox" >
-            <h1 style="margin-top:-30px; margin-left:250px">Edit Content</h1>
+            <h1 style="margin-top:-40px; margin-left:200px;">Create Message</h1>
             <br>
-    
-              
-             <ol type="square" style="padding:10px;">
-           	<?php
-        	while ($row = mysqli_fetch_assoc($result))
-			{	
-			 echo '<form method="post" action="teacherdelete.php" enctype="multipart/form-data">';
-			 echo '<label><b>Title:</b></label>';
-			 echo '<input name="assignmentname" type="text" value=' . $row['assignmentname'] . ' maxlength="50" size="30">';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>Description</b></label>';
-			 echo '<textarea name="description" cols="5" rows="3"> ' . $row['description'] . ' </textarea>';
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<label><b>File Upload</b></label>';
-			 echo "<input name='content' type='file'>";
-			 echo '<br>';
-			 echo '<br>';
-			 echo '<input name="classid" type="hidden" value=' . $classid . '>';
-       echo '<input name="assignmentid" type="hidden" value=' . $content . '>';
-			 echo '<input name="process" type="submit" value="Update Content" class="btn btn-med btn-success">';
-       echo '<input name="process" type="submit" value="Delete Content" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">';
-			 echo '</form>';
-			 echo"<br>";
-			}
-               
-			?>
-      		 </ol>
+            <br>
+            <form id="createmessage" action="" method="post" style=" margin-left:215px;">
+            <span id="sprytextfield1">
+            <label for="Link Name">Message Title:</label>
+            <input type="text" name="title" id="Message Title">
+          <span class="textfieldRequiredMsg">A value is required.</span></span>
+          <br/>
+         
+          <span id="sprytextfield3">
+          <label for="Message Date">Date:</label>
+          <input type="date" name="date_added" id="Date">
+          <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
+          <br>
+          <span id="sprytextarea1">
+          <label for="Message">Message:</label>
+          <textarea name="msg" id="Message" cols="45" rows="10" style="width:500px"></textarea>
+          <span class="textareaRequiredMsg">A value is required.</span></span><br>
+      <br>
+          <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
+          
+          
+          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success">
+          </form>
           </div>
           </div><!--/row-->
 
       <hr>
-	      
+      
+<footer>
+    <p>&copy; Company 2013</p>
+      </footer>
 
-			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
-		</div>
-
+    </div><!--/.fluid-container-->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script>
- 
-  jQuery( document ).ready(function($) {
-    
-	
-	 $('#myCarousel').carousel({
-                interval: 10000
-        });
- 
-        $('#carousel-text').html($('#slide-content-0').html());
- 
-        //Handles the carousel thumbnails
-        $('[id^=carousel-selector-]').click( function(){
-                var id_selector = $(this).attr("id");
-                var id = id_selector.substr(id_selector.length -1);
-                var id = parseInt(id);
-                $('#myCarousel').carousel(id);
-        });
- 
- 
-        // When the carousel slides, auto update the text
-        $('#myCarousel').on('slid', function (e) {
-                var id = $('.item.active').data('slide-number');
-                $('#carousel-text').html($('#slide-content-'+id).html());
-        });
-	
-});
-
-function classFunction()
-{
-	document.getElementById("content").submit();	
-}
-
-function workFunction()
-{
-	document.getElementById("assignment").submit();	
-}
-
-function quizFunction()
-{
-	document.getElementById("quiz").submit();	
-}
-
-function discussionFunction()
-{
-	document.getElementById("discuss").submit();	
-}
-
-function gradesFunction()
-{
-	document.getElementById("grade").submit();	
-}
- 
- function uploadFunction()
-{
-	document.getElementById("aUpload").submit();	
-}
-
-  </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>
     <script src="bootstrap-alert.js"></script>
@@ -252,5 +224,13 @@ function gradesFunction()
     <script src="bootstrap-collapse.js"></script>
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
-
+  <script type="text/javascript">
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
+var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
+var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
+var spryselect2 = new Spry.Widget.ValidationSelect("spryselect2");
+var spryselect3 = new Spry.Widget.ValidationSelect("spryselect3");
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
+  </script>
   </body>

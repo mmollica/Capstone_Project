@@ -146,16 +146,7 @@ $username=$user->data()->username;
 <td valign="top">:</td>
 <td><textarea name="detail" cols="50" rows="3" id="detail"></textarea></td>
 </tr>
-<tr>
-<td><strong>Name</strong></td>
-<td>:</td>
-<td><input name="name" type="text" id="name" size="50" /></td>
-</tr>
-<tr>
-<td><strong>Email</strong></td>
-<td>:</td>
-<td><input name="email" type="text" id="email" size="50" /></td>
-</tr>
+
 <tr>
 
 <td><?php echo '<input name="classid" type="hidden" value=' . $classid .'>'; ?></td>

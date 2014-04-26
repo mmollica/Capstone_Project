@@ -156,9 +156,7 @@ echo '<tr>';
 echo '<td bgcolor="#F8F7F1">' .$row['detail'] . '</td>';
 echo '</tr>';
 
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1">' . '<strong>By :</strong>' . $row['name'] . '<br><strong>Email : </strong>' . $row['email'] . '</td>';
-echo '</tr>';
+
 
 echo '<tr>';
 echo '<td bgcolor="#F8F7F1">' . '<strong>Date/time : </strong>' . $row['datetime'] . '</td>';
@@ -184,21 +182,13 @@ while($rows=mysqli_fetch_assoc($result2))
 echo '<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">';
 echo ' <tr>';
 echo '<td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">';
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1"><strong>ID</strong></td>';
-echo ' <td bgcolor="#F8F7F1">:</td>';
-echo '<td bgcolor="#F8F7F1">' . $rows['a_id'] . '</td>';
-echo '</tr>';
+
 echo '<tr>';
 echo '<td width="18%" bgcolor="#F8F7F1"><strong>Name</strong></td>';
 echo '<td width="5%" bgcolor="#F8F7F1">:</td>';
 echo '<td width="77%" bgcolor="#F8F7F1">' . $rows['a_name'] . '</td>';
 echo '</tr>';
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1"><strong>Email</strong></td>';
-echo '<td bgcolor="#F8F7F1">:</td>';
-echo '<td bgcolor="#F8F7F1">' . $rows['a_email'] . '</td>';
-echo '</tr>';
+
 echo '<tr>';
 echo '<td bgcolor="#F8F7F1"><strong>Answer</strong></td>';
 echo '<td bgcolor="#F8F7F1">:</td>';
@@ -252,11 +242,7 @@ mysqli_close($con);
 <td width="3%">:</td>
 <td width="79%"><input name="a_name" type="text" id="a_name" size="45"></td>
 </tr>
-<tr>
-<td><strong>Email</strong></td>
-<td>:</td>
-<td><input name="a_email" type="text" id="a_email" size="45"></td>
-</tr>
+
 <tr>
 <td valign="top"><strong>Answer</strong></td>
 <td valign="top">:</td>
@@ -267,7 +253,7 @@ mysqli_close($con);
 <?php
 echo '<td><input name="forumid" type="hidden" value=' . $forumid . '></td>';
 echo '<td><input name="classid" type="hidden" value=' . $classid . '></td>';
-echo '<td><input type="submit" name="Submit" value="Submit"> <input type="reset" name="Submit2" value="Reset" style="margin-left:90px"></td>';
+echo '<td><input type="submit" name="Submit" value="Submit"> <input type="reset" name="Submit2" value="Clear" style="margin-left:90px"></td>';
 echo '</tr>';
 echo '</table>';
 echo '</td>';

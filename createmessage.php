@@ -22,7 +22,7 @@ if(Input::exists())
     $validation = $validate->check($_POST, array(
       'title' => array('required' => true),
       'msg' => array('required' => true),
-      'date' => array('required' => true)    
+      'date_added' => array('required' => true)    
     ));
   
     if($validation->passed())
@@ -35,7 +35,7 @@ if(Input::exists())
         $msg->create1(array(
           'title' => Input::get('title'),
           'msg' => Input::get('msg'),
-          'date' => Input::get('date')    
+          'date_added' => Input::get('date_added')    
           ));
 
         Session::flash('home', 'You have registered a user');
@@ -183,7 +183,7 @@ if(Input::exists())
          
           <span id="sprytextfield3">
           <label for="Message Date">Date:</label>
-          <input type="date" name="date" id="Date">
+          <input type="date" name="date_added" id="Date">
           <span class="textfieldRequiredMsg">A value is required.</span></span><br/>
           <br>
           <span id="sprytextarea1">
