@@ -99,7 +99,7 @@ if(Input::exists())
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <?php echo $name ?>
+              Logged in as <?php echo $name; ?>
             <ul class="nav">
               <li class="active"><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
@@ -137,7 +137,7 @@ if(Input::exists())
               <li class="nav-header">Links</li>
               <li ><a href="createlink.php">Create</a></li>
               <li><a href="editlink.php">Edit</a></li>
-              <li><a href="viewlink.php">View</a></li>
+              
               
               <li class="nav-header"> School Messages</li>
               <li><a href="createmessage.php">Create</a></li>
@@ -148,9 +148,9 @@ if(Input::exists())
         </div><!--/span-->
         <div class="span9" style="height:850px">
           <div class="login" >
-            <h1 style="margin-top:-60px;">Assign Parent</h1>
+            <h1 style="margin-top:-40px;  margin-left:200px;">Assign Parent</h1>
             
-            <form id="createclass" action="" method="post">
+            <form id="createclass" action="" method="post" style=" margin-left:215px;">
         
 				<label >Select a Student:</label>
 				<select name="studentid" onChange="htmlData('removeparent.php', 'parent='+this.value)" />

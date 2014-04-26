@@ -24,6 +24,107 @@
           padding-right: 5px;
         }
       }
+	  
+	  .table-bordered {
+border: 1px solid #dddddd;
+border-collapse: separate;
+border-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.table {
+width: 100%;
+margin-bottom: 20px;
+background-color: transparent;
+border-collapse: collapse;
+border-spacing: 0;
+display: table;
+}
+
+.widget.widget-table .table {
+margin-bottom: 0;
+border: none;
+}
+
+.widget.widget-table .widget-content {
+padding: 0;
+}
+
+.widget .widget-header + .widget-content {
+border-top: none;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+}
+
+.widget .widget-content {
+padding: 20px 15px 15px;
+background: #FFF;
+border: 1px solid #D5D5D5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.widget .widget-header {
+position: relative;
+height: 40px;
+line-height: 40px;
+background: #E9E9E9;
+background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+text-shadow: 0 1px 0 #fff;
+border-radius: 5px 5px 0 0;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1),inset 0 1px 0 white,inset 0 -1px 0 rgba(255,255,255,0.7);
+border-bottom: 1px solid #bababa;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+border: 1px solid #D5D5D5;
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+-webkit-background-clip: padding-box;
+}
+
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.widget .widget-header h3 {
+top: 2px;
+position: relative;
+left: 10px;
+display: inline-block;
+margin-right: 3em;
+font-size: 14px;
+font-weight: 600;
+color: #555;
+line-height: 18px;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.widget .widget-header [class^="icon-"], .widget .widget-header [class*=" icon-"] {
+display: inline-block;
+margin-left: 13px;
+margin-right: -2px;
+font-size: 16px;
+color: #555;
+vertical-align: middle;
+}
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -108,16 +209,21 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9" style="height:1000px">
-          <div class="viewbox2" >
-
-
-
- <table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">Club Info</h3>
+           <div class="widget stacked widget-table action-table">
+    				
+				<div class="widget-header">
+					<i class="icon-th-list"></i>
+					<h2 style="margin-top:-15px;margin-left:300px;">Club Information</h2>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+					
+					<table class="table table-striped table-bordered">
+  <thead>
     	<tr>
-        	<th scope="col" class="rounded-company">Club ID</th>
-        	<th scope="col" class="rounded-q1">Club Name</th>
-            <th scope="col" class="rounded-q4">Teacher Assigned</th>
+        	<th>Club ID</th>
+        	<th>Club Name</th>
+            <th>Teacher Assigned</th>
           
         </tr>
     </thead>
@@ -147,15 +253,15 @@
                 {
                 $clubid = $row['id'];
                 echo "<tr>";  
-                echo "<td scope='col' class='rounded-company'>". $row['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row['clubname'] . '</a></td>';
+                echo "<td>". $row['id'] . "</td>";
+                echo '<td><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row['teacherid'];
                 $result2 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                 while($row2 = mysqli_fetch_assoc($result2))
                 {
                     $id = $row2['id'];
-                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . $row2['lname'] . '</a></td>';
+                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . $row2['lname'] . '</a></td>';
                 }
                 echo "</tr>";
                 mysqli_close($DB);
@@ -163,6 +269,8 @@
 ?> 
     </tbody>
 </table>
+</div>
+</div>
 
 
           </div>

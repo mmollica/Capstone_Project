@@ -2,13 +2,21 @@
 ini_set('display_startup_errors', TRUE);
 ini_set('display_errors',1); 
 error_reporting(E_ALL);
-
+require_once 'core/init.php';
 $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
 if (!$con)
     {
          die('Could not connect: ' . mysqli_error($con));
     }
+
+
+$user= new User();	
+    
+
+$username=$user->data()->username;
+$fname=$user->data()->fname;
+$lname=$user->data()->lname;
 
 $userid=$_GET['userid'];
  
@@ -23,7 +31,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">    <style type="text/css">
+    <link href="bootstrap.css" rel="stylesheet">    	<style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -40,6 +48,107 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           padding-right: 5px;
         }
       }
+	  
+	  .table-bordered {
+border: 1px solid #dddddd;
+border-collapse: separate;
+border-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.table {
+width: 100%;
+margin-bottom: 20px;
+background-color: transparent;
+border-collapse: collapse;
+border-spacing: 0;
+display: table;
+}
+
+.widget.widget-table .table {
+margin-bottom: 0;
+border: none;
+}
+
+.widget.widget-table .widget-content {
+padding: 0;
+}
+
+.widget .widget-header + .widget-content {
+border-top: none;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+}
+
+.widget .widget-content {
+padding: 20px 15px 15px;
+background: #FFF;
+border: 1px solid #D5D5D5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.widget .widget-header {
+position: relative;
+height: 40px;
+line-height: 40px;
+background: #E9E9E9;
+background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+text-shadow: 0 1px 0 #fff;
+border-radius: 5px 5px 0 0;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1),inset 0 1px 0 white,inset 0 -1px 0 rgba(255,255,255,0.7);
+border-bottom: 1px solid #bababa;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+border: 1px solid #D5D5D5;
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+-webkit-background-clip: padding-box;
+}
+
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.widget .widget-header h3 {
+top: 2px;
+position: relative;
+left: 10px;
+display: inline-block;
+margin-right: 3em;
+font-size: 14px;
+font-weight: 600;
+color: #555;
+line-height: 18px;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.widget .widget-header [class^="icon-"], .widget .widget-header [class*=" icon-"] {
+display: inline-block;
+margin-left: 13px;
+margin-right: -2px;
+font-size: 16px;
+color: #555;
+vertical-align: middle;
+}
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -75,7 +184,7 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
             <li><a href="staffhomepage.html">Home</a></li>
@@ -123,60 +232,82 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9" style="height:1000px">
-          <div class="viewbox" >
-  <table id="rounded-corner" summary="2007 Major IT Companies Profit" style="margin-left:100px;">
-  <thead> <h3 style="margin-left:250px;">User Info</h3>
+    <div class="span9" style="height:1000px">
+          <div class="widget stacked widget-table action-table">
+    				
+				<div class="widget-header">
+					<i class="icon-th-list"></i>
+					<h2 style="margin-top:-15px;margin-left:300px;">User's Information</h2>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+					
+					<table class="table table-striped table-bordered">
+  <thead>
     	<tr>
-        	<th scope="col" class="rounded-company">User. ID</th>
-        	<th scope="col" class="rounded-q1">Name</th>
-            <th scope="col" class="rounded-q3">Username</th>
-            <th scope="col" class="rounded-q5">Address</th>
-            <th scope="col" class="rounded-q4">Account Type</th>
+          <th>User. ID</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Address</th>
+          <th>Account Type</th>
             
         </tr>
     </thead>
-        
     <tbody>
         <?php
+            
+            $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
 
-            if(!$query1)
+            if (!$con)
+            {
+                 die('Could not connect: ' . mysqli_error($con));
+            }
+
+             
+            $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
+
+            if(!$result)
             {
                 die(mysqli_error($con));
             }
 
-            while($row = mysqli_fetch_assoc($query1))
+            while($row = mysqli_fetch_assoc($result))
                 {
                 $userid = $row['id'];
                 echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row['id'] . "</td>";
-                echo "<td scope='col' class='rounded-q2'>". $row['fname'] . $row['lname'] . "</td>";
-                echo "<td scope='col' class='rounded-q1'>". $row['username'] . "</td>";
-                echo "<td scope='col' class='rounded-q1'>". $row['address'] . " " . $row['city'] . " " . $row['state'] . " " . $row['zip'] .  "</td>";
+                echo "<td>". $row['id'] . "</td>";
+                echo '<td><a href="viewuserdetails.php?userid=' . $userid . '"> ' . $row['fname'] . $row['lname'] . '</a></td>';
+                echo "<td>". $row['username'] . "</td>";
+                echo "<td>". $row['address'] . " " . $row['city'] . " " . $row['state'] . " " . $row['zip'] .  "</td>";
                 $groups = $row['groups'];
                 switch ($groups) {
                   case '1':
-                    echo "<td scope='col' class='rounded-q1'>Staff</td>";
+                    echo "<td>Staff</td>";
                     break;
                   case '2':
-                    echo "<td scope='col' class='rounded-q1'>Teacher</td>";
+                    echo "<td>Teacher</td>";
                     break;
                   case '3':
-                    echo "<td scope='col' class='rounded-q1'>Student</td>";
+                    echo "<td>Student</td>";
                     break;
                   case '4':
-                    echo "<td scope='col' class='rounded-q1'>Parent</td>";
+                    echo "<td>Parent</td>";
                     break;
                   default:
                     echo "error";
                     break;
                 }
                 echo "</tr>";
-                
+               
             }
-          
-          echo  "</tbody>";
-          echo "</table>";
+
+    
+    	   
+    echo '</tbody>';
+echo '</table>';
+
+echo '</div>';
+echo '</div>';
           //Display Classes
           $requery1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           $groups = 0;
@@ -189,14 +320,25 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           switch ($groups) 
           {
             case '3':
+			echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo "<h2 style='margin-top:-15px;margin-left:300px;'>User's Classes</h2>";
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+					
 
-          echo "<table id='rounded-corner' style='margin-left:100px;' >";
-          echo "  <thead> <h3 style='margin-left:250px;'>User's Classes</h3>";
+          echo "<table class='table table-striped table-bordered'>";
+          echo "<thead>";
           echo "<tr>";
-          echo "<th scope='col' class='rounded-company'>Class. ID</th>";
-          echo "<th scope='col' class='rounded-q1'>Class Name</th>";
-          echo "<th scope='col' class='rounded-q2'>Class Subject</th>";
-          echo "<th scope='col' class='rounded-q4'>Assigned Teacher</th>";
+          echo "<th>Class. ID</th>";
+          echo "<th>Class Name</th>";
+          echo "<th>Class Subject</th>";
+          echo "<th>Assigned Teacher</th>";
           echo "</tr>";
           echo "</thead>";
 
@@ -216,16 +358,16 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 {
                 $classid = $row4['id'];
                 echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row4['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid= ' . $classid . ' "> ' . $row4['classname'] . '</a></td>';
-                echo "<td scope='col' class='rounded-q1'>". $row4['subject'] . "</td>";
+                echo "<td>". $row4['id'] . "</td>";
+                echo '<td><a href="viewclassdetails.php?classid= ' . $classid . ' "> ' . $row4['classname'] . '</a></td>';
+                echo "<td>". $row4['subject'] . "</td>";
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row4['teacherid'];
                 $query4 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                 while($row5 = mysqli_fetch_assoc($query4))
                 {
                     $id = $row5['id'];
-                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> ' . $row5['fname'] . $row5['lname'] . '</a></td>';
+                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> ' . $row5['fname'] . $row5['lname'] . '</a></td>';
                 }
                 echo "</tr>";
                 mysqli_close($DB);
@@ -235,13 +377,26 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
           }
             echo   '</tbody>';
             echo  '</table>';
-
-            echo '<table id="rounded-corner"  style="margin-left:100px;">';
-            echo "<thead> <h3 style='margin-left:250px;'>User's Clubs</h3>";
+			echo '</div>';
+			echo '</div>';
+			
+			echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo "<h2 style='margin-top:-15px;margin-left:300px;'>User's Clubs</h2>";
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+				
+            echo '<table class="table table-striped table-bordered">';
+            echo "<thead>";
             echo '<tr>';
-            echo '<th scope="col" class="rounded-company">Club. ID</th>';
-            echo '<th scope="col" class="rounded-q1">Class Name</th>';
-            echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+            echo '<th>Club. ID</th>';
+            echo '<th>Class Name</th>';
+            echo '<th>Assigned Teacher</th>';
                           
                           
             echo    '</tr>';
@@ -266,19 +421,25 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 {
                 $classid = $row19['id'];
                 echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row19['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row19['clubname'] . '</a></td>';
+                echo "<td>". $row19['id'] . "</td>";
+                echo '<td><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row19['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row19['teacherid'];
                 $query18 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                 while($row20 = mysqli_fetch_assoc($query18))
                 {
                     $id = $row20['id'];
-                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row20['fname'] . $row20['lname'] . '</a></td>';
+                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row20['fname'] . $row20['lname'] . '</a></td>';
                 }
-                echo "</tr>";
+            
+				
                 mysqli_close($DB);
             }
+			    echo "</tr>";
+				echo "</tbody>";
+				echo "</table>";
+				echo '</div>';
+				echo '</div>';
           break;
           case '4':
           $parentid = 0;
@@ -294,13 +455,25 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 $query6 = mysqli_query($con, "SELECT * FROM users WHERE id = $studentid");
                 while($row8 = mysqli_fetch_assoc($query6))
                 {
-                  echo "<table id='rounded-corner' style='margin-left:100px;' >";
-                  echo "  <thead> <h3 style='margin-left:250px;'>Parent's Student</h3>";
+					
+				  	echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo "<h2 style='margin-top:-15px;margin-left:300px;'>Parent's Student</h2>";
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+				
+                  echo "<table class='table table-striped table-bordered'>";
+                  echo "  <thead>";
                   echo "<tr>";
-                  echo "<th scope='col' class='rounded-company'>ID</th>";
-                  echo "<th scope='col' class='rounded-q1'>Name</th>";
-                  echo "<th scope='col' class='rounded-q1'>Username</th>";
-                  echo "<th scope='col' class='rounded-q2'>Address</th>";
+                  echo "<th>ID</th>";
+                  echo "<th>Name</th>";
+                  echo "<th>Username</th>";
+                  echo "<th>Address</th>";
                   
                  
                   echo "</tr>";
@@ -308,18 +481,35 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
                   echo "<tbody>";
                   echo "<tr>";
-                  echo "<td scope='col' class='rounded-company'>". $row8['id'] . "</td>";
-                  echo "<td scope='col' class='rounded-q2'>". $row8['fname'] . $row8['lname'] . "</td>";
-                  echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $studentid . ' "> '. $row8['username'] . '</a></td>';
-                  echo "<td scope='col' class='rounded-q1'>". $row8['address'] . " " . $row8['city'] . " " . $row8['state'] . " " . $row8['zip'] .  "</td>";
-                     
-                  echo "<table id='rounded-corner' style='margin-left:100px;' >";
-                  echo "  <thead> <h3 style='margin-left:250px;'>Student's Classes</h3>";
+                  echo "<td>". $row8['id'] . "</td>";
+                  echo "<td>". $row8['fname'] . $row8['lname'] . "</td>";
+                  echo '<td><a href="viewuserdetails.php?userid= ' . $studentid . ' "> '. $row8['username'] . '</a></td>';
+                  echo "<td>". $row8['address'] . " " . $row8['city'] . " " . $row8['state'] . " " . $row8['zip'] .  "</td>";
+                  
+				echo "</tr>";
+				echo "</tbody>";
+				echo "</table>";
+				echo '</div>';
+				echo '</div>';
+				
+				echo '<br>';
+			
+				echo ' <div class="widget stacked widget-table action-table">';
+    				
+				echo '<div class="widget-header">';
+				echo '<i class="icon-th-list"></i>';
+				echo "<h2 style='margin-top:-15px;margin-left:300px;'>Student's Classes</h2>";
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+				  
+                  echo "<table class='table table-striped table-bordered'>";
+                  echo "  <thead>";
                   echo "<tr>";
-                  echo "<th scope='col' class='rounded-company'>Class. ID</th>";
-                  echo "<th scope='col' class='rounded-q1'>Class Name</th>";
-                  echo "<th scope='col' class='rounded-q2'>Class Subject</th>";
-                  echo "<th scope='col' class='rounded-q4'>Assigned Teacher</th>";
+                  echo "<th>Class. ID</th>";
+                  echo "<th>Class Name</th>";
+                  echo "<th>Class Subject</th>";
+                  echo "<th>Assigned Teacher</th>";
                   echo "</tr>";
                   echo "</thead>";
 
@@ -336,16 +526,16 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                             {
                             $classid = $row10['id'];
                             echo "<tr>";
-                            echo "<td scope='col' class='rounded-company'>". $row10['id'] . "</td>";
-                            echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid=' . $classid . ' "> '. $row10['classname'] . '</a></td>';
-                            echo "<td scope='col' class='rounded-q1'>". $row10['subject'] . "</td>";
+                            echo "<td>". $row10['id'] . "</td>";
+                            echo '<td><a href="viewclassdetails.php?classid=' . $classid . ' "> '. $row10['classname'] . '</a></td>';
+                            echo "<td>". $row10['subject'] . "</td>";
                             $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                             $teacherid = $row10['teacherid'];
                             $query9 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                             while($row11 = mysqli_fetch_assoc($query9))
                             {
                                 $id = $row11['id'];
-                                echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid=' . $id . ' "> '. $row11['fname'] . $row11['lname'] . '</a></td>';
+                                echo '<td><a href="viewuserdetails.php?userid=' . $id . ' "> '. $row11['fname'] . $row11['lname'] . '</a></td>';
                             }
                             echo "</tr>";
                             mysqli_close($DB);
@@ -358,13 +548,27 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
             echo   '</tbody>';
             echo  '</table>';
-
-            echo '<table id="rounded-corner"  style="margin-left:100px;">';
-            echo "<thead> <h3 style='margin-left:250px;'>Student's Clubs</h3>";
+			echo '</div>';
+			echo '</div>';
+			
+			
+			echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+			echo '<div class="widget-header">';
+			echo '<i class="icon-th-list"></i>';
+			echo "<h2 style='margin-top:-15px;margin-left:300px;'>Student's Clubs</h2>";
+			echo '</div>'; 
+				
+			echo '<div class="widget-content">';
+				  
+            echo '<table class="table table-striped table-bordered">';
+            echo "<thead>";
             echo '<tr>';
-            echo '<th scope="col" class="rounded-company">Club. ID</th>';
-            echo '<th scope="col" class="rounded-q1">Class Name</th>';
-            echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+            echo '<th>Club. ID</th>';
+            echo '<th>Class Name</th>';
+            echo '<th>Assigned Teacher</th>';
                           
                           
             echo    '</tr>';
@@ -382,28 +586,44 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                 {
                 $classid = $row17['id'];
                 echo "<tr>";
-                echo "<td scope='col' class='rounded-company'>". $row17['id'] . "</td>";
-                echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row17['clubname'] . '</a></td>';
+                echo "<td>". $row17['id'] . "</td>";
+                echo '<td><a href="viewclubdetails.php?clubid= ' . $classid . '"> ' . $row17['clubname'] . '</a></td>';
                 $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                 $teacherid = $row17['teacherid'];
                 $query16 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                 while($row18 = mysqli_fetch_assoc($query16))
                 {
                     $id = $row18['id'];
-                    echo '<td scope="col" class="rounded-q1"><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row18['fname'] . $row18['lname'] . '</a></td>';
+                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row18['fname'] . $row18['lname'] . '</a></td>';
                 }
                 echo "</tr>";
                 mysqli_close($DB);
             }
+			    echo   '</tbody>';
+            echo  '</table>';
+			echo '</div>';
+			echo '</div>';
             break;
 
             case '2':
-            echo "<table id='rounded-corner' style='margin-left:100px;' >";
-            echo "  <thead> <h3 style='margin-left:250px;'>User's Classes</h3>";
+				
+			echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+			echo '<div class="widget-header">';
+			echo '<i class="icon-th-list"></i>';
+			echo "<h2 style='margin-top:-15px;margin-left:300px;'>User's Classes</h2>";
+			echo '</div>'; 
+				
+			echo '<div class="widget-content">';
+			
+            echo "<table class='table table-striped table-bordered'>";
+            echo "  <thead>";
             echo "<tr>";
-            echo "<th scope='col' class='rounded-company'>Class. ID</th>";
-            echo "<th scope='col' class='rounded-q1'>Class Name</th>";
-            echo "<th scope='col' class='rounded-q2'>Class Subject</th>";
+            echo "<th>Class. ID</th>";
+            echo "<th>Class Name</th>";
+            echo "<th>Class Subject</th>";
             echo "</tr>";
             echo "</thead>";
 
@@ -426,25 +646,37 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
                   {
                   $classid = $row14['id'];
                   echo "<tr>";
-                  echo "<td scope='col' class='rounded-company'>". $row14['id'] . "</td>";
-                  echo '<td scope="col" class="rounded-q2"><a href="viewclassdetails.php?classid=' . $classid . ' "> ' . $row14['classname'] . '</a></td>';
-                  echo "<td scope='col' class='rounded-q1'>". $row14['subject'] . "</td>";
+                  echo "<td >". $row14['id'] . "</td>";
+                  echo '<td ><a href="viewclassdetails.php?classid=' . $classid . ' "> ' . $row14['classname'] . '</a></td>';
+                  echo "<td>". $row14['subject'] . "</td>";
               
                   }
             }
             
             
 
-
-    echo   '</tbody>';
-    echo  '</table>';
-
-    echo '<table id="rounded-corner"  style="margin-left:100px;">';
-    echo "<thead> <h3 style='margin-left:250px;'>User's Clubs</h3>";
+ 		    echo   '</tbody>';
+            echo  '</table>';
+			echo '</div>';
+			echo '</div>';
+	
+			echo '<br>';
+			
+			echo ' <div class="widget stacked widget-table action-table">';
+    				
+			echo '<div class="widget-header">';
+			echo '<i class="icon-th-list"></i>';
+			echo "<h2 style='margin-top:-15px;margin-left:300px;'>User's Clubs</h2>";
+			echo '</div>'; 
+				
+			echo '<div class="widget-content">';
+			
+    echo '<table class="table table-striped table-bordered">';
+    echo "<thead>";
     echo '<tr>';
-    echo '<th scope="col" class="rounded-company">Club. ID</th>';
-    echo '<th scope="col" class="rounded-q1">Class Name</th>';
-    echo '<th scope="col" class="rounded-q4">Assigned Teacher</th>';
+    echo '<th>Club. ID</th>';
+    echo '<th>Class Name</th>';
+    echo '<th>Assigned Teacher</th>';
                   
                   
     echo    '</tr>';
@@ -464,31 +696,34 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
               {
                   $clubid = $row15['id'];
                   echo "<tr>";
-                  echo "<td scope='col' class='rounded-company'>". $row15['id'] . "</td>";
-                  echo '<td scope="col" class="rounded-q2"><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row15['clubname'] . '</a></td>';
+                  echo "<td>". $row15['id'] . "</td>";
+                  echo '<td><a href="viewclubdetails.php?clubid= ' . $clubid . '"> ' . $row15['clubname'] . '</a></td>';
                   $DB = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
                   $teacherid = $row15['teacherid'];
                   $query14 = mysqli_query($DB, "SELECT * FROM users WHERE id=$teacherid");
                   while($row16 = mysqli_fetch_assoc($query14))
                   {
                       $id = $row16['id'];
-                      echo '<td scope="col" class="rounded-q1"> '. $row16['fname'] . $row16['lname'] . '</td>';
+                      echo '<td> '. $row16['fname'] . $row16['lname'] . '</td>';
                   }
                   echo "</tr>";
                   mysqli_close($DB);
               }
             
-
+		    echo   '</tbody>';
+            echo  '</table>';
+			echo '</div>';
+			echo '</div>';
+			
           break;
       }
 ?> 
-    </tbody>
-</table>
+ 
 
 
 
 
-
+			</div>
 
           </div>
           </div><!--/row-->
