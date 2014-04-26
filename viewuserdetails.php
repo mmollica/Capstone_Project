@@ -276,7 +276,7 @@ vertical-align: middle;
                 $userid = $row['id'];
                 echo "<tr>";
                 echo "<td>". $row['id'] . "</td>";
-                echo '<td><a href="viewuserdetails.php?userid=' . $userid . '"> ' . $row['fname'] . $row['lname'] . '</a></td>';
+                echo '<td>' . $row['fname'] . $row['lname'] . '</a></td>';
                 echo "<td>". $row['username'] . "</td>";
                 echo "<td>". $row['address'] . " " . $row['city'] . " " . $row['state'] . " " . $row['zip'] .  "</td>";
                 $groups = $row['groups'];
@@ -635,7 +635,7 @@ echo '</div>';
               $teacherid = $row12['id'];
             }
             
-            $query10 = mysqli_query($con,"SELECT * FROM classassign WHERE teacherid = $teacherid ");
+            $query10 = mysqli_query($con,"SELECT DISTINCT * FROM classassign WHERE teacherid = $teacherid GROUP BY classid");
             while($row13 = mysqli_fetch_assoc($query10))
             {
               $classid = $row13['classid'];
