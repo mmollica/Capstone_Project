@@ -73,6 +73,12 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
+                                   <script language="JavaScript">
+            function download (id)
+            {
+                window.open ("download.php?fileId="+id, "hiddenFrame");
+            }
+</script> 
   </head>
 
   <body>
@@ -146,8 +152,22 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
            	<?php
         	while ($row = mysqli_fetch_assoc($result))
 			{	
-			 echo '<li style="margin-left:-40px">' . $row['assignmentname'] . '</li>';
+        if($row['file_name']==true)
+        {
+        echo "<ul>";
+			 echo "<li style='margin-left:-40px'><a href='javascript:download(".$row['assignmentid'].")'> ".$row['assignmentname']."</a></li>";
+       echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+       echo "</ul>";
 			 echo"<br>";
+      }
+      else
+      {
+          echo "<ul>";
+       echo "<li style='margin-left:-40px'>".$row['assignmentname']."</a></li>";
+       echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+       echo "</ul>";
+       echo"<br>";
+      }
 			}
                
 			?>

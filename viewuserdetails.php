@@ -10,7 +10,7 @@ if (!$con)
     {
          die('Could not connect: ' . mysqli_error($con));
     }
-require_once 'class/init.php';
+require_once 'core/init.php';
 $userid=$_GET['userid'];
  $user = new User();
 $name = $user->data()->username;

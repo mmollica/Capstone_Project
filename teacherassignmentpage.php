@@ -130,6 +130,11 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
                 ?>
+                 
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
+              
+                ?>
               <li><a href="#">Grades</a></li>
 	
             </ul>

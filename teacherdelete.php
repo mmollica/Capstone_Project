@@ -43,7 +43,7 @@ switch ($_POST['process'])
 
 
 
-			$allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+			$allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
 			$temp = explode(".", $_FILES['content']["name"]);
 			//$ext = end($temp);
 			$temp2 = end($temp);
@@ -111,7 +111,7 @@ switch ($_POST['process'])
 
 
 
-			$allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "xdoc");
+			$allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
 			$temp = explode(".", $_FILES['content']["name"]);
 			//$ext = end($temp);
 			$temp2 = end($temp);
