@@ -44,7 +44,7 @@ $result41 = mysqli_query($con,"SELECT clubid FROM clubassign WHERE studentid= $i
 $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE parentid= $id");				
 
 
-  /*  if(!$result)
+    if(!$result)
         {
         die(mysqli_error($con));
         }
@@ -67,7 +67,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 	if(!$result5)
         {
         die(mysqli_error($con));
-        }*/
+        }
 		
 		
 		
@@ -94,7 +94,8 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
+   <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -114,7 +115,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
         }
       }
     </style>
-    <link href="bootstrap-responsive.css" rel="stylesheet">
+    <link href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -122,11 +123,11 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="file:///C|/Users/Adiyiah/Desktop/New Html Style/bootstrap-2.3.2/docs/assets/ico/favicon.png">
   </head>
 
   <body>
@@ -148,7 +149,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="logout.php">Log Out</a></li>
+              <li><a href="#contact">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -164,16 +165,176 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				$time = date("l F jS Y h:i A");
 				echo '<li>' . '<h5 style=" margin:auto;margin-top:0px;">' .'Welcome To The Hive- '. $fname . ' ' . $lname .  '</h5>' . '</li>';
 				echo '<br>';
-				echo '<li>' . $time . '</li>';
+				echo '<li style="text-align:center">' . $time . '</li>';
 				?>
             </ul>
           </div><!--/.well -->
+            <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+             <h3 style="text-align:center">Class List</h3>
+              <ul type="none" style="padding:10px;">
+              <?php
+			  
+			  if ($group==4)
+			  {
+				  
+				   while ($row = mysqli_fetch_assoc($result5))
+				{
+					$sid= $row['studentid'];
+				  
+				  $class = mysqli_query($con,"SELECT classid FROM classassign WHERE studentid= $sid ");
+				  
+				  	 while ($row2 = mysqli_fetch_assoc($class))
+					{
+						$cid= $row2['classid'];
+						$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cid ");
+						
+						while ($row3 = mysqli_fetch_assoc($names))
+						{
+					
+						 echo '<form id="class" action="classhomepage.php" method="post">';
+					 	 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
+					 	 echo "<li style='text-align:center';>" . '<input name="Create" type="submit" value=' . $row3['classname'] .' class="btn btn-small btn-success" >' . "</li>" ;
+                		 echo '</form>';
+				 
+						}
+			
+					}
+					
+					
+					
+					
+				}
+				  
+				  
+				  
+				  
+			  }
+		
+			  
+			  
+			  
+			  
+		else
+		{	  
+			  while ($row2 = mysqli_fetch_assoc($result3))
+			{
+				$cn= $row2['classid'];
+				$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cn ");
+			
+				
+				if( $group==3)
+				{
+				  	while ($row = mysqli_fetch_assoc($names))
+					{
+					
+					 echo '<form id="class" action="classhomepage.php" method="post">';
+					 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
+					 echo "<li style='text-align:center';>" . '<input name="Create" type="submit" value=' . $row['classname'] .' class="btn btn-small btn-success">' . "</li>" ;
+                	 echo '</form>';
+				 
+					}
+					
+				}
+				
+				
+				
+				else if( $group==2)
+				{
+					
+					while ($row = mysqli_fetch_assoc($names))
+					{
+					
+					 echo '<form id="class" action="teacherclasshomepage.php" method="post">';
+					 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
+					 echo "<li style='text-align:center';>" . '<input name="Create" type="submit" value=' . $row['classname'] .' class="btn btn-small btn-success">' . "</li>" ;
+                	 echo '</form>';
+				 
+					}
+					
+				}
+			
+			}
+			
+		}
+			  ?>
+             
+        </ul>
+            </ul>
+            
+            
+          </div><!--/.well -->
+          
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+             <h3 style="text-align:center">Club List</h3>
+              <ul type="none" style="padding:10px;">
+          	
+
+			<?php
+			
+			 if ($group==4)
+			  {
+				  
+				   while ($row = mysqli_fetch_assoc($result51))
+				{
+					$sid= $row['studentid'];
+					
+						while ($row2 = mysqli_fetch_assoc($result41))
+					{
+						$cid= $row2['clubid'];
+						$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cid "); 
+				
+				  			while ($row3 = mysqli_fetch_assoc($names))
+						{
+				  			 echo '<form id="createclub" action="" method="post">';
+							 echo '<input name="clubid" type="hidden" value=' . $cid .' class="btn btn-small btn-success">';
+					 		 echo "<li style='text-align:center';>" . '<input name="Club" type="submit" value=' . $row3['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
+        
+         		   			 echo '</form>';
+				 
+						}
+			
+					}
+					
+				}
+				
+			  }
+					
+				
+				
+				
+		else
+		{			
+			  while ($row = mysqli_fetch_assoc($result4))
+			{
+				$cn= $row['clubid'];
+				$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cn "); 
+				
+				  while ($row = mysqli_fetch_assoc($names))
+				{
+        					 echo '<form id="createclub" action="" method="post">';
+							 echo '<input name="clubid" type="hidden" value=' . $cn .' class="btn btn-small btn-success">';
+					 		 echo "<li style='text-align:center';>" . '<input name="Club" type="submit" value=' . $row['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
+        
+         		   			 echo '</form>';
+				 
+				 
+				}
+			
+			}
+		}
+			  ?>
+          </ul>
+          </ul>
+          </div>
+          
         </div><!--/span-->
-        <div class="span9">
+        <div class="span9" style="position: relative">
         
      
         
-           <div id="myCarousel" class= "carousel slide" data-ride="carousel">
+      <div id="myCarousel" class= "carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -243,220 +404,34 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
                 
-          <div class="row-fluid">
-            <div class="span4" style="margin-left:35px;">
-              <h2 style="margin-top:-60px;">Class List</h2>
-              <ul type="square" style="padding:10px;">
-              <?php
-			  
-			  if ($group==4)
-			  {
-				  
-				   while ($row = mysqli_fetch_assoc($result5))
-				{
-					$sid= $row['studentid'];
-				  
-				  $class = mysqli_query($con,"SELECT classid FROM classassign WHERE studentid= $sid ");
-				  
-				  	 while ($row2 = mysqli_fetch_assoc($class))
-					{
-						$cid= $row2['classid'];
-						$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cid ");
-						
-						while ($row3 = mysqli_fetch_assoc($names))
-						{
-					
-						 echo '<form id="class" action="classhomepage.php" method="post">';
-					 	 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
-					 	 echo "<li>" . '<input name="Create" type="submit" value=' . $row3['classname'] .' class="btn btn-small btn-success" >' . "</li>" ;
-                		 echo '</form>';
-				 
-						}
-			
-					}
-					
-					
-					
-					
-				}
-				  
-				  
-				  
-				  
-			  }
-		
-			  
-			  
-			  
-			  
-		else
-		{	  
-			  while ($row2 = mysqli_fetch_assoc($result3))
-			{
-				$cn= $row2['classid'];
-				$names = mysqli_query($con," SELECT classname FROM class WHERE id= $cn ");
-			
-				
-				if( $group==3)
-				{
-				  	while ($row = mysqli_fetch_assoc($names))
-					{
-					
-					 echo '<form id="class" action="classhomepage.php" method="post">';
-					 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
-					 echo "<li>" . '<input name="Create" type="submit" value=' . $row['classname'] .' class="btn btn-small btn-success">' . "</li>" ;
-                	 echo '</form>';
-				 
-					}
-					
-				}
-				
-				
-				
-				else if( $group==2)
-				{
-					
-					while ($row = mysqli_fetch_assoc($names))
-					{
-					
-					 echo '<form id="class" action="teacherclasshomepage.php" method="post">';
-					 echo '<input name="classid" type="hidden" value=' . $row2['classid'] .'>';
-					 echo "<li>" . '<input name="Create" type="submit" value=' . $row['classname'] .' class="btn btn-small btn-success">' . "</li>" ;
-                	 echo '</form>';
-				 
-					}
-					
-				}
-			
-			}
-			
-		}
-			  ?>
-             
-        </ul>
-             
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px;">
-              <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
-              <ul type="square">
-          			
-                            <li> <a href="">Pre-Algebra Grade posted.</a></li>
-                            <li> <a href="">Engish II Grade Posted</a></li>
-                            <li> <a href="">Biology's Assignment posted.</a></li>
-                    </ul>
-              
-            </div><!--/span-->
-            </div>
             
-            <div class="row-fluid">
-            <div class="span4" style="margin-left:35px; margin-top:50px">
-              <h2 style="margin-top:-60px;">My Club List</h2>
-              <ul type="square">
-          	<?php
-			
-			 if ($group==4)
-			  {
-				  
-				   while ($row = mysqli_fetch_assoc($result51))
-				{
-					$sid= $row['studentid'];
-					
-						while ($row2 = mysqli_fetch_assoc($result41))
-					{
-						$cid= $row2['clubid'];
-						$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cid "); 
-				
-				  			while ($row3 = mysqli_fetch_assoc($names))
-						{
-        					 echo "<li>" . "<a>" . $row3['clubname'] . "</li>" ;
-				  			 echo '<form id="createclub" action="" method="post">';
-				   			 echo '<input name="club" type="hidden" value=' . $cn .'>';
-        
-         		   			 echo '</form>';
-				 
-						}
-			
-					}
-					
-				}
-				
-			  }
-					
-				
-				
-				
-		else
-		{			
-			  while ($row = mysqli_fetch_assoc($result4))
-			{
-				$cn= $row['clubid'];
-				$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cn "); 
-				
-				  while ($row = mysqli_fetch_assoc($names))
-				{
-        		 echo "<li>" . "<a>" . $row['clubname'] . "</li>" ;
-				   echo '<form id="createclub" action="" method="post">';
-				   	echo '<input name="club" type="hidden" value=' . $cn .'>';
-        
-         		   echo '</form>';
-				 
-				}
-			
-			}
-		}
-			  ?>
-          </ul>
-              
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px; margin-top:50px">
-              <h2 style="margin-top:-60px;">Upcoming Events</h2>
-              <ul type="square">
-        		<li type="square">Homecoming Pep Rally</li>
-                <ul>
-                	<li>March 14 2:00pm</li>
-                </ul>
-                <li>Spring Break</li>
-                <ul>
-                	<li>March 24-28</li>
+           
+
+     <hr>  
+			 <div id="footer">
+      <div class="container">
                 
-                </ul>
-        </ul>
-            
-            </div><!--/span-->
-            </div>
-            
-            <div class="row-fluid">
-            <div class="spanstaff" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
-               <ul style="margin-left:370px;">
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px; margin-right:-200px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; margin-left:-150px; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
              <span class="websitefont">
              </span>
-             <?php
+             
+			 <?php
              while ($row = mysqli_fetch_assoc($result2))
 			 {
+				 echo '<div class="span2" style="width:50px;">';
 			
-			  echo "<li>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo "<li  style='text-align:left; margin-left:-150px;'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
           	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
 		   
 			 }
          
          	?>
          </ul>
-              
-            </div><!--/span-->
-            </div>
-            
-      
-      </div><!--/row-->
-
-      <hr>
-	      
-
-			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
+      </div>
+    </div>
 		</div>
 
 
