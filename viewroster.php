@@ -202,7 +202,7 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <?php 
+        <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
                 ?>
@@ -211,7 +211,6 @@ vertical-align: middle;
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
                 ?>
-              
                    <?php 
               echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
@@ -221,7 +220,7 @@ vertical-align: middle;
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
                 ?>
-                
+                 
                 <?php 
               echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
@@ -229,7 +228,12 @@ vertical-align: middle;
                 <?php
                 echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
         
-        ?>
+              ?>
+              <?php
+                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
+        
+              ?>
+
                          
             </ul>
           </div><!--/.well -->

@@ -156,7 +156,11 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
                 <?php
                 echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
         
-        ?>
+              ?>
+              <?php
+                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
+        
+              ?>
 
             </ul>
           </div><!--/.well -->

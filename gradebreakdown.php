@@ -202,35 +202,38 @@ vertical-align: middle;
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Users</li>
-              <li ><a href="createusers.php">Create</a></li>
-              <li ><a href="editusers.php">Edit</a></li>
-              <li class="active"><a href="viewusers.php">View</a></li>
-              <li><a href="assignparent.php">Assign a Parent to a Student</a></li>
+            <?php 
+              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              <li class="nav-header">Classes</li>
-              <li><a href="createclasses.php">Create</a></li>
-              <li><a href="editclasses.php">Edit</a></li>
-              <li><a href="viewclass.php">View</a></li>
-              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
+                ?>
               
-              <li class="nav-header">Clubs</li>
-              <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.php">Edit</a></li>
-              <li><a href="viewclub.php">View</a></li>
-              <li><a href="assignclub.php">Assign a Student to a Club</a></li>
+              <?php 
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              <li class="nav-header">Links</li>
-              <li ><a href="createlink.php">Create</a></li>
-              <li><a href="editlink.php">Edit</a></li>
-     
+                ?>
+                   <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-              <li class="nav-header"> School Messages</li>
-              <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.php">Edit</a></li> 
-                         
-            </ul>
+                ?>
+
+              <?php 
+              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
+              
+                ?>
+                 
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
+              
+                ?>
+                <?php
+                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
+        
+              ?>
+              <?php
+                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
+        
+              ?>
+
           </div><!--/.well -->
         </div><!--/span-->
     <div class="span9" style="height:1000px">
