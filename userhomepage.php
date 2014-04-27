@@ -411,7 +411,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 			 <div id="footer">
       <div class="container">
                 
-           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px; margin-right:-200px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px; margin-right:-200px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
             <h4 align="left" style="margin-top:-50px; text-align:left; margin-left:-150px; color:#CCCCCC;">Helpful Links</h4>
                <ul>
              <span class="websitefont">

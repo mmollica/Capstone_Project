@@ -32,6 +32,7 @@ $d = mysqli_query($con,"SELECT classname FROM class WHERE id= $classid ");
 	
 $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
 
+$result2 = mysqli_query($con,"SELECT * FROM link ");
     
 ?>
 
@@ -233,16 +234,33 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
 
-      <hr>
-	      
-
-			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
-		</div>
-
+     <hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($result2))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
+    
+    </div>
 
     <!-- Le javascript
     ================================================== -->

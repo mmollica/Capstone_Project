@@ -222,7 +222,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
 			 <div id="footer">
       <div class="container">
                 
-           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
             <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
                <ul>
              <span class="websitefont">
