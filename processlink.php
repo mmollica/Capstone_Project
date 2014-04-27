@@ -25,7 +25,7 @@ switch ($_POST['process']) {
         $sql3="UPDATE link SET linkname='$linkname', url='$url' WHERE id= $linkid";
 		$result3=mysqli_query($con,$sql3);  
 		
-		echo '<form id="processlink" name="form1" method="get" action="staffhomepage.html">';
+		echo '<form id="processlink" name="form1" method="get" action="staffhomepage.php">';
 		echo '</form>';   
             break;
 
@@ -34,7 +34,7 @@ switch ($_POST['process']) {
 	  $sql= "DELETE FROM link WHERE id = $linkid";
 	  $result2=mysqli_query($con,$sql);
 	  
-	  echo '<form id="processlink" name="form1" method="get" action="staffhomepage.html">';
+	  echo '<form id="processlink" name="form1" method="get" action="staffhomepage.php">';
 	  echo '</form>';
            
             break;

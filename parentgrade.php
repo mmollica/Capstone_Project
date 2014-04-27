@@ -19,9 +19,9 @@ $fname=$user->data()->fname;
 $lname=$user->data()->lname;
 
 $userid=$user->data()->id;
-$classid=$_GET['classid'];
+
  
-$query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
+$query1 = mysqli_query($con,"SELECT * FROM parent_student_match WHERE parentid= $userid ");
 
 ?>
   <head>
@@ -188,7 +188,7 @@ vertical-align: middle;
               Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
-              <li><a href="staffhomepage.html">Home</a></li>
+              <li><a href="parentgrade.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -203,66 +203,59 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                  <?php 
-              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
-              
-                ?>
-              
-              <?php 
-              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
-              
-                ?>
               
               
               <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
+              echo "<li><a href='parentgrade.php'> Student's Grades</a></li>";
               
                 ?>
               
-              <?php 
-              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
-              
-                ?>
-              <?php 
-              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
-              
-                ?>
                          
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-    <div class="span9" style="height:1000px">
-          <div class="widget stacked widget-table action-table">
-    				
-				<div class="widget-header">
-					<i class="icon-th-list"></i>
-					<h2 style="margin-top:-15px;margin-left:300px;">User's Information</h2>
-				</div> <!-- /widget-header -->
-				
-				<div class="widget-content">
+    
+       
 					
-					<table class="table table-striped table-bordered">
-  <thead>
-    	<tr>
-           <th>User. ID</th>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Overall Grade</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            
-            $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
+					
+  <?php
 
-            if (!$con)
-            {
-                 die('Could not connect: ' . mysqli_error($con));
-            }
-
+while($row2 = mysqli_fetch_assoc($query1))
+                {
+                  $userid = $row2['studentid'];
+                  echo '<div class="span9" style="height:1000px">';
+                     echo ' <div class="widget stacked widget-table action-table">';
+            
+              echo '<div class="widget-header">';
+                echo '<i class="icon-th-list"></i>';
+                echo "<h2 style='margin-top:-15px;margin-left:300px;'>Students's Information</h2>";
+              echo '</div>'; 
               
-              $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
+              echo '<div class="widget-content">';
+                
+
+                echo "<table class='table table-striped table-bordered'>";
+                echo '<thead>';
+                 echo 	'<tr>';
+                  echo       '<th>User. ID</th>';
+                  echo      '<th>Name</th>';
+                  echo       '<th>Username</th>';
+                  
+                          
+                 echo     '</tr>';
+                 echo '</thead>';
+                 echo '<tbody>';
+                
+   
+              
+              $studentquery = mysqli_query($con, "SELECT * FROM user WHERE id = $userid");
+              /*while($studentrow = mysqli_fetch_assoc($studentquery))
+              {
+                echo "<td>" . $studentrow['id'] . "</td>";
+                echo "<td>" . $studentrow['fname'] . " " . $studentrow['lname'] . "</td>";
+                echo "<td>" . $studentrow['username'] . "</td>";
+
+              }*/
               $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid");
               $points = 0;
              
@@ -299,11 +292,12 @@ vertical-align: middle;
             while($row = mysqli_fetch_assoc($result))
             {
                 $userid = $row['id'];
+                $fname = $row['fname'];
                   echo "<tr>";
                   echo "<td>". $row['id'] . "</td>";
                   echo '<td>' . $row['fname'] . $row['lname'] . '</a></td>';
                   echo "<td>". $row['username'] . "</td>";
-                  echo "<td>". $grade . "%</td>";
+                  
                   echo "</tr>";
                
             }
@@ -316,76 +310,148 @@ echo '</table>';
 echo '</div>';
 echo '</div>';
 
-
-echo '<br>';
+$getclasses = mysqli_query($con, "SELECT * FROM classassign WHERE studentid = $userid");
+         
+              echo '<br>';
       
       echo ' <div class="widget stacked widget-table action-table">';
             
         echo '<div class="widget-header">';
           echo '<i class="icon-th-list"></i>';
-          echo "<h2 style='margin-top:-15px;margin-left:300px;'>Assignment Breakdown</h2>";
+          echo "<h2 style='margin-top:-15px;margin-left:300px;'>" . $fname . "'s Classes</h2>";
         echo '</div>'; 
         
         echo '<div class="widget-content">';
-          
+        echo "<table class='table  table-bordered'>";
+           while($classstuff = mysqli_fetch_assoc($getclasses))
+          {
+              $classid = $classstuff['classid'];
 
-          echo "<table class='table table-striped table-bordered'>";
+          
           echo "<thead>";
+          echo "<tr>";
+          echo "<th>Classname</th>";
+          echo "<th>Subject</th>";
+          echo "<th>Teacher</th>";
+          echo "</tr>";
+          echo "</thead>";
+          echo "<tbody>";
+          $query5 = mysqli_query($con, "SELECT * FROM class WHERE id = $classid");
+          while($row7 = mysqli_fetch_assoc($query5))
+          {
+            echo "<tr style='background-color: #f5f5f5'>";
+            echo "<td>". $row7['classname'] . "</td>";
+            echo "<td>". $row7['subject'] . "</td>";
+
+            $teacherid = $row7['teacherid'];
+            $query6 = mysqli_query($con, "SELECT * FROM users WHERE id=$teacherid");
+            while($row8 = mysqli_fetch_assoc($query6))
+                {
+                    
+                    echo '<td>'. $row8['fname'] . " " . $row8['lname'] . '</a></td>';
+                }
+            echo "</tr>";
+       
+            }
+
+          
+          
+          echo "<tr>";
+          echo "<th colspan='3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Assignment Breakdown</th>";
+          echo "</tr>";
           echo "<tr>";
           echo "<th>Assignment</th>";
           echo "<th>Grade</th>";
           echo "<th>Total Points</th>";
           echo "</tr>";
-          echo "</thead>";
-          echo "<tbody>";
-          $query4 = mysqli_query($con, "SELECT * FROM assignment WHERE classid = $classid AND type = 1");
-          while($row5 = mysqli_fetch_assoc($query4))
-          {
-            echo "<tr>";
-            echo "<td>". $row5['assignmentname'] . "</td>";
-            $assignmentid = $row5['assignmentid'];
-            $query5 = mysqli_query($con, "SELECT * FROM grades WHERE assignmentid = $assignmentid AND studentid = $userid");
-            $check = mysqli_query($con, "SELECT * FROM grades WHERE assignmentid = $assignmentid AND studentid = $userid");
-            $row6 = mysqli_fetch_assoc($query5);
-            
-              if($row6['gradeid']==true)
+          
+          
+
+              $query4 = mysqli_query($con, "SELECT * FROM assignment WHERE classid = $classid AND type = 1");
+              while($row5 = mysqli_fetch_assoc($query4))
               {
-                echo "<td>" . $row6['points'] . "</td>";
-              }
-              else
-              {
-                echo '<td>Not yet submitted.</td>';
-              }
-            
-            echo "<td>". $row5['total'] . "</td>";
-            echo "</tr>";
-          }
-            echo "<tr>";
-            echo "<td>Total</td>";
-            echo "<td>". $points . "</td>";
-            echo "<td>". $total . "</td>";
-            echo "</tr>";
-    echo '</tbody>';
-echo '</table>';
+                echo "<tr style='background-color: #f5f5f5'>";
+                echo "<td>". $row5['assignmentname'] . "</td>";
+                $assignmentid = $row5['assignmentid'];
+                $query5 = mysqli_query($con, "SELECT * FROM grades WHERE assignmentid = $assignmentid AND studentid = $userid");
+                $check = mysqli_query($con, "SELECT * FROM grades WHERE assignmentid = $assignmentid AND studentid = $userid");
+                $row6 = mysqli_fetch_assoc($query5);
+                $grade =0;
+                  if($row6['gradeid']==true)
+                  {
+                    echo "<td>" . $row6['points'] . "</td>";
+                  }
+                  else
+                  {
+                    echo '<td>Not yet submitted.</td>';
+                  }
+                
+                echo "<td>". $row5['total'] . "</td>";
+                echo "</tr>";
+                 
+                $query7 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid");
+                $points = 0;
+             
+                $total = 0;
+                while($row9 = mysqli_fetch_assoc($query7))
+                {
+                  $points = $points + $row9['points'];
+                  $assignmentid = $row9['assignmentid'];
+                
+                  $query8 = mysqli_query($con, "SELECT * FROM assignment WHERE classid = $classid AND assignmentid= $assignmentid");
+                  while($row10 = mysqli_fetch_assoc($query8))
+                  {
+                    $total = $total + $row10['total'];
+                  }
+                }
+                 if($total!=0)
+                  {
+                    $grade = number_format(($points/$total)*100);
+                  }
+                  else
+                  {
+                    $grade=0;
+                  }
+                }
+                echo "<tr style='background-color: #f5f5f5'>";
+                echo "<td>Total</td>";
+                echo "<td>". $grade . "</td>";
+                echo "<td>". $total . "</td>";
+                echo "</tr>";
+              
+
+        echo '</tbody>';
+      }
+    echo '</table>';
+
 
 echo '</div>';
 echo '</div>';
-    
+
+echo '</div>';
+echo '<div class="container-fluid">';
+echo      '<div class="row-fluid">';
+ echo       '<div class="span3">';
+      
+echo      '</div><!--/span-->';
+}
+
+echo '</div>';
+
+echo '</div>';
+
 ?> 
  
 
 
 
 
-			</div>
-
-          </div>
-          </div><!--/row-->
-
+			
+      
       <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        
       </footer>
 
     </div><!--/.fluid-container-->

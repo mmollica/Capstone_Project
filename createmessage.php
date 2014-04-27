@@ -10,6 +10,8 @@ require_once 'core/init.php';
   echo 'submitted';
 }
 */
+$con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
 $user = new User();
 $name = $user->data()->username;
 if(Input::exists())
@@ -22,7 +24,7 @@ if(Input::exists())
     $validation = $validate->check($_POST, array(
       'title' => array('required' => true),
       'msg' => array('required' => true),
-      'date_added' => array('required' => true)    
+      'date_added' => array('required' => true)
     ));
   
     if($validation->passed())
@@ -35,11 +37,12 @@ if(Input::exists())
         $msg->create1(array(
           'title' => Input::get('title'),
           'msg' => Input::get('msg'),
-          'date_added' => Input::get('date_added')    
+          'date_added' => Input::get('date_added'),
+          'url' => Input::get('url')     
           ));
 
         Session::flash('home', 'You have registered a user');
-        Redirect::to('staffhomepage.html');
+        Redirect::to('staffhomepage.php');
       }
       catch(Exception $e)
       {
@@ -67,6 +70,7 @@ if(Input::exists())
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -123,7 +127,7 @@ if(Input::exists())
               Logged in as <?php echo $name ?>
             </p>
             <ul class="nav">
-              <li><a href="staffhomepage.html">Home</a></li>
+              <li><a href="staffhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -191,6 +195,11 @@ if(Input::exists())
           <textarea name="msg" id="Message" cols="45" rows="10" style="width:500px"></textarea>
           <span class="textareaRequiredMsg">A value is required.</span></span><br>
       <br>
+        <span id="sprytextfield2">
+            <label for="Link Name">Image Link:</label>
+            <input type="text" name="url" id="url">
+          <span class="textfieldRequiredMsg">A value is required.</span></span>
+          <br/>
           <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
           
           
@@ -201,9 +210,30 @@ if(Input::exists())
 
       <hr>
       
-<footer>
-    <p>&copy; Company 2013</p>
-      </footer>
+ <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+       <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+       {
+         echo '<div class="span2" style="width:50px;">';
+      
+        echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+        echo '</div>';
+             //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+       
+       }
+         
+          ?>
+         </ul>
+      </div>
+    </div>
 
     </div><!--/.fluid-container-->
 

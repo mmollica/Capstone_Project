@@ -26,9 +26,9 @@ $lname=$user->data()->lname;
 date_default_timezone_set('America/New_York');
 
 	
-$result = mysqli_query($con," SELECT * FROM staffmessage ORDER BY date "); 
+$result = mysqli_query($con," SELECT * FROM staffmessage ORDER BY date_added "); 
 	
-$result2 = mysqli_query($con,"SELECT * FROM link ");
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
 
     
 ?>
@@ -173,7 +173,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-          echo '<img src="Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
+          echo '<img src="cover thingy.png" >';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 2 && $row = mysqli_fetch_assoc($result))
@@ -229,7 +229,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
              </span>
              
 			 <?php
-             while ($row = mysqli_fetch_assoc($result2))
+             while ($row = mysqli_fetch_assoc($linkquery))
 			 {
 				 echo '<div class="span2" style="width:50px;">';
 			

@@ -11,11 +11,11 @@ require_once 'core/init.php';
 */
 $user = new User();
 $name = $user->data()->username;
-
+$con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
 if(Input::exists())
 {
-	$con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
-
+	
    
       $assign = new ParentStudentMatch();
       
@@ -48,6 +48,7 @@ if(Input::exists())
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+     <link href="faith.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -101,7 +102,7 @@ if(Input::exists())
             <p class="navbar-text pull-right">
               Logged in as <?php echo $name; ?>
             <ul class="nav">
-              <li class="active"><a href="staffhomepage.html">Home</a></li>
+              <li><a href="staffhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -179,9 +180,30 @@ if(Input::exists())
 
       <hr>
       
-<footer>
-    <p>&copy; Company 2013</p>
-      </footer>
+<div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+       <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+       {
+         echo '<div class="span2" style="width:50px;">';
+      
+        echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+        echo '</div>';
+             //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+       
+       }
+         
+          ?>
+         </ul>
+      </div>
+    </div>
 
     </div><!--/.fluid-container-->
 

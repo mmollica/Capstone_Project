@@ -29,7 +29,7 @@ switch ($_POST['process']) {
         $sql3="UPDATE class SET classname='$classname', teacherid='$assign', subject='$subject' WHERE id= $classid";
 		$result3=mysqli_query($con,$sql3);  
 		
-		echo '<form id="processclass" name="form1" method="get" action="staffhomepage.html">';
+		echo '<form id="processclass" name="form1" method="get" action="staffhomepage.php">';
 		echo '</form>';   
             break;
 
@@ -38,7 +38,7 @@ switch ($_POST['process']) {
 	  $sql= "DELETE FROM class WHERE id = $classid";
 	  $result2=mysqli_query($con,$sql);
 	  
-	  echo '<form id="processclass" name="form1" method="get" action="staffhomepage.html">';
+	  echo '<form id="processclass" name="form1" method="get" action="staffhomepage.php">';
 	  echo '</form>';
            
             break;

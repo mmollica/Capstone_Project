@@ -32,7 +32,7 @@ switch ($_POST['process']) {
         $sql3="UPDATE users SET fname='$firstname', lname='$lastname', address='$address', city='$city', state='$state', zip='$zip', groups='$group' WHERE id= $userid";
 		$result3=mysqli_query($con,$sql3);  
 		
-		echo '<form id="processuser" name="form1" method="get" action="staffhomepage.html">';
+		echo '<form id="processuser" name="form1" method="get" action="staffhomepage.php">';
 		echo '</form>';   
             break;
 
@@ -41,7 +41,7 @@ switch ($_POST['process']) {
 	  $sql= "DELETE FROM users WHERE id = $userid";
 	  $result2=mysqli_query($con,$sql);
 	  
-	  echo '<form id="processuser" name="form1" method="get" action="staffhomepage.html">';
+	  echo '<form id="processuser" name="form1" method="get" action="staffhomepage.php">';
 	  echo '</form>';
            
             break;

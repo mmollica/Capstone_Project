@@ -28,7 +28,7 @@ if(Input::exists())
                switch($level)
                {
                	case '1':
-               		Redirect::to('staffhomepage.html');
+               		Redirect::to('staffhomepage.php');
                	break;
                	case '2':
                		Redirect::to('userhomepage.php');
@@ -37,7 +37,7 @@ if(Input::exists())
                		Redirect::to('userhomepage.php');
                	break;
                	case '4':
-               		Redirect::to('userhomepage.php');
+               		Redirect::to('parentgrade.php');
                	break;
                		//DISPLAY POP UP ERROR
                	break;

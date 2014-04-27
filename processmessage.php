@@ -26,7 +26,7 @@ switch ($_POST['process']) {
         $sql3="UPDATE staffmessage SET title='$title', date='$date', msg='$content' WHERE smsgid= $messageid";
 		$result3=mysqli_query($con,$sql3);  
 		
-		echo '<form id="processmsg" name="form1" method="get" action="staffhomepage.html">';
+		echo '<form id="processmsg" name="form1" method="get" action="staffhomepage.php">';
 		echo '</form>';   
             break;
 
@@ -35,7 +35,7 @@ switch ($_POST['process']) {
 	  $sql= "DELETE FROM staffmessage WHERE smsgid = $messageid";
 	  $result2=mysqli_query($con,$sql);
 	  
-	  echo '<form id="processmsg" name="form1" method="get" action="staffhomepage.html">';
+	  echo '<form id="processmsg" name="form1" method="get" action="staffhomepage.php">';
 	  echo '</form>';
            
             break;
