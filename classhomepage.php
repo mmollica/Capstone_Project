@@ -18,6 +18,8 @@ $user= new User();
 $username=$user->data()->username;
 $id= $user->data()->id;
 
+$name= $user->data()->username;
+
 $classid=$_POST['classid'];
  
 $a = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");
@@ -29,29 +31,7 @@ $d = mysqli_query($con,"SELECT classname FROM class WHERE id= $classid ");
 	
 	
 $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
-	
 
-
-
-    /*if(!$a)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$b)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$c)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$result3)
-      {
-        die(mysqli_error($con));
-      }*/
     
 ?>
 
@@ -63,7 +43,8 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
+       <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -251,74 +232,6 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-                
-          <div class="row-fluid">
-            <div class="span4" style="margin-left:35px;">
-              <h2 style="margin-top:-60px;">Upcoming Events</h2>
-              <ul type="square" style="padding:10px;">
-              <?php
-			  while ($row = mysqli_fetch_assoc($c))
-			{
-				$tid= $row['teacherid'];
-				$event = mysqli_query($con," SELECT * FROM teacherevents WHERE teacherid= $tid AND classid= $classid ORDER By due_date ASC "); 
-				
-				if(!$event)
-      				{
-       					 die(mysqli_error($con));
-      				}
-				
-				  while ($row1 = mysqli_fetch_assoc($event))
-				{
-        		 	echo '<li type="square" style="margin-left:-40px">' . $row1['title'] . '</li>';
-                echo '<ul>';
-                	echo '<li style="margin-left:-20px">' . 'Due Date: ' . $row1['due_date'] . '</li>';
-                echo '</ul>';
-				 
-				}
-			
-			}
-			  ?>
-        </ul>
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px;">
-              <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
-              <ul type="square">
-          			
-                           
-                    </ul>
-           
-            </div><!--/span-->
-            </div>
-            
-            <div class="row-fluid">
-            <div class="spanstaff" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
-               <ul style="margin-left:370px;">
-             <span class="websitefont">
-             </span>
-             <?php
-             while ($row2 = mysqli_fetch_assoc($b))
-			 {
-				 $tid= $row2['teacherid'];
-				 $result2 = mysqli_query($con,"SELECT * FROM teacherlink WHERE teacherid=$tid ");
-				 
-				while ($row = mysqli_fetch_assoc($result2))
-			 { 
-			
-			  echo "<li>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['name'] . "</a>". "</span>" . "</li>" ;
-          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
-		   
-		   
-			 }
-			}
-         
-         	?>
-         </ul>
-            </div><!--/span-->
-            </div>
-            
-      
-      </div><!--/row-->
 
       <hr>
 	      
