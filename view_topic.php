@@ -24,6 +24,10 @@ $forumid=$_GET['forumid'];
 
 $username=$user->data()->username;
 
+$sname=$user->data()->fname;
+
+$slname=$user->data()->lname;
+
 // get value of id that sent from address bar 
 
 
@@ -49,7 +53,7 @@ $result2 = mysqli_query($con,"SELECT * FROM forum_answer WHERE question_id= $for
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <style type="text/css">
+   <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -66,6 +70,118 @@ $result2 = mysqli_query($con,"SELECT * FROM forum_answer WHERE question_id= $for
           padding-right: 5px;
         }
       }
+	  
+	  .table-bordered {
+border: 1px solid #dddddd;
+border-collapse: separate;
+border-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.table {
+width: 100%;
+margin-bottom: 20px;
+background-color: transparent;
+border-collapse: collapse;
+border-spacing: 0;
+display: table;
+}
+
+.widget.widget-table .table {
+margin-bottom: 0;
+border: none;
+}
+
+.widget.widget-table .widget-content {
+padding: 0;
+}
+
+.widget .widget-header + .widget-content {
+border-top: none;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+}
+
+.widget .widget-content {
+padding: 20px 15px 15px;
+background: #FFF;
+border: 1px solid #D5D5D5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.widget .widget-header {
+position: relative;
+height: 40px;
+line-height: 40px;
+background: #E9E9E9;
+background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+text-shadow: 0 1px 0 #fff;
+border-radius: 5px 5px 0 0;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1),inset 0 1px 0 white,inset 0 -1px 0 rgba(255,255,255,0.7);
+border-bottom: 1px solid #bababa;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+border: 1px solid #D5D5D5;
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+-webkit-background-clip: padding-box;
+}
+
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.widget .widget-header h3 {
+top: 2px;
+position: relative;
+left: 10px;
+display: inline-block;
+margin-right: 3em;
+font-size: 14px;
+font-weight: 600;
+color: #555;
+line-height: 18px;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.widget .widget-header [class^="icon-"], .widget .widget-header [class*=" icon-"] {
+display: inline-block;
+margin-left: 13px;
+margin-right: -2px;
+font-size: 16px;
+color: #555;
+vertical-align: middle;
+
+}
+
+.wrapword{
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
+}
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -114,7 +230,7 @@ $result2 = mysqli_query($con,"SELECT * FROM forum_answer WHERE question_id= $for
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-            <?php 
+          <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
               	?>
@@ -144,27 +260,32 @@ $result2 = mysqli_query($con,"SELECT * FROM forum_answer WHERE question_id= $for
 
 while($row= mysqli_fetch_assoc($result))
 {
+echo ' <div class="widget stacked widget-table action-table">';
+ 
+ 
+   				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo '<h2 align="center" style="margin-top:-15px;"> Topic:' . $row['topic'] . '</h2>';
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+					
 
-echo '<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">';
+echo "<table class='table table-striped table-bordered'>";
+echo '<thead>';
+echo '<th colspan="5" align="right" style="text-align:right">' . $row['name'] . '-' . $row['datetime'] . '</th>';
+echo '</thead>';
+echo '<tbody>';
+
+
 echo '<tr>';
-echo '<td><table width="100%" border="0" cellpadding="3" cellspacing="1" bordercolor="1" bgcolor="#FFFFFF">';
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1">' . '<strong>' . $row['topic'] . '</strong>' . '</td>';
+echo '<td align="left" style="text-align:left; overflow:auto;" height="100px" class="wrapword" >' .$row['detail'] . '</td>';
 echo '</tr>';
-
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1">' .$row['detail'] . '</td>';
-echo '</tr>';
-
-
-
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1">' . '<strong>Date/time : </strong>' . $row['datetime'] . '</td>';
-echo '</tr>';
-echo '</table></td>';
-echo '</tr>';
+echo '</tbody>';
 echo '</table>';
-
+echo '</div>';
+echo '</div>';
 }
 ?>
 <br>
@@ -177,31 +298,31 @@ if($result2)
 while($rows=mysqli_fetch_assoc($result2))
 {
 
+echo ' <div class="widget stacked widget-table action-table">';
+ 
+ 
+   				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo '<h2 align="center" style="margin-top:-15px;">' . $rows['a_title'] . '</h2>';
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+					
 
-
-echo '<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">';
-echo ' <tr>';
-echo '<td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">';
-
+echo "<table class='table table-striped table-bordered'>";
+echo '<thead>';
+echo '<th colspan="5" align="right" style="text-align:right">' . $rows['a_name'] . '-' . $rows['a_datetime'] . '</th>';
+echo'</thead>';
+echo '<tbody>';
 echo '<tr>';
-echo '<td width="18%" bgcolor="#F8F7F1"><strong>Name</strong></td>';
-echo '<td width="5%" bgcolor="#F8F7F1">:</td>';
-echo '<td width="77%" bgcolor="#F8F7F1">' . $rows['a_name'] . '</td>';
+echo '<td align="left" style="text-align:left" height="100px" class="wrapword" >' . $rows['a_answer'] . '</td>';
 echo '</tr>';
-
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1"><strong>Answer</strong></td>';
-echo '<td bgcolor="#F8F7F1">:</td>';
-echo '<td bgcolor="#F8F7F1">' . $rows['a_answer'] . '</td>';
-echo '</tr>';
-echo '<tr>';
-echo '<td bgcolor="#F8F7F1">' . '<strong>Date/Time</strong>' . '</td>';
-echo '<td bgcolor="#F8F7F1">:</td>';
-echo '<td bgcolor="#F8F7F1">' . $rows['a_datetime'] . '</td>';
-echo '</tr>';
-echo '</table></td>';
-echo '</tr>';
-echo '</table><br>';
+echo '</tbody>';
+echo '</table>';
+echo '</div>';
+echo '</div>';
+echo '<br>';
 }
 
 }
@@ -238,22 +359,26 @@ mysqli_close($con);
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
 <tr>
+<td width="18%"><strong>Title</strong></td>
+<td width="3%">:</td>
+<td width="79%"><input name="a_title" type="text" id="a_title" size="45"></td>
+</tr>
+<tr>
 <td width="18%"><strong>Name</strong></td>
 <td width="3%">:</td>
-<td width="79%"><input name="a_name" type="text" id="a_name" size="45"></td>
+<?php echo '<td width="79%">' . '<input name="a_name" type="text" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
 </tr>
-
 <tr>
 <td valign="top"><strong>Answer</strong></td>
 <td valign="top">:</td>
-<td><textarea name="a_answer" cols="45" rows="3" id="a_answer"></textarea></td>
+<td><textarea name="a_answer" rows="6"  cols="75" id="a_answer"></textarea></td>
 </tr>
 <tr>
 <td>&nbsp;</td>
 <?php
 echo '<td><input name="forumid" type="hidden" value=' . $forumid . '></td>';
 echo '<td><input name="classid" type="hidden" value=' . $classid . '></td>';
-echo '<td><input type="submit" name="Submit" value="Submit"> <input type="reset" name="Submit2" value="Clear" style="margin-left:90px"></td>';
+echo '<td><input type="submit" name="Submit" value="Submit" style="margin-left:-238px" class="btn btn-small btn-success" > <input type="reset" name="Submit2" value="Reset" style="margin-left:25px" class="btn btn-small btn-success"></td>';
 echo '</tr>';
 echo '</table>';
 echo '</td>';

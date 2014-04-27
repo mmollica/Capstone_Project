@@ -52,6 +52,107 @@ $username=$user->data()->username;
           padding-right: 5px;
         }
       }
+	  
+	  .table-bordered {
+border: 1px solid #dddddd;
+border-collapse: separate;
+border-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.table {
+width: 100%;
+margin-bottom: 20px;
+background-color: transparent;
+border-collapse: collapse;
+border-spacing: 0;
+display: table;
+}
+
+.widget.widget-table .table {
+margin-bottom: 0;
+border: none;
+}
+
+.widget.widget-table .widget-content {
+padding: 0;
+}
+
+.widget .widget-header + .widget-content {
+border-top: none;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+}
+
+.widget .widget-content {
+padding: 20px 15px 15px;
+background: #FFF;
+border: 1px solid #D5D5D5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.widget .widget-header {
+position: relative;
+height: 40px;
+line-height: 40px;
+background: #E9E9E9;
+background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+text-shadow: 0 1px 0 #fff;
+border-radius: 5px 5px 0 0;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1),inset 0 1px 0 white,inset 0 -1px 0 rgba(255,255,255,0.7);
+border-bottom: 1px solid #bababa;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+border: 1px solid #D5D5D5;
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+-webkit-background-clip: padding-box;
+}
+
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.widget .widget-header h3 {
+top: 2px;
+position: relative;
+left: 10px;
+display: inline-block;
+margin-right: 3em;
+font-size: 14px;
+font-weight: 600;
+color: #555;
+line-height: 18px;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.widget .widget-header [class^="icon-"], .widget .widget-header [class*=" icon-"] {
+display: inline-block;
+margin-left: 13px;
+margin-right: -2px;
+font-size: 16px;
+color: #555;
+vertical-align: middle;
+}
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -99,39 +200,32 @@ $username=$user->data()->username;
 
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <?php 
+                 <ul class="nav nav-list">
+            <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-                ?>
+              	?>
               
               <?php 
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-                ?>
-                   <?php 
+              	?>
+                
+                <?php 
               echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-                ?>
-
-              <?php 
+              	?>
+                
+                <?php 
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
-                ?>
+              	?>
                  
                 <?php 
               echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
                 ?>
-                <?php
-                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
-        
-              ?>
-              <?php
-                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
-        
-              ?>
-
+              <li><a href="#">Grades</a></li>
 	
             </ul>
           </div><!--/.well -->
@@ -146,7 +240,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+    $con = mysqli_connect("localhost","host","test","capstone_db");
 
     if (!$con)
         {
@@ -168,20 +262,28 @@ if(!$classname)
         }
 ?>
 <?php
+echo ' <div class="widget stacked widget-table action-table">';
+    				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
 while($row=mysqli_fetch_assoc($classname))
 {
-	echo'<h3 style="margin-left:300px"> ' . $row['classname'] . ' Discussion Forum' . '</h3>'; 
+	echo'<h2 style="margin-top:-15px;margin-left:300px;"> ' . $row['classname'] . ' Discussion Forum' . '</h2>'; 
+	echo '</div>';
 }
 ?>
+<div class="widget-content">
+<table class="table table-striped table-bordered">
 
-<table width="90%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+<thead>
 <tr>
-<td width="6%" align="center" bgcolor="#5bb75b"><strong>#</strong></td>
-<td width="53%" align="center" bgcolor="#5bb75b"><strong>Topic</strong></td>
-<td width="15%" align="center" bgcolor="#5bb75b"><strong>Views</strong></td>
-<td width="13%" align="center" bgcolor="#5bb75b"><strong>Replies</strong></td>
-<td width="13%" align="center" bgcolor="#5bb75b"><strong>Date/Time</strong></td>
+<th><strong>#</strong></th>
+<th><strong>Topic</strong></th>
+<th><strong>Views</strong></th>
+<th><strong>Replies</strong></th>
+<th><strong>Date/Time</strong></th>
 </tr>
+</thead>
 
 <?php
  
@@ -190,22 +292,20 @@ while ($rows = mysqli_fetch_assoc($result))
 {
 
 echo '<tr>';
-echo '<td bgcolor="#FFFFFF">' . $rows['id'] . '</td>';
-echo '<td bgcolor="#FFFFFF">' . '<a href="view_topic.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
-echo '<td align="center" bgcolor="#FFFFFF">' . $rows['view'] . '</td>';
-echo '<td align="center" bgcolor="#FFFFFF">' . $rows['reply'] . '</td>';
-echo '<td align="center" bgcolor="#FFFFFF">' . $rows['datetime'] . '</td>';
+echo '<td>' . $rows['id'] . '</td>';
+echo '<td>' . '<a href="view_topic.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
+echo '<td align="center">' . $rows['view'] . '</td>';
+echo '<td align="center">' . $rows['reply'] . '</td>';
+echo '<td align="center">' . $rows['datetime'] . '</td>';
 echo '</tr>';
 }
-
+echo '</table>';
+echo  '</div>';
+echo '</div>';
 mysqli_close($con);
 
 ?>
 
-<tr>
-<td colspan="5" align="right" bgcolor="#5bb75b"></td>
-</tr>
-</table>
           </div><!--/row-->
 
       <hr>

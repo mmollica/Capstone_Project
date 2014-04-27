@@ -17,13 +17,11 @@ $tbl_name="forum_question"; // Table name
 // get data that sent from form 
 $topic1=$_POST["topic"];
 $detail1=$_POST["detail"];
-$name1=$_POST["name"];
-$email1=$_POST["email"];
 $classid1=$_POST["classid"];
 
 $datetime=date("d/m/y h:i:s"); //create date time
 
-$sql="INSERT INTO forum_question (topic, detail, name, email, classid) VALUES('{$topic1}', ' {$detail1}', '{$name1}' , '{$email1}', ' {$classid1}')";
+$sql="INSERT INTO forum_question (topic, detail, classid) VALUES('{$topic1}', ' {$detail1}', ' {$classid1}')";
 
 
 

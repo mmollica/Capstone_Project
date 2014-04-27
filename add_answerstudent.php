@@ -34,13 +34,13 @@ $Max_id = 1;
 
 // get values that sent from form 
 $a_name=$_POST['a_name'];
-$a_email=$_POST['a_email'];
+$a_title=$_POST['a_title'];
 $a_answer=$_POST['a_answer']; 
 
 $datetime=date("d/m/y h:i:s"); // create date and time
 
 // Insert answer 
-$sql2="INSERT INTO forum_answer (question_id, a_id, a_name, a_email, a_answer, a_datetime) VALUES('{$id}', '{$Max_id}', '{$a_name}', '{$a_email}', '{$a_answer}', '{$datetime}')";
+$sql2="INSERT INTO forum_answer (question_id, a_id, a_name, a_title, a_answer, a_datetime) VALUES('{$id}', '{$Max_id}', '{$a_name}', '{$a_title}', '{$a_answer}', '{$datetime}')";
 
 $result2=mysqli_query($con,$sql2);
 

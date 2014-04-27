@@ -35,7 +35,7 @@ $username=$user->data()->username;
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <style type="text/css">
+   <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -52,6 +52,118 @@ $username=$user->data()->username;
           padding-right: 5px;
         }
       }
+	  
+	  .table-bordered {
+border: 1px solid #dddddd;
+border-collapse: separate;
+border-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.table {
+width: 100%;
+margin-bottom: 20px;
+background-color: transparent;
+border-collapse: collapse;
+border-spacing: 0;
+display: table;
+}
+
+.widget.widget-table .table {
+margin-bottom: 0;
+border: none;
+}
+
+.widget.widget-table .widget-content {
+padding: 0;
+}
+
+.widget .widget-header + .widget-content {
+border-top: none;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-topright: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+}
+
+.widget .widget-content {
+padding: 20px 15px 15px;
+background: #FFF;
+border: 1px solid #D5D5D5;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+
+.widget .widget-header {
+position: relative;
+height: 40px;
+line-height: 40px;
+background: #E9E9E9;
+background: -moz-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+background: -webkit-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -o-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: -ms-linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+background: linear-gradient(top, #fafafa 0%, #e9e9e9 100%);
+text-shadow: 0 1px 0 #fff;
+border-radius: 5px 5px 0 0;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1),inset 0 1px 0 white,inset 0 -1px 0 rgba(255,255,255,0.7);
+border-bottom: 1px solid #bababa;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+border: 1px solid #D5D5D5;
+-webkit-border-top-left-radius: 4px;
+-webkit-border-top-right-radius: 4px;
+-moz-border-radius-topleft: 4px;
+-moz-border-radius-topright: 4px;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+-webkit-background-clip: padding-box;
+}
+
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+
+.widget .widget-header h3 {
+top: 2px;
+position: relative;
+left: 10px;
+display: inline-block;
+margin-right: 3em;
+font-size: 14px;
+font-weight: 600;
+color: #555;
+line-height: 18px;
+text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.widget .widget-header [class^="icon-"], .widget .widget-header [class*=" icon-"] {
+display: inline-block;
+margin-left: 13px;
+margin-right: -2px;
+font-size: 16px;
+color: #555;
+vertical-align: middle;
+
+}
+
+.wrapword{
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
+}
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
 
@@ -139,37 +251,38 @@ $username=$user->data()->username;
         </div><!--/span-->
          <div class="span9" style="height:850px">
 
-          
-           <table width="400" border="2px" align="center" cellpadding="0" cellspacing="1" bgcolor="#000000" style="margin-top:100px; margin-left:150px" >
+           <form id="form1" name="form1" method="post" action="add_topic.php">
+          <div class="widget stacked widget-table action-table">
+    				
+				<div class="widget-header">
+					<i class="icon-th-list"></i>
+					<h2 style="margin-top:-15px;margin-left:300px;">Create New Topic</h2>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+					
+					<table class="table table-striped table-bordered">
+  <thead>
+ <tr>
+ <th align="left"><strong>Title:</strong></th>
+ <th><input name="topic" type="text" id="topic" size="50" /></th>
+ </tr>
+ </thead>
+ 
+ <tbody>
+ 
 <tr>
-<form id="form1" name="form1" method="post" action="add_topic.php">
-<td>
-<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
-<tr>
-<td colspan="3" bgcolor="#5bb75b"><strong style="color:#FFFFFF">Create New Topic</strong> </td>
+<td align="left"><strong>Detail:</strong></td>
+<td align="left"><textarea name="detail" cols="50" rows="3" id="detail"></textarea></td>
 </tr>
-<tr>
-<td width="14%"><strong>Topic</strong></td>
-<td width="2%">:</td>
-<td width="84%"><input name="topic" type="text" id="topic" size="50" /></td>
-</tr>
-<tr>
-<td valign="top"><strong>Detail</strong></td>
-<td valign="top">:</td>
-<td><textarea name="detail" cols="50" rows="3" id="detail"></textarea></td>
-</tr>
-
-<tr>
-
-<td><?php echo '<input name="classid" type="hidden" value=' . $classid .'>'; ?></td>
-<td>&nbsp;</td>
-<td><input type="submit" name="Submit" value="Submit" /> <input type="reset" name="Submit2" value="Reset" style="margin-left:90px" /></td>
-</tr>
+</tbody>
 </table>
-</td>
+</div>
+</div>
+<?php echo '<input name="classid" type="hidden" value=' . $classid .'>'; ?>
+<input type="submit" name="Submit" value="Submit" class="btn btn-large btn-success" style="margin-left:0px; margin-top:20px;" /> <input type="reset" name="Submit2" value="Reset" style="margin-left:100px; margin-top:20px;" class="btn btn-large btn-success" />
 </form>
-</tr>
-</table>
+
           
           </div><!--/row-->
 

@@ -48,7 +48,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
       .sidebar-nav {
         padding: 9px 0;
       }
-
+		
       @media (max-width: 980px) {
         /* Enable use of floated navbar text */
         .navbar-text.pull-right {
