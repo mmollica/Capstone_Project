@@ -301,8 +301,8 @@ vertical-align: middle;
         </div><!--/span-->
          <div class="span9" style="height:850px">
 
-          <div class="viewbox">
-            <h1 style="margin-top:-30px; margin-left:250px">Grades</h1>
+         
+            <h1 style="text-align:center; margin-left: -200px;">Grades</h1>
             <br>
  			
  					<form name='grades' action='' method='post'>
@@ -323,8 +323,7 @@ vertical-align: middle;
 
 				<div id="txtResult"></div>
 
-       
-     </div>
+
    </form>
           </div><!--/row-->
 

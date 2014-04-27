@@ -364,7 +364,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 						while ($row2 = mysqli_fetch_assoc($result41))
 					{
 						$cid= $row2['clubid'];
-						$names = mysqli_query($con," SELECT clubname FROM club WHERE clubid= $cid "); 
+						$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cid "); 
 				
 				  			while ($row3 = mysqli_fetch_assoc($names))
 						{
@@ -390,7 +390,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 			  while ($row = mysqli_fetch_assoc($result4))
 			{
 				$cn= $row['clubid'];
-				$names = mysqli_query($con," SELECT clubname FROM club WHERE clubid= $cn "); 
+				$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cn "); 
 				
 				  while ($row = mysqli_fetch_assoc($names))
 				{

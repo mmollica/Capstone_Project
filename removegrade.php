@@ -35,7 +35,7 @@ if ($_GET['grade'])
     				
 				echo '<div class="widget-header">';
 					echo '<i class="icon-th-list"></i>';
-					echo "<h2 style='margin-top:-15px;margin-left:150px;'>". $name . " { ". $scale ." Pts}</h2>";
+					echo "<h2 style='margin-top:-15px; margin-left:-50px; text-align:center;'>". $name . " { ". $scale ." Pts}</h2>";
 				echo '</div>'; 
 				
 				echo '<div class="widget-content">';
@@ -136,6 +136,9 @@ if ($_GET['grade'])
 	
 	
 }
+echo "<tr>";
+echo ' <td colspan="6"><input name="add" type="submit" value="Submit Grades" class="btn btn-med btn-success"></td>';
+echo "</tr>";
 echo "</tbody>";
 				echo "</table>";
 
@@ -144,7 +147,7 @@ echo "</tbody>";
    				
    
 }
-   echo ' <input name="add" type="submit" value="Submit Grades" style="margin-top:50px;margin-left:540px;" class="btn btn-large btn-success">';
+   
    ?>
 
 

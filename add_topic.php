@@ -18,10 +18,10 @@ $tbl_name="forum_question"; // Table name
 $topic1=$_POST["topic"];
 $detail1=$_POST["detail"];
 $classid1=$_POST["classid"];
+date_default_timezone_set('America/New_York');
+$datetime=date("Y-m-d H:i:s"); //create date time
 
-$datetime=date("d/m/y h:i:s"); //create date time
-
-$sql="INSERT INTO forum_question (topic, detail, classid) VALUES('{$topic1}', ' {$detail1}', ' {$classid1}')";
+$sql="INSERT INTO forum_question (topic, detail, classid, datetime) VALUES('{$topic1}', ' {$detail1}', ' {$classid1}', ' {$datetime}')";
 
 
 
