@@ -132,8 +132,7 @@ $username=$user->data()->username;
         
               ?>
 
-              
-              <li><a href="#">Grades</a></li>
+            
 	
             </ul>
           </div><!--/.well -->

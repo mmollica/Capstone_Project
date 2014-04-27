@@ -202,6 +202,7 @@ vertical-align: middle;
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
+            <ul class="nav nav-list">
             <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
@@ -233,7 +234,7 @@ vertical-align: middle;
                 echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
         
               ?>
-
+              </ul>
           </div><!--/.well -->
         </div><!--/span-->
     <div class="span9" style="height:1000px">
