@@ -14,28 +14,47 @@ require_once 'core/init.php';
 
    
  
-$user= new User();  
+$user= new User();	
 $username=$user->data()->username;
-$id= $user->data()->id;
+$userid= $user->data()->id;
 
-$classid=$_GET['classid'];
+$clubid=$_GET['clubid'];
 
-$result2 = mysqli_query($con,"SELECT * FROM link ");
+$forumid=$_GET['forumid'];
 
+
+
+$sname=$user->data()->fname;
+
+$slname=$user->data()->lname;
+
+// get value of id that sent from address bar 
+
+
+$result = mysqli_query($con,"SELECT * FROM clubforum_question WHERE id= $forumid");
+	
+	if(!$result)
+      {
+        die(mysqli_error($con));
+      }
+	  
+$result2 = mysqli_query($con,"SELECT * FROM clubforum_answer WHERE question_id= $forumid");
+
+$linkquery = mysqli_query($con,"SELECT * FROM link ");	
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Main Forum</title>
+    <title>View Topic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-   <link href="bootstrap.css" rel="stylesheet">
+      <link href="bootstrap.css" rel="stylesheet">
     <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <style type="text/css">
+   <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -152,6 +171,17 @@ margin-right: -2px;
 font-size: 16px;
 color: #555;
 vertical-align: middle;
+
+}
+
+.wrapword{
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
 }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
@@ -182,7 +212,7 @@ vertical-align: middle;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
              <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+              Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
               <li><a href="userhomepage.php">Home</a></li>
@@ -201,102 +231,154 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                <?php 
-              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
-              
-                ?>
+           
               
               <?php 
-              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              echo '<li><a href="clubhomepage.php?clubid= ' . $clubid . ' ">Discussion</a></li>';
               
                 ?>
-              
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
-              
-                ?>
-              
-              <?php 
-              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
-              
-                ?>
-              <?php 
-              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
-              
-                ?>
-	
+             
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
           <div class="span9" style="height:850px">
+		<?php
 
-          
-<?php
-
-$result = mysqli_query($con,"SELECT * FROM forum_question WHERE classid= $classid ORDER BY id DESC");
-// OREDER BY id DESC is order result by descending
-  if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-		
-$classname=mysqli_query($con,"SELECT * FROM class WHERE id= $classid");
-
-if(!$classname)
-        {
-        die(mysqli_error($con));
-        }
-?>
-
-<?php
+while($row= mysqli_fetch_assoc($result))
+{
 echo ' <div class="widget stacked widget-table action-table">';
-    				
+ 
+ 
+   				
 				echo '<div class="widget-header">';
 					echo '<i class="icon-th-list"></i>';
-while($row=mysqli_fetch_assoc($classname))
-{
-	echo'<h2 style="margin-top:-15px;margin-left:300px;"> ' . $row['classname'] . ' Discussion Forum' . '</h2>'; 
-	echo '</div>';
-}
-?>
-<div class="widget-content">
-<table class="table table-striped table-bordered">
+					echo '<h2 align="center" style="margin-top:-15px;"> Topic:' . $row['topic'] . '</h2>';
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+					
 
-<thead>
-<tr>
-<th><strong>#</strong></th>
-<th><strong>Topic</strong></th>
-<th><strong>Views</strong></th>
-<th><strong>Replies</strong></th>
-<th><strong>Date/Time</strong></th>
-</tr>
-</thead>
+echo "<table class='table table-striped table-bordered'>";
+echo '<thead>';
+echo '<th colspan="5" align="right" style="text-align:right">' . $row['datetime'] . '</th>';
+echo '</thead>';
+echo '<tbody>';
 
-<?php
- 
-// Start looping table row
-while ($rows = mysqli_fetch_assoc($result))
-{
 
 echo '<tr>';
-echo '<td>' . $rows['id'] . '</td>';
-echo '<td>' . '<a href="view_topicstudent.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
-echo '<td align="center">' . $rows['view'] . '</td>';
-echo '<td align="center">' . $rows['reply'] . '</td>';
-echo '<td align="center">' . $rows['datetime'] . '</td>';
+echo '<td align="left" style="text-align:left; overflow:auto;" height="100px" class="wrapword" >' .$row['detail'] . '</td>';
 echo '</tr>';
-}
+echo '</tbody>';
 echo '</table>';
-echo  '</div>';
 echo '</div>';
-mysqli_close($con);
+echo '</div>';
+}
+?>
+<br>
+
+<?php
+
+if($result2)
+{
+	
+while($rows=mysqli_fetch_assoc($result2))
+{
+
+echo ' <div class="widget stacked widget-table action-table">';
+ 
+ 
+   				
+				echo '<div class="widget-header">';
+					echo '<i class="icon-th-list"></i>';
+					echo '<h2 align="center" style="margin-top:-15px;">' . $rows['a_title'] . '</h2>';
+				echo '</div>'; 
+				
+				echo '<div class="widget-content">';
+					
+
+echo "<table class='table table-striped table-bordered'>";
+echo '<thead>';
+echo '<th colspan="5" align="right" style="text-align:right">' . $rows['a_name'] . '-' . $rows['a_datetime'] . '</th>';
+echo'</thead>';
+echo '<tbody>';
+echo '<tr>';
+echo '<td align="left" style="text-align:left" height="100px" class="wrapword" >' . $rows['a_answer'] . '</td>';
+echo '</tr>';
+echo '</tbody>';
+echo '</table>';
+echo '</div>';
+echo '</div>';
+echo '<br>';
+}
+
+}
 
 ?>
+ 
+<?php
 
+$sql3="SELECT view FROM clubforum_question WHERE id='$forumid'";
+$result3=mysqli_query($con,$sql3);
+$rows=mysqli_fetch_array($result3);
+$view=$rows['view'];
+// if have no counter value set counter = 1
+if($view==0)
+{
+	$view++;
+	$sql54="update clubforum_question set view = '$view' WHERE id= $forumid";
+	$result4=mysqli_query($con,$sql54);
+}
+// count more value
+$view++;
+$sql100="update clubforum_question set view = '$view' WHERE id= $forumid";
+$result100=mysqli_query($con,$sql100);
+
+
+
+mysqli_close($con);
+?>
+
+<BR>
+<table width="400" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+<tr>
+<form name="form1" method="post" action="add_clubanswerstudent.php">
+<td>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
+<tr>
+<td width="18%"><strong>Title:</strong></td>
+
+<td width="79%"><input name="a_title" type="text" id="a_title" size="45"></td>
+</tr>
+<tr>
+
+
+<?php echo '<td width="79%">' . '<input name="a_name" type="hidden" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
+</tr>
+<tr>
+<td valign="top"><strong>Answer:</strong></td>
+
+<td><textarea name="a_answer" rows="6"  cols="75" id="a_answer"></textarea></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<?php
+echo '<td><input name="forumid" type="hidden" value=' . $forumid . '></td>';
+echo '<td><input name="clubid" type="hidden" value=' . $clubid . '></td>';
+echo '<td><input type="submit" name="Submit" value="Submit" style="margin-left:-238px" class="btn btn-small btn-success" > <input type="reset" name="Submit2" value="Reset" style="margin-left:25px" class="btn btn-small btn-success"></td>';
+echo '</tr>';
+echo '</table>';
+echo '</td>';
+echo '</form>';
+?>
+</tr>
+</table>
+          
           </div><!--/row-->
 
-      <div id="footer">
+      <hr>
+	      
+     <hr>  
+			 <div id="footer">
       <div class="container">
                 
            <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
@@ -306,7 +388,7 @@ mysqli_close($con);
              </span>
              
 			 <?php
-             while ($row = mysqli_fetch_assoc($result2))
+             while ($row = mysqli_fetch_assoc($linkquery))
 			 {
 				 echo '<div class="span2" style="width:50px;">';
 			
@@ -320,7 +402,6 @@ mysqli_close($con);
          </ul>
       </div>
     </div>
-    
 		</div>
 
 

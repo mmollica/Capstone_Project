@@ -14,11 +14,13 @@ require_once 'core/init.php';
 
    
  
-$user= new User();  
-$username=$user->data()->username;
+$user= new User();	
+    
 $id= $user->data()->id;
 
-$classid=$_GET['classid'];
+$clubid=$_GET['classid'];
+
+$username=$user->data()->username;
 
 $result2 = mysqli_query($con,"SELECT * FROM link ");
 
@@ -26,16 +28,16 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
 
   <head>
     <meta charset="utf-8">
-    <title>Main Forum</title>
+    <title>Create Topic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-   <link href="bootstrap.css" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
     <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <style type="text/css">
+   <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -152,6 +154,17 @@ margin-right: -2px;
 font-size: 16px;
 color: #555;
 vertical-align: middle;
+
+}
+
+.wrapword{
+white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+white-space: -pre-wrap;      /* Opera 4-6 */
+white-space: -o-pre-wrap;    /* Opera 7 */
+white-space: pre-wrap;       /* css-3 */
+word-wrap: break-word;       /* Internet Explorer 5.5+ */
+word-break: break-all;
+white-space: normal;
 }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
@@ -185,7 +198,7 @@ vertical-align: middle;
               Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
-              <li><a href="userhomepage.php">Home</a></li>
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -201,102 +214,63 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                <?php 
-              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+    		<?php 
+              echo '<li><a href="teacherclubhomepage.php?clubid= ' . $clubid . ' ">Discussion</a></li>';
               
                 ?>
-              
-              <?php 
-              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
-              
-                ?>
-              
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
+                    <?php 
+              echo '<li><a href="create_clubtopic.php?clubid= ' . $clubid . ' "> Create Topic </a></li>';
               
                 ?>
-              
-              <?php 
-              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
-              
-                ?>
-              <?php 
-              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
-              
-                ?>
+
+            
 	
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-          <div class="span9" style="height:850px">
+         <div class="span9" style="height:850px">
+
+           <form id="form1" name="form1" method="post" action="add_clubtopic.php">
+          <div class="widget stacked widget-table action-table">
+    				
+				<div class="widget-header">
+					<i class="icon-th-list"></i>
+					<h2 style="margin-top:-15px;margin-left:300px;">Create New Topic</h2>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+					
+					<table class="table table-striped table-bordered">
+  <thead>
+ <tr>
+ <th align="left"><strong>Title:</strong></th>
+ <th><input name="topic" type="text" id="topic" size="50" /></th>
+ </tr>
+ </thead>
+ 
+ <tbody>
+ 
+<tr>
+<td align="left"><strong>Detail:</strong></td>
+<td align="left"><textarea name="detail" cols="50" rows="3" id="detail"></textarea></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<?php echo '<input name="clubid" type="hidden" value=' . $clubid .'>'; ?>
+<input type="submit" name="Submit" value="Submit" class="btn btn-large btn-success" style="margin-left:0px; margin-top:20px;" /> <input type="reset" name="Submit2" value="Reset" style="margin-left:100px; margin-top:20px;" class="btn btn-large btn-success" />
+</form>
 
           
-<?php
-
-$result = mysqli_query($con,"SELECT * FROM forum_question WHERE classid= $classid ORDER BY id DESC");
-// OREDER BY id DESC is order result by descending
-  if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-		
-$classname=mysqli_query($con,"SELECT * FROM class WHERE id= $classid");
-
-if(!$classname)
-        {
-        die(mysqli_error($con));
-        }
-?>
-
-<?php
-echo ' <div class="widget stacked widget-table action-table">';
-    				
-				echo '<div class="widget-header">';
-					echo '<i class="icon-th-list"></i>';
-while($row=mysqli_fetch_assoc($classname))
-{
-	echo'<h2 style="margin-top:-15px;margin-left:300px;"> ' . $row['classname'] . ' Discussion Forum' . '</h2>'; 
-	echo '</div>';
-}
-?>
-<div class="widget-content">
-<table class="table table-striped table-bordered">
-
-<thead>
-<tr>
-<th><strong>#</strong></th>
-<th><strong>Topic</strong></th>
-<th><strong>Views</strong></th>
-<th><strong>Replies</strong></th>
-<th><strong>Date/Time</strong></th>
-</tr>
-</thead>
-
-<?php
- 
-// Start looping table row
-while ($rows = mysqli_fetch_assoc($result))
-{
-
-echo '<tr>';
-echo '<td>' . $rows['id'] . '</td>';
-echo '<td>' . '<a href="view_topicstudent.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
-echo '<td align="center">' . $rows['view'] . '</td>';
-echo '<td align="center">' . $rows['reply'] . '</td>';
-echo '<td align="center">' . $rows['datetime'] . '</td>';
-echo '</tr>';
-}
-echo '</table>';
-echo  '</div>';
-echo '</div>';
-mysqli_close($con);
-
-?>
-
           </div><!--/row-->
 
-      <div id="footer">
+      <hr>
+	      
+
+			<!-- Copyright Area -->
+			 <hr>  
+			 <div id="footer">
       <div class="container">
                 
            <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>

@@ -149,7 +149,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
               <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
-              <li><a href="#contact">Log Out</a></li>
+              <li><a href="logout.php">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -289,7 +289,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 						{
 				  			 echo '<form id="createclub" action="" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cid .' class="btn btn-small btn-success">';
-					 		 echo "<li style='text-align:center';>" . '<input name="Club" type="submit" value=' . $row3['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
+					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row3['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
         
          		   			 echo '</form>';
 				 
@@ -315,7 +315,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				{
         					 echo '<form id="createclub" action="" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cn .' class="btn btn-small btn-success">';
-					 		 echo "<li style='text-align:center';>" . '<input name="Club" type="submit" value=' . $row['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
+					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
         
          		   			 echo '</form>';
 				 

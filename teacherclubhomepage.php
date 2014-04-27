@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+   $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
 
     if (!$con)
         {
@@ -13,29 +13,39 @@ require_once 'core/init.php';
         }
 
    
- 
+$count=0;
 $user= new User();  
 $username=$user->data()->username;
 $id= $user->data()->id;
 
-$classid=$_GET['classid'];
+$name= $user->data()->username;
+
+$clubid=$_POST['clubid'];
+ 
+$a = mysqli_query($con,"SELECT teacherid FROM club WHERE id= $clubid ");
+$b = mysqli_query($con,"SELECT teacherid FROM club WHERE id= $clubid ");	
+
+$c = mysqli_query($con,"SELECT teacherid FROM club WHERE id= $clubid ");	
+
+$d = mysqli_query($con,"SELECT clubname FROM club WHERE id= $clubid ");	
+	
 
 $result2 = mysqli_query($con,"SELECT * FROM link ");
-
+    
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Main Forum</title>
+    <title>Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-   <link href="bootstrap.css" rel="stylesheet">
+       <link href="bootstrap.css" rel="stylesheet">
     <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <style type="text/css">
+<style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -181,11 +191,13 @@ vertical-align: middle;
           </button>
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
-             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+            <p class="navbar-text pull-right">
+              Logged in as <?php echo $username; ?>
+            </p>
             </p>
             <ul class="nav">
-              <li><a href="userhomepage.php">Home</a></li>
+            
+              <li class="active"><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -201,49 +213,32 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                <?php 
-              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+          	<?php 
+              echo '<li><a href="teacherclubhomepage.php?clubid= ' . $clubid . ' ">Discussion</a></li>';
               
                 ?>
-              
-              <?php 
-              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
-              
-                ?>
-              
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
+                    <?php 
+              echo '<li><a href="create_clubtopic.php?clubid= ' . $clubid . ' "> Create Topic </a></li>';
               
                 ?>
-              
-              <?php 
-              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
-              
-                ?>
-              <?php 
-              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
-              
-                ?>
-	
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-          <div class="span9" style="height:850px">
+        <div class="span9" style="height:850px">
 
           
 <?php
 
-$result = mysqli_query($con,"SELECT * FROM forum_question WHERE classid= $classid ORDER BY id DESC");
+$result = mysqli_query($con,"SELECT * FROM clubforum_question WHERE clubid= $clubid ORDER BY id DESC");
 // OREDER BY id DESC is order result by descending
   if(!$result)
         {
         die(mysqli_error($con));
         }
 		
-$classname=mysqli_query($con,"SELECT * FROM class WHERE id= $classid");
+$clubname=mysqli_query($con,"SELECT * FROM club WHERE id= $clubid");
 
-if(!$classname)
+if(!$clubname)
         {
         die(mysqli_error($con));
         }
@@ -254,9 +249,9 @@ echo ' <div class="widget stacked widget-table action-table">';
     				
 				echo '<div class="widget-header">';
 					echo '<i class="icon-th-list"></i>';
-while($row=mysqli_fetch_assoc($classname))
+while($row=mysqli_fetch_assoc($clubname))
 {
-	echo'<h2 style="margin-top:-15px;margin-left:300px;"> ' . $row['classname'] . ' Discussion Forum' . '</h2>'; 
+	echo'<h2 style="margin-top:-15px;margin-left:300px;"> ' . $row['clubname'] . ' Discussion Forum' . '</h2>'; 
 	echo '</div>';
 }
 ?>
@@ -281,7 +276,7 @@ while ($rows = mysqli_fetch_assoc($result))
 
 echo '<tr>';
 echo '<td>' . $rows['id'] . '</td>';
-echo '<td>' . '<a href="view_topicstudent.php?classid= ' . $classid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
+echo '<td>' . '<a href="view_clubtopic.php?clubid= ' . $clubid . '&forumid=' .$rows['id'] . ' ">' . $rows['topic'] . '</a>' . '<br>' . '</td>';
 echo '<td align="center">' . $rows['view'] . '</td>';
 echo '<td align="center">' . $rows['reply'] . '</td>';
 echo '<td align="center">' . $rows['datetime'] . '</td>';
@@ -296,7 +291,17 @@ mysqli_close($con);
 
           </div><!--/row-->
 
-      <div id="footer">
+      <hr>
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+
+     <hr>  
+			 <div id="footer">
       <div class="container">
                 
            <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
@@ -321,8 +326,7 @@ mysqli_close($con);
       </div>
     </div>
     
-		</div>
-
+    </div>
 
     <!-- Le javascript
     ================================================== -->
@@ -381,12 +385,12 @@ function gradesFunction()
 {
 	document.getElementById("grade").submit();	
 }
- 
- function uploadFunction()
+
+function uploadFunction()
 {
 	document.getElementById("aUpload").submit();	
 }
-
+ 
   </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>
