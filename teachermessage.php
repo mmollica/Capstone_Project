@@ -165,7 +165,10 @@ if(Input::exists())
               echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
                 ?>
-              <li><a href="#">Grades</a></li>
+                <?php
+                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
+        
+        ?>
   
             </ul>
           </div><!--/.well -->

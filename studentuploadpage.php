@@ -49,7 +49,7 @@ if(Input::exists())
         $upload = new Upload();
         date_default_timezone_set('America/New_York');
         $time = date("Y-m-d H:i:s");
-        echo $islate;
+     
         $tmpName = $_FILES['studentUpload']["tmp_name"];
         $fileName = $_FILES['studentUpload']["name"];
         $fileSize = $_FILES['studentUpload']['size'];            

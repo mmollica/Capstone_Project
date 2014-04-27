@@ -5,92 +5,33 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-  $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); 
 
-    if (!$con)
-        {
-             die('Could not connect: ' . mysqli_error($con));
-        }
 
-   
- 
 $user= new User();	
     
 $id= $user->data()->id;
+$username=$user->data()->username;
+$fname=$user->data()->fname;
+$lname=$user->data()->lname;
+/*$classid=$_GET['classid'];*/
+$classid= 50000002;
 
-$classid=$_GET['classid'];
+date_default_timezone_set('America/New_York');
 
-
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1");
-
- if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-if(Input::exists())
-{
-  $total = Input::get('points');
-  $assignmentid = Input::get('assignmentid');
-  $studentid = Input::get('studentid');
-  $islate = Input::get('islate');
-  $classid = Input::get('classid');
-  $points = Input::get('newpoints');
-  $gradeid = Input::get('gradeid');
-  for($y = 0; $y < count($total); $y++)
-        {
-
-            $total = $total[$y];
-            $assignmentid = $assignmentid[$y];
-            $studentid = $studentid[$y];
-            $islate = $islate[$y];
-            $classid = $classid[$y];
-            $grade = new Grades();
-            date_default_timezone_set('America/New_York');
-            $time = date("Y-m-d H:i:s");
-            
-            if($points==true)
-            {
-              $points = $points[$y];
-              $gradeid = $gradeid[$y];
-              $query="UPDATE grades SET points='$total' WHERE gradeid= $gradeid";
-              $result3=mysqli_query($con,$query);  
-            }
-            else
-            {
-            try
-              {
-                $grade->create(array(
-                  'classid'=>$classid,
-                  'assignmentid'=>$assignmentid,
-                  'studentid' => $studentid,
-                  'points' => $total,
-                  'date' => $time,
-                  'islate' => $islate
-                    
-                  ));
-
-                
-              }
-              catch(Exception $e)
-              {
-                die($e->getMessage());
-              }
-            }
-        }
-}
+    
 ?>
 
   <head>
     <meta charset="utf-8">
-    <title>Grades</title>
+    <title>View Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
-    <link href="carousel.css" rel="stylesheet">
-<style type="text/css">
+    <link href="bootstrap.css" rel="stylesheet">    
+	
+	<style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -210,7 +151,6 @@ vertical-align: middle;
 }
     </style>
     <link href="bootstrap-responsive.css" rel="stylesheet">
-    <script src="ajax_req.js" type="text/javascript"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -223,12 +163,12 @@ vertical-align: middle;
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
-<script language="JavaScript">
-            function download (id)
-            {
-                window.open ("downloadstudent.php?fileId="+id, "hiddenFrame");
-            }
-</script>     
+  <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
+  <script src="SpryAssets/SpryValidationPassword.js" type="text/javascript"></script>
+  <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
+  <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+  <link href="SpryAssets/SpryValidationPassword.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -244,10 +184,10 @@ vertical-align: middle;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
-              <li><a href="userhomepage.php">Home</a></li>
+                <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -259,143 +199,129 @@ vertical-align: middle;
 
     <div class="container-fluid">
       <div class="row-fluid">
-
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-           	<?php 
+              <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
+                ?>
               
+                   <?php 
+              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-               <?php 
+                ?>
+
+              <?php 
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
                 ?>
+                
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
-              <?php
-              	echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
-				
-				      ?>
-              <?php
-                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">Grades</a></li>';
+                ?>
+                <?php
+                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
         
-              ?>
-             
-	
+        ?>
+                         
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-         <div class="span9" style="height:850px">
-
-          <div class="viewbox">
-            <h1 style="margin-top:-30px; margin-left:250px">Grades</h1>
-            <br>
- 			
- 					<form name='grades' action='' method='post'>
+        <div class="span9" style="height:1000px">
+          <div class="widget stacked widget-table action-table">
+    				
+				<div class="widget-header">
+					<i class="icon-th-list"></i>
+					<h2 style="margin-top:-15px;margin-left:300px;">Class Roster</h2>
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
 					
- 					<label >Select an Assignment:</label>
-				<select name="assignmentid" onChange="htmlData('removegrade.php', 'grade='+this.value)" />
-  				<option value="#">-Select-</option>
-  				<?php 
-  					//$con = mysqli_connect("localhost","host","test", "capstone_db");
-					//$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid = $classid");
-					while($row = mysqli_fetch_assoc($result)) 
-                              {  
-                                echo '<option value="' . $row['assignmentid'] . '">' . $row['assignmentname'] . '</option>';
-                              } 
-					mysqli_close($con);
-				?> 
-				</select>
+					<table class="table table-striped table-bordered">
+  <thead>
+    	<tr>
+          <th>User. ID</th>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Overall Grade</th>
+          
+            
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            
+            $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db");
 
-				<div id="txtResult"></div>
+            if (!$con)
+            {
+                 die('Could not connect: ' . mysqli_error($con));
+            }
 
-       
-     </div>
-   </form>
-          </div><!--/row-->
+            $query = mysqli_query($con, "SELECT * FROM classassign WHERE classid = $classid");
+            while($row2 = mysqli_fetch_assoc($query)) 
+            {
+              $studentid = $row2['studentid'];
+              $result = mysqli_query($con, "SELECT * FROM users WHERE id= $studentid");
+              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $studentid");
+              $points = 0;
+              $total = 0;
+              while($row3 = mysqli_fetch_assoc($query2))
+              {
+                $points = $points + $row3['points'];
+                $assignmentid = $row3['assignmentid'];
+              
+                $query3 = mysqli_query($con, "SELECT * FROM assignment WHERE classid = $classid AND assignmentid= $assignmentid");
+                while($row4 = mysqli_fetch_assoc($query3))
+                {
+                  $total = $total + $row4['total'];
+                }
+              }
+
+              $grade = number_format(($points/$total)*100);
+
+              while($row = mysqli_fetch_assoc($result))
+                  {
+                  $userid = $row['id'];
+                  echo "<tr>";
+                  echo "<td>". $row['id'] . "</td>";
+                  echo '<td><a href="gradebreakdown.php?userid=' . $userid . '&classid=' . $classid . '"> ' . $row['fname'] . $row['lname'] . '</a></td>';
+                  echo "<td>". $row['username'] . "</td>";
+                  echo "<td>". $grade . "%</td>";
+                  echo "</tr>";
+                 
+              }
+            }
+?> 
+    
+    	   
+    </tbody>
+</table>
+
+
+</div> <!-- /widget-content -->
+			
+			</div> <!-- /widget -->
+            </div>
 
       <hr>
-	      
 
-			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
-		</div>
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
 
+    </div><!--/.fluid-container-->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script>
- 
-  jQuery( document ).ready(function($) {
-    
-	
-	 $('#myCarousel').carousel({
-                interval: 10000
-        });
- 
-        $('#carousel-text').html($('#slide-content-0').html());
- 
-        //Handles the carousel thumbnails
-        $('[id^=carousel-selector-]').click( function(){
-                var id_selector = $(this).attr("id");
-                var id = id_selector.substr(id_selector.length -1);
-                var id = parseInt(id);
-                $('#myCarousel').carousel(id);
-        });
- 
- 
-        // When the carousel slides, auto update the text
-        $('#myCarousel').on('slid', function (e) {
-                var id = $('.item.active').data('slide-number');
-                $('#carousel-text').html($('#slide-content-'+id).html());
-        });
-	
-});
-
-function classFunction()
-{
-	document.getElementById("content").submit();	
-}
-
-function workFunction()
-{
-	document.getElementById("assignment").submit();	
-}
-
-function quizFunction()
-{
-	document.getElementById("quiz").submit();	
-}
-
-function discussionFunction()
-{
-	document.getElementById("discuss").submit();	
-}
-
-function gradesFunction()
-{
-	document.getElementById("grade").submit();	
-}
- 
- function uploadFunction()
-{
-	document.getElementById("aUpload").submit();	
-}
-
-  </script>
     <script src="jquery.js"></script>
     <script src="bootstrap-transition.js"></script>
     <script src="bootstrap-alert.js"></script>
@@ -409,5 +335,7 @@ function gradesFunction()
     <script src="bootstrap-collapse.js"></script>
     <script src="bootstrap-carousel.js"></script>
     <script src="bootstrap-typeahead.js"></script>
+  <script type="text/javascript">
 
+  </script>
   </body>
