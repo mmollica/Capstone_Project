@@ -244,7 +244,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 
 			<?php
 			
-			 if ($group==4)
+			 if ($group==3)
 			  {
 				  
 				   while ($row = mysqli_fetch_assoc($result51))
@@ -258,7 +258,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				
 				  			while ($row3 = mysqli_fetch_assoc($names))
 						{
-				  			 echo '<form id="createclub" action="" method="post">';
+				  			 echo '<form id="createclub" action="clubhomepage.php" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cid .' class="btn btn-small btn-success">';
 					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row3['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
         
@@ -284,7 +284,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				
 				  while ($row = mysqli_fetch_assoc($names))
 				{
-        					 echo '<form id="createclub" action="" method="post">';
+        					 echo '<form id="createclub" action="teacherclubhomepage.php" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cn .' class="btn btn-small btn-success">';
 					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
         
