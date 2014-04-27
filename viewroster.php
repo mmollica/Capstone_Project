@@ -288,15 +288,20 @@ vertical-align: middle;
                   $total = $total + $row4['total'];
                 }
               }
-
-              $grade = number_format(($points/$total)*100);
-
+              if($total!=0)
+              {
+                $grade = number_format(($points/$total)*100);
+              }
+              else
+              {
+                $grade=0;
+              }
               while($row = mysqli_fetch_assoc($result))
                   {
                   $userid = $row['id'];
                   echo "<tr>";
                   echo "<td>". $row['id'] . "</td>";
-                  echo '<td><a href="gradebreakdown.php?userid=' . $userid . '&classid=' . $classid . '"> ' . $row['fname'] . $row['lname'] . '</a></td>';
+                  echo '<td><a href="gradebreakdown.php?userid=' . $userid . '&classid=' . $classid . '"> ' . $row['fname'] . " " . $row['lname'] . '</a></td>';
                   echo "<td>". $row['username'] . "</td>";
                   echo "<td>". $grade . "%</td>";
                   echo "</tr>";

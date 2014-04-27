@@ -15,14 +15,14 @@ require_once 'core/init.php';
    
  
 $user= new User();	
-    
+$username=$user->data()->username;
 $userid= $user->data()->id;
 
 $classid=$_GET['classid'];
 
 $forumid=$_GET['forumid'];
 
-$username=$user->data()->username;
+
 
 $sname=$user->data()->fname;
 
@@ -211,10 +211,10 @@ white-space: normal;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
              <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+              Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
-              <li class="active"><a href="userhomepage.php">Home</a></li>
+              <li><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -230,32 +230,30 @@ white-space: normal;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                <?php 
+              <?php 
               echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
+                ?>
+              
               
               <?php 
-              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
               
-              	?>
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
-              
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
-              	?>
+                ?>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
               
-              <li><a href="#">Grades</a></li>
+                ?>
 	
             </ul>
           </div><!--/.well -->
@@ -279,7 +277,7 @@ echo ' <div class="widget stacked widget-table action-table">';
 
 echo "<table class='table table-striped table-bordered'>";
 echo '<thead>';
-echo '<th colspan="5" align="right" style="text-align:right">' . $row['name'] . '-' . $row['datetime'] . '</th>';
+echo '<th colspan="5" align="right" style="text-align:right">' . $row['datetime'] . '</th>';
 echo '</thead>';
 echo '<tbody>';
 
@@ -364,18 +362,18 @@ mysqli_close($con);
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
 <tr>
-<td width="18%"><strong>Title</strong></td>
-<td width="3%">:</td>
+<td width="18%"><strong>Title:</strong></td>
+
 <td width="79%"><input name="a_title" type="text" id="a_title" size="45"></td>
 </tr>
 <tr>
-<td width="18%"><strong>Name</strong></td>
-<td width="3%">:</td>
-<?php echo '<td width="79%">' . '<input name="a_name" type="text" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
+
+
+<?php echo '<td width="79%">' . '<input name="a_name" type="hidden" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
 </tr>
 <tr>
-<td valign="top"><strong>Answer</strong></td>
-<td valign="top">:</td>
+<td valign="top"><strong>Answer:</strong></td>
+
 <td><textarea name="a_answer" rows="6"  cols="75" id="a_answer"></textarea></td>
 </tr>
 <tr>

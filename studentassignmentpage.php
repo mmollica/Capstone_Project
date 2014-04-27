@@ -14,8 +14,8 @@ require_once 'core/init.php';
 
    
  
-$user= new User();	
-    
+$user= new User();  
+$username=$user->data()->username;
 $id= $user->data()->id;
 
 $classid=$_GET['classid'];
@@ -93,10 +93,11 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $username; ?>
+            </p>
             </p>
             <ul class="nav">
-              <li class="active"><a href="userhomepage.php">Home</a></li>
+              <li><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -112,31 +113,30 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
         <div class="span3">
           <div class="well sidebar-nav">
               <ul class="nav nav-list">
-              
-            	<?php 
+                  <?php 
               echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
-              
+                ?>
               
               
               <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
-              	?>
-                
-              <li><a href="#">Grades</a></li>
-	
+                ?>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
+              
+                ?>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

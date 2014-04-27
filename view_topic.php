@@ -368,18 +368,18 @@ mysqli_close($con);
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
 <tr>
-<td width="18%"><strong>Title</strong></td>
-<td width="3%">:</td>
+<td width="18%"><strong>Title:</strong></td>
+
 <td width="79%"><input name="a_title" type="text" id="a_title" size="45"></td>
 </tr>
 <tr>
-<td width="18%"><strong>Name</strong></td>
-<td width="3%">:</td>
-<?php echo '<td width="79%">' . '<input name="a_name" type="text" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
+
+
+<?php echo '<td width="79%">' . '<input name="a_name" type="hidden" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
 </tr>
 <tr>
-<td valign="top"><strong>Answer</strong></td>
-<td valign="top">:</td>
+<td valign="top"><strong>Answer:</strong></td>
+
 <td><textarea name="a_answer" rows="6"  cols="75" id="a_answer"></textarea></td>
 </tr>
 <tr>

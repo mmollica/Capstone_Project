@@ -14,8 +14,8 @@ require_once 'core/init.php';
 
    
 $count=0;
-$user= new User();	
-    
+$user= new User();  
+$username=$user->data()->username;
 $id= $user->data()->id;
 
 $classid=$_POST['classid'];
@@ -111,7 +111,8 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $username; ?>
+            </p>
             </p>
             <ul class="nav">
             
@@ -143,7 +144,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               
               
               <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
               
               	?>
               
@@ -151,7 +152,10 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
               echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
               	?>
-              <li><a href="#">Grades</a></li>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
+              
+                ?>
 
             </ul>
           </div><!--/.well -->

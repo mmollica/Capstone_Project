@@ -110,7 +110,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+              Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
               <li class="active"><a href="userhomepage.php">Home</a></li>

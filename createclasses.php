@@ -209,10 +209,10 @@ if(Input::exists())
           <span id="spryselect2">
       <label for="Class Subject">Class Subject:</label>
       <select name="subject" id="Class Subject">
-        <option value="english">English</option>
-        <option value="history">History</option>
-        <option value="math">Math</option>
-        <option value="science">Science</option>
+        <option value="English">English</option>
+        <option value="History">History</option>
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
       </select>
       <span class="selectRequiredMsg">Please select an item.</span></span>
           

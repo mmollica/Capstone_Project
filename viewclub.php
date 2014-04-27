@@ -269,7 +269,7 @@ vertical-align: middle;
                 while($row2 = mysqli_fetch_assoc($result2))
                 {
                     $id = $row2['id'];
-                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . $row2['lname'] . '</a></td>';
+                    echo '<td><a href="viewuserdetails.php?userid= ' . $id . ' "> '. $row2['fname'] . " " . $row2['lname'] . '</a></td>';
                 }
                 echo "</tr>";
                 mysqli_close($DB);

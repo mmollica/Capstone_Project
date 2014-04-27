@@ -14,8 +14,8 @@ require_once 'core/init.php';
 
    
  
-$user= new User();	
-$name = $user->data()->username;
+$user= new User();  
+$name=$user->data()->username;
 $id= $user->data()->id;
 
 $classid=$_GET['classid'];
@@ -198,7 +198,7 @@ if(Input::exists())
               Logged in as <?php echo $name; ?>
             </p>
             <ul class="nav">
-              <li class="active"><a href="classhomepage.php">Home</a></li>
+              <li><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -214,7 +214,7 @@ if(Input::exists())
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-                            <?php 
+                  <?php 
               echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
                 ?>
@@ -225,9 +225,8 @@ if(Input::exists())
                 ?>
               
               
-              
               <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
               
                 ?>
               
@@ -235,10 +234,10 @@ if(Input::exists())
               echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
                 ?>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
               
-              
-              <li><a href="#">Grades</a></li>
-	
+                ?>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

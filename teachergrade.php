@@ -29,52 +29,58 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
         }
 if(Input::exists())
 {
-  $total = Input::get('points');
-  $assignmentid = Input::get('assignmentid');
-  $studentid = Input::get('studentid');
-  $islate = Input::get('islate');
-  $classid = Input::get('classid');
-  $points = Input::get('newpoints');
-  $gradeid = Input::get('gradeid');
-  for($y = 0; $y < count($total); $y++)
-        {
 
+  $total = Input::get('points');
+  for($y = 0; $y <= count($total); $y++)
+        {
+           
+            $total = Input::get('points');
+            $assignmentid = Input::get('assignmentid');
+            $studentid = Input::get('studentid');
+            $islate = Input::get('islate');
+            $classid = Input::get('classid');
+            $points = Input::get('newpoints');
+            $gradeid = Input::get('gradeid');
             $total = $total[$y];
-            $assignmentid = $assignmentid[$y];
+            if(isset($assignmentid[$y]))
+            {
+              $assignmentid = $assignmentid[$y];
+            }
             $studentid = $studentid[$y];
-            $islate = $islate[$y];
+            if(isset($islate[$y]))
+            {
+              $islate = $islate[$y];
+            }
             $classid = $classid[$y];
             $grade = new Grades();
             date_default_timezone_set('America/New_York');
             $time = date("Y-m-d H:i:s");
-            
-            if($points==true)
+           
+
+            if(isset($gradeid[$y]))
             {
-              $points = $points[$y];
               $gradeid = $gradeid[$y];
-              $query="UPDATE grades SET points='$total' WHERE gradeid= $gradeid";
-              $result3=mysqli_query($con,$query);  
+              $update = mysqli_query($con, "UPDATE grades SET points='$total' WHERE gradeid= $gradeid AND studentid= $studentid");  
             }
             else
             {
-            try
-              {
-                $grade->create(array(
+              try
+                {
+                  
+                  $grade->create(array(
                   'classid'=>$classid,
                   'assignmentid'=>$assignmentid,
-                  'studentid' => $studentid,
-                  'points' => $total,
-                  'date' => $time,
-                  'islate' => $islate
-                    
+                  'studentid'=>$studentid,
+                  'points'=>$total,
+                  'date'=>$time,
+                  'islate'=>$islate
+                  
                   ));
-
-                
-              }
-              catch(Exception $e)
-              {
-                die($e->getMessage());
-              }
+               }
+               catch(Exception $e)
+               {
+                  die($e->getMessage());
+               }
             }
         }
 }

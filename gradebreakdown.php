@@ -285,8 +285,14 @@ vertical-align: middle;
                   }
                 }
               
-              
-              $grade = number_format(($points/$total)*100);
+             if($total!=0)
+              {
+                $grade = number_format(($points/$total)*100);
+              }
+              else
+              {
+                $grade=0;
+              }
              
             $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
 
@@ -300,7 +306,7 @@ vertical-align: middle;
                 $userid = $row['id'];
                   echo "<tr>";
                   echo "<td>". $row['id'] . "</td>";
-                  echo '<td>' . $row['fname'] . $row['lname'] . '</a></td>';
+                  echo '<td>' . $row['fname'] . " " . $row['lname'] . '</a></td>';
                   echo "<td>". $row['username'] . "</td>";
                   echo "<td>". $grade . "%</td>";
                   echo "</tr>";
@@ -322,7 +328,7 @@ echo '<br>';
             
         echo '<div class="widget-header">';
           echo '<i class="icon-th-list"></i>';
-          echo "<h2 style='margin-top:-15px;margin-left:300px;'>User's Classes</h2>";
+          echo "<h2 style='margin-top:-15px;margin-left:300px;'>Assignment Breakdown</h2>";
         echo '</div>'; 
         
         echo '<div class="widget-content">';

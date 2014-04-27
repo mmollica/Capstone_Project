@@ -188,7 +188,7 @@ vertical-align: middle;
               Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
-            <li><a href="staffhomepage.html">Home</a></li>
+              <li><a href="staffhomepage.html">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -203,32 +203,30 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Users</li>
-              <li ><a href="createusers.php">Create</a></li>
-              <li ><a href="editusers.php">Edit</a></li>
-              <li class="active"><a href="viewusers.php">View</a></li>
-              <li><a href="assignparent.php">Assign a Parent to a Student</a></li>
+                  <?php 
+              echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              <li class="nav-header">Classes</li>
-              <li><a href="createclasses.php">Create</a></li>
-              <li><a href="editclasses.php">Edit</a></li>
-              <li><a href="viewclass.php">View</a></li>
-              <li><a href="assignstudent.php">Assign a Student to a Class</a></li>
+                ?>
               
-              <li class="nav-header">Clubs</li>
-              <li><a href="createclub.php">Create</a></li>
-              <li><a href="editclub.php">Edit</a></li>
-              <li><a href="viewclub.php">View</a></li>
-              <li><a href="assignclub.php">Assign a Student to a Club</a></li>
+              <?php 
+              echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              <li class="nav-header">Links</li>
-              <li ><a href="createlink.php">Create</a></li>
-              <li><a href="editlink.php">Edit</a></li>
-     
+                ?>
               
-              <li class="nav-header"> School Messages</li>
-              <li><a href="createmessage.php">Create</a></li>
-              <li><a href="editmessage.php">Edit</a></li> 
+              
+              <?php 
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
+              
+                ?>
+              
+              <?php 
+              echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
+              
+                ?>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
+              
+                ?>
                          
             </ul>
           </div><!--/.well -->
@@ -282,7 +280,14 @@ vertical-align: middle;
                 }
               
               
-              $grade = number_format(($points/$total)*100);
+            if($total!=0)
+              {
+                $grade = number_format(($points/$total)*100);
+              }
+              else
+              {
+                $grade=0;
+              }
              
             $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
 

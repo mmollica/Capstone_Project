@@ -171,8 +171,13 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           $assignmentid= $row['assignmentid'];
     			echo '<form id="content" method="get" action="editcontentpage.php" >';
           echo "<li style='margin-left:-40px'><a href='javascript:download(".$row['assignmentid'].")'> ".$row['assignmentname']."</a></li>";
-          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
-    			echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+          if($row['description']==true)
+          {
+            echo "<ul>";
+            echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+            echo "</ul>";
+    			}
+          echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
     			echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
     			echo '<input name="classid" type="hidden" value=' .$classid .'>';
     			echo '</form>';
@@ -183,7 +188,12 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           $assignmentid= $row['assignmentid'];
           echo '<form id="content" method="get" action="editcontentpage.php" >';
           echo "<li style='margin-left:-40px'>".$row['assignmentname']."</a></li>";
-          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+           if($row['description']==true)
+          {
+            echo "<ul>";
+            echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+            echo "</ul>";
+          }
           echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
           echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
           echo '<input name="classid" type="hidden" value=' .$classid .'>';

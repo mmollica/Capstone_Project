@@ -120,9 +120,9 @@ if ($_GET['grade'])
 		}
 		
 		echo "<td><input name='points[]' type='text' size='3' >";
-		echo '<input name="assignmentid[]" type="hidden" value=' . $asset . '>';
+		echo '<input name="assignmentid" type="hidden" value=' . $asset . '>';
 		echo '<input name="studentid[]" type="hidden" value=' . $student . '>';
-		echo '<input name="islate[]" type="hidden" value=' . $islate . '>';
+		echo '<input name="islate" type="hidden" value=' . $islate . '>';
 		echo '<input name="classid[]" type="hidden" value=' . $class . '>';
 		if(mysqli_fetch_assoc($check)==true)
 		{

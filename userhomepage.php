@@ -31,9 +31,9 @@ $result = mysqli_query($con," SELECT * FROM staffmessage ORDER BY date ");
 $result2 = mysqli_query($con,"SELECT * FROM link ");
 
 	
-$result3 = mysqli_query($con,"SELECT classid FROM classassign WHERE studentid= $id OR teacherid=$id ");
+$result3 = mysqli_query($con,"SELECT DISTINCT classid FROM classassign WHERE studentid= $id OR teacherid=$id ORDER BY classid");
 	
-$result4 = mysqli_query($con,"SELECT clubid FROM clubassign WHERE studentid= $id OR teacherid=$id ");
+$result4 = mysqli_query($con,"SELECT DISTINCT clubid FROM clubassign WHERE studentid= $id OR teacherid=$id ORDER BY clubid");
 
 $result5 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE parentid= $id");
 

@@ -171,9 +171,18 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
     			echo "<li style='margin-left:-40px'><a href='javascript:download(".$row['assignmentid'].")'> ".$row['assignmentname']."</a></li>";
     			echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
     			echo '<ul>';
-          echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
-    			echo '<li>' . 'Worth:' . $row['total'] . '</li>';
-          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+          if($row['duedate']==true)
+          {
+            echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
+          }
+          if($row['total']==true)
+          {
+            echo '<li>' . 'Worth:' . $row['total'] . '</li>';
+          }
+          if($row['description']==true)
+          {
+            echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+          }
           echo '</ul>';
     			echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
     			echo '<input name="classid" type="hidden" value=' .$classid .'>';
@@ -187,9 +196,18 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           echo "<li style='margin-left:-40px'>".$row['assignmentname']."</a></li>";
           echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
           echo '<ul>';
-          echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
-          echo '<li>' . 'Worth:' . $row['total'] . '</li>';
-          echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+          if($row['duedate']==true)
+          {
+            echo '<li>' . 'Due Date:' . $row['duedate'] . '</li>';
+          }
+          if($row['total']==true)
+          {
+            echo '<li>' . 'Worth:' . $row['total'] . '</li>';
+          }
+          if($row['description']==true)
+          {
+            echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
+          }
           echo '</ul>';
           echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
           echo '<input name="classid" type="hidden" value=' .$classid .'>';

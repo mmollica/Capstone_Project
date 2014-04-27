@@ -14,13 +14,12 @@ require_once 'core/init.php';
 
    
  
-$user= new User();	
-    
+$user= new User();  
+$username=$user->data()->username;
 $id= $user->data()->id;
 
 $classid=$_GET['classid'];
 
-$username=$user->data()->username;
 
 
 ?>
@@ -185,7 +184,7 @@ vertical-align: middle;
               Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
             </p>
             <ul class="nav">
-              <li class="active"><a href="userhomepage.php">Home</a></li>
+              <li><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -201,31 +200,30 @@ vertical-align: middle;
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-            <?php 
+                <?php 
               echo '<li><a href="studentcontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="studentassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
+                ?>
+              
               
               <?php 
-              echo '<li><a href="studentquizpage.php?classid= ' . $classid . ' ">Quiz</a></li>';
+              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload Assignment</a></li>';
               
-              	?>
-              
-              <?php 
-              echo '<li><a href="studentuploadpage.php?classid= ' . $classid . ' "> Upload</a></li>';
-              
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="main_forumstudent.php?classid= ' . $classid . ' ">Discussion</a></li>';
               
-              	?>
-              <li><a href="#">Grades</a></li>
+                ?>
+              <?php 
+              echo '<li><a href="studentgrades.php?classid= ' . $classid . ' ">View Grades</a></li>';
+              
+                ?>
 	
             </ul>
           </div><!--/.well -->
@@ -240,7 +238,7 @@ error_reporting(E_ALL);
 require_once 'core/init.php';
 
 
-    $con = mysqli_connect("localhost","host","test","capstone_db");
+    
 
     if (!$con)
         {
