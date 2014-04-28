@@ -420,7 +420,7 @@ $getclasses = mysqli_query($con, "SELECT * FROM classassign WHERE studentid = $u
                 }
                 echo "<tr style='background-color: #f5f5f5'>";
                 echo "<td>Total</td>";
-                echo "<td>". $grade . "</td>";
+                echo "<td>". $grade . "%</td>";
                 echo "<td>". $total . "</td>";
                 echo "</tr>";
               
