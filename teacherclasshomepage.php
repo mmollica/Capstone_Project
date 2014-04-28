@@ -190,7 +190,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
 			while ($row2 = mysqli_fetch_assoc($a))
 			{
 				$tid= $row2['teacherid'];
-				$result = mysqli_query($con," SELECT * FROM teachermessage WHERE teacherid=$tid AND classid= $classid ORDER BY date ");
+				$result = mysqli_query($con," SELECT * FROM teachermessage WHERE teacherid=$tid AND classid= $classid ORDER BY date_added ");
 				
 				if(!$result)
       				{

@@ -42,8 +42,8 @@ if(Input::exists())
           'teacherid'=> $id
           ));
 
-        Session::flash('home', 'You have registered a user');
-        Redirect::to('teacherclasshomepage.php');
+       
+        
       }
       catch(Exception $e)
       {
