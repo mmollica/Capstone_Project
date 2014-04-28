@@ -69,7 +69,7 @@ if(Input::exists())
         $content = fread($fp, filesize($tmpName));
         fclose($fp);*/
 
-        $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
+        $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx", "ppt", "pptx");
         $temp = explode(".", $_FILES['studentUpload']["name"]);
         //$ext = end($temp);
         $temp2 = end($temp);
@@ -82,6 +82,8 @@ if(Input::exists())
         || ($_FILES["studentUpload"]["type"] == "text/plain")
         || ($_FILES["studentUpload"]["type"] == "application/msword")
         || ($_FILES["studentUpload"]["type"] == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        || ($_FILES["studentUpload"]["type"] == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+        || ($_FILES["studentUpload"]["type"] == "application/vnd.ms-powerpoint [official], application/mspowerpoint, application/ms-powerpoint, application/mspowerpnt, application/vnd-mspowerpoint application/powerpoint, application/x-powerpoint, application/x-m")
         || ($_FILES['studentUpload']["type"] == "image/x-png")
         || ($_FILES['studentUpload']["type"] == "application/pdf")
         || ($_FILES['studentUpload']["type"] == "image/png"))
