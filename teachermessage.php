@@ -52,10 +52,7 @@ if(Input::exists())
           ));
 
        
-<<<<<<< HEAD
-        
-=======
->>>>>>> 3aa227a8a5647c082df57cd8ab97f285e6879829
+
       }
       catch(Exception $e)
       {
