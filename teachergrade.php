@@ -48,57 +48,62 @@ if(Input::exists())
             $classid = Input::get('classid');
             $points = Input::get('newpoints');
             $gradeid = Input::get('gradeid');
+            
             if(isset($total[$y]))
             {
               $total = $total[$y];
-            }
-            if(isset($assignmentid[$y]))
-            {
-              $assignmentid = $assignmentid[$y];
-            }
-            if(isset($studentid[$y]))
-            {
-              $studentid = $studentid[$y];
-            }
-            if(isset($islate[$y]))
-            {
-              $islate = $islate[$y];
-            }
-            if(isset($classid[$y]))
-            {
-              $classid = $classid[$y];
-            }
-
-            $grade = new Grades();
-            date_default_timezone_set('America/New_York');
-            $time = date("Y-m-d H:i:s");
-           
-
-            if(isset($gradeid[$y]))
-            {
-              $gradeid = $gradeid[$y];
-              $update = mysqli_query($con, "UPDATE grades SET points='$total' WHERE gradeid= $gradeid AND studentid= $studentid");  
-            }
-            else
-            {
-              try
+              
+              if(is_numeric($total))
+              {
+                if(isset($assignmentid[$y]))
                 {
-                  
-                  $grade->create(array(
-                  'classid'=>$classid,
-                  'assignmentid'=>$assignmentid,
-                  'studentid'=>$studentid,
-                  'points'=>$total,
-                  'date'=>$time,
-                  'islate'=>$islate
-                  
-                  ));
-               }
-               catch(Exception $e)
-               {
-                  
-               }
+                  $assignmentid = $assignmentid[$y];
+                }
+                if(isset($studentid[$y]))
+                {
+                  $studentid = $studentid[$y];
+                }
+                if(isset($islate[$y]))
+                {
+                  $islate = $islate[$y];
+                }
+                if(isset($classid[$y]))
+                {
+                  $classid = $classid[$y];
+                }
+                
+                $grade = new Grades();
+                date_default_timezone_set('America/New_York');
+                $time = date("Y-m-d H:i:s");
+              
+                $check = mysqli_query($con, "SELECT * FROM grades WHERE assignmentid=$assignmentid AND studentid=$studentid");
+                if(mysqli_fetch_assoc($check)==true)
+                {
+                 
+                  $update = mysqli_query($con, "UPDATE grades SET points='$total' WHERE assignmentid= $assignmentid AND studentid= $studentid");  
+                }
+                else
+                {
+                  try
+                    {
+                      
+                      $grade->create(array(
+                      'classid'=>$classid,
+                      'assignmentid'=>$assignmentid,
+                      'studentid'=>$studentid,
+                      'points'=>$total,
+                      'date'=>$time,
+                      'islate'=>$islate
+                      
+                      ));
+                   }
+                   catch(Exception $e)
+                   {
+                      
+                   }
+                }
             }
+          }
         }
 }
 ?>

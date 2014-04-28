@@ -83,6 +83,7 @@ if ($_GET['grade'])
 		}
 		else
 		{
+			$grade = 0;
 			while($row4 = mysqli_fetch_assoc($query1)) 
 			{
 				echo "<td><a href='javascript:download(".$row4['id'].")'> " . $row4['file_name'] . "</td>";
@@ -107,6 +108,7 @@ if ($_GET['grade'])
 		
 		if(mysqli_fetch_assoc($result5)==false)
 		{
+			$gradeid = 1;
 			echo '<td></td>';
 		}
 		else
@@ -120,7 +122,7 @@ if ($_GET['grade'])
 		}
 		
 		echo "<td><input name='points[]' type='text' size='3' >";
-		echo '<input name="assignmentid" type="hidden" value=' . $asset . '>';
+		echo '<input name="assignmentid[]" type="hidden" value=' . $asset . '>';
 		echo '<input name="studentid[]" type="hidden" value=' . $student . '>';
 		echo '<input name="islate" type="hidden" value=' . $islate . '>';
 		echo '<input name="classid[]" type="hidden" value=' . $class . '>';
