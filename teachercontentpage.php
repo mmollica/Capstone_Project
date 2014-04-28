@@ -25,11 +25,7 @@ $classid=$_GET['classid'];
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=2 ");
 
- if(!$result)
-        {
-        die(mysqli_error($con));
-        }
-    
+ $linkquery = mysqli_query($con,"SELECT * FROM link ");   
 ?>
 
   <head>
@@ -41,6 +37,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -171,13 +168,14 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           $assignmentid= $row['assignmentid'];
     			echo '<form id="content" method="get" action="editcontentpage.php" >';
           echo "<li style='margin-left:-40px'><a href='javascript:download(".$row['assignmentid'].")'> ".$row['assignmentname']."</a></li>";
+		  echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+
           if($row['description']==true)
           {
             echo "<ul>";
             echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
             echo "</ul>";
     			}
-          echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
     			echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
     			echo '<input name="classid" type="hidden" value=' .$classid .'>';
     			echo '</form>';
@@ -188,13 +186,14 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
           $assignmentid= $row['assignmentid'];
           echo '<form id="content" method="get" action="editcontentpage.php" >';
           echo "<li style='margin-left:-40px'>".$row['assignmentname']."</a></li>";
+		  echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
+
            if($row['description']==true)
           {
             echo "<ul>";
             echo '<li>' . 'Description:' . '<br />' . $row['description'] . '</li>';
             echo "</ul>";
           }
-          echo '<input name="Edit" type="submit" value="Edit" class="btn btn-med btn-success" style=" margin-left:250px;margin-top:-30px;">';
           echo '<input name="contentid" type="hidden" value=' .$assignmentid .'>';
           echo '<input name="classid" type="hidden" value=' .$classid .'>';
           echo '</form>';
@@ -210,11 +209,31 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AN
       <hr>
 	      
 
-			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
+			<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 		</div>
 
 

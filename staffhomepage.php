@@ -173,7 +173,7 @@ $linkquery = mysqli_query($con,"SELECT * FROM link ");
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-          echo '<img src="Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
+          echo '<img src="cover thingy.png" >';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 2 && $row = mysqli_fetch_assoc($result))
@@ -222,7 +222,7 @@ $linkquery = mysqli_query($con,"SELECT * FROM link ");
 			 <div id="footer">
       <div class="container">
                 
-           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
             <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
                <ul>
              <span class="websitefont">
