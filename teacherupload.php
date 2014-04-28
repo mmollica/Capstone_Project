@@ -159,18 +159,20 @@ if(Input::exists())
 	  
 
 	   
-	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx");
+	      $allowedExts = array("gif", "jpeg", "jpg", "png", "pdf", "txt", "doc", "docx", "ppt", "pptx");
 	      $temp = explode(".", $_FILES['content']["name"]);
 	      //$ext = end($temp);
 	      $temp2 = end($temp);
 	      $ext = (string) $temp2;
-
+	      
 	      if ((($_FILES['content']["type"] == "image/gif")
 	      || ($_FILES['content']["type"] == "image/jpeg")
 	      || ($_FILES['content']["type"] == "image/jpg")
 	      || ($_FILES['content']["type"] == "image/pjpeg")
 	      || ($_FILES["content"]["type"] == "text/plain")
 	      || ($_FILES["content"]["type"] == "application/msword")
+	      || ($_FILES["content"]["type"] == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+	      || ($_FILES["content"]["type"] == "application/vnd.ms-powerpoint [official], application/mspowerpoint, application/ms-powerpoint, application/mspowerpnt, application/vnd-mspowerpoint application/powerpoint, application/x-powerpoint, application/x-m")
 	      || ($_FILES["content"]["type"] == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
 	      || ($_FILES['content']["type"] == "image/x-png")
 	      || ($_FILES['content']["type"] == "application/pdf")
