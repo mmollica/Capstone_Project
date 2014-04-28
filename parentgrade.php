@@ -260,7 +260,7 @@ while($row2 = mysqli_fetch_assoc($query1))
               $points = 0;
              
                 $total = 0;
-                while($row3 = mysqli_fetch_assoc($query2))
+               /* while($row3 = mysqli_fetch_assoc($query2))
                 {
                   $points = $points + $row3['points'];
                   $assignmentid = $row3['assignmentid'];
@@ -270,7 +270,7 @@ while($row2 = mysqli_fetch_assoc($query1))
                   {
                     $total = $total + $row4['total'];
                   }
-                }
+                }*/
               
               
             if($total!=0)
@@ -389,7 +389,7 @@ $getclasses = mysqli_query($con, "SELECT * FROM classassign WHERE studentid = $u
                 echo "<td>". $row5['total'] . "</td>";
                 echo "</tr>";
                  
-                $query7 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid");
+                $query7 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid AND classid = $classid");
                 $points = 0;
              
                 $total = 0;

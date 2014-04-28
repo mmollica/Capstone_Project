@@ -188,7 +188,7 @@ vertical-align: middle;
               Logged in as <?php echo $username; ?>
             </p>
             <ul class="nav">
-              <li><a href="staffhomepage.html">Home</a></li>
+              <li><a href="userhomepage.php">Home</a></li>
               <li><a href="#about">Email</a></li>
               <li><a href="#about">Calendar</a></li>
               <li><a href="logout.php">Log Out</a></li>
@@ -263,7 +263,7 @@ vertical-align: middle;
 
               
               $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
-              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid");
+              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid AND classid=$classid");
               $points = 0;
              
                 $total = 0;

@@ -269,7 +269,7 @@ vertical-align: middle;
 
               
               $result = mysqli_query($con, "SELECT * FROM users WHERE id= $userid");
-              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid");
+              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $userid AND classid=$classid");
               $points = 0;
              
                 $total = 0;

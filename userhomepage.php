@@ -35,6 +35,8 @@ $result3 = mysqli_query($con,"SELECT DISTINCT classid FROM classassign WHERE stu
 	
 $result4 = mysqli_query($con,"SELECT DISTINCT clubid FROM clubassign WHERE studentid= $id OR teacherid=$id ORDER BY clubid");
 
+$result42 = mysqli_query($con,"SELECT DISTINCT clubid FROM clubassign WHERE studentid= $id OR teacherid=$id ORDER BY clubid");
+
 $result5 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE parentid= $id");
 
 $type = mysqli_query($con," SELECT groups FROM users WHERE id= $id ");
@@ -247,16 +249,13 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 			 if ($group==3)
 			  {
 				  
-				   while ($row = mysqli_fetch_assoc($result51))
-				{
-					$sid= $row['studentid'];
-					
-						while ($row2 = mysqli_fetch_assoc($result41))
+				
+						while ($row2 = mysqli_fetch_assoc($result4))
 					{
 						$cid= $row2['clubid'];
-						$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cid "); 
+						$names1 = mysqli_query($con," SELECT clubname FROM club WHERE id= $cid "); 
 				
-				  			while ($row3 = mysqli_fetch_assoc($names))
+				  			while ($row3 = mysqli_fetch_assoc($names1))
 						{
 				  			 echo '<form id="createclub" action="clubhomepage.php" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cid .' class="btn btn-small btn-success">';
@@ -267,8 +266,8 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 						}
 			
 					}
-					
-				}
+				
+				
 				
 			  }
 					
@@ -277,16 +276,16 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
 				
 		else
 		{			
-			  while ($row = mysqli_fetch_assoc($result4))
+			  while ($row = mysqli_fetch_assoc($result42))
 			{
 				$cn= $row['clubid'];
 				$names = mysqli_query($con," SELECT clubname FROM club WHERE id= $cn "); 
 				
-				  while ($row = mysqli_fetch_assoc($names))
+				  while ($row5 = mysqli_fetch_assoc($names))
 				{
         					 echo '<form id="createclub" action="teacherclubhomepage.php" method="post">';
 							 echo '<input name="clubid" type="hidden" value=' . $cn .' class="btn btn-small btn-success">';
-					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
+					 		 echo "<li style='text-align:center';>" . '<input name="clubname" type="submit" value=' . $row5['clubname'] .' class="btn btn-small btn-success">' . "</li>" ;
         
          		   			 echo '</form>';
 				 

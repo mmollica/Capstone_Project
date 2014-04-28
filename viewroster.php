@@ -14,8 +14,8 @@ $id= $user->data()->id;
 $username=$user->data()->username;
 $fname=$user->data()->fname;
 $lname=$user->data()->lname;
-/*$classid=$_GET['classid'];*/
-$classid= 50000002;
+$classid=$_GET['classid'];
+
 
 date_default_timezone_set('America/New_York');
 
@@ -275,7 +275,7 @@ vertical-align: middle;
             {
               $studentid = $row2['studentid'];
               $result = mysqli_query($con, "SELECT * FROM users WHERE id= $studentid");
-              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $studentid");
+              $query2 = mysqli_query($con, "SELECT * FROM grades WHERE studentid = $studentid AND classid=$classid");
               $points = 0;
               $total = 0;
               while($row3 = mysqli_fetch_assoc($query2))

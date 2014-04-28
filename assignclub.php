@@ -42,7 +42,7 @@ if(Input::exists())
           ));
 
         
-        Redirect::to('staffhomepage.html');
+        Redirect::to('staffhomepage.php');
       }
       catch(Exception $e)
       {

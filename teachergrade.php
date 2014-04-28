@@ -17,11 +17,11 @@ require_once 'core/init.php';
 $user= new User();	
     
 $id= $user->data()->id;
+$name= $user->data()->username;
+$idlink=$_GET['classid'];
 
-$classid=$_GET['classid'];
 
-
-$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1");
+$result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $idlink AND type=1");
 
  if(!$result)
         {
@@ -31,9 +31,12 @@ if(Input::exists())
 {
 
   $total = Input::get('points');
-  for($y = 0; $y <= count($total); $y++)
+  
+  $count = count($total);
+
+  for($y = 0; $y < $count; $y++)
         {
-           
+            
             $total = Input::get('points');
             $assignmentid = Input::get('assignmentid');
             $studentid = Input::get('studentid');
@@ -41,17 +44,27 @@ if(Input::exists())
             $classid = Input::get('classid');
             $points = Input::get('newpoints');
             $gradeid = Input::get('gradeid');
-            $total = $total[$y];
+            if(isset($total[$y]))
+            {
+              $total = $total[$y];
+            }
             if(isset($assignmentid[$y]))
             {
               $assignmentid = $assignmentid[$y];
             }
-            $studentid = $studentid[$y];
+            if(isset($studentid[$y]))
+            {
+              $studentid = $studentid[$y];
+            }
             if(isset($islate[$y]))
             {
               $islate = $islate[$y];
             }
-            $classid = $classid[$y];
+            if(isset($classid[$y]))
+            {
+              $classid = $classid[$y];
+            }
+
             $grade = new Grades();
             date_default_timezone_set('America/New_York');
             $time = date("Y-m-d H:i:s");
@@ -79,7 +92,7 @@ if(Input::exists())
                }
                catch(Exception $e)
                {
-                  die($e->getMessage());
+                  
                }
             }
         }
@@ -250,7 +263,7 @@ vertical-align: middle;
           <a class="brand" href="#">The Hive</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
+              Logged in as <?php echo $name;?>
             </p>
             <ul class="nav">
               <li><a href="userhomepage.php">Home</a></li>
@@ -270,34 +283,34 @@ vertical-align: middle;
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
           <?php 
-              echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
+              echo '<li><a href="teachercontentpage.php?classid= ' . $idlink . ' "> Content</a></li>';
               
                 ?>
               
               <?php 
-              echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
+              echo '<li><a href="teacherassignmentpage.php?classid= ' . $idlink . ' "> Assignment</a></li>';
               
                 ?>
                    <?php 
-              echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
+              echo '<li><a href="create_topic.php?classid= ' . $idlink . ' "> Create Topic </a></li>';
               
                 ?>
 
               <?php 
-              echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
+              echo '<li><a href="main_forum.php?classid= ' . $idlink . ' ">Discussions</a></li>';
               
                 ?>
                  
                 <?php 
-              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
+              echo '<li><a href="teachermessage.php?classid= ' . $idlink . ' ">Create Message</a></li>';
               
                 ?>
                 <?php
-                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
+                echo'<li><a href="teachergrade.php?classid= '  . $idlink . ' ">Grades</a></li>';
         
               ?>
               <?php
-                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
+                echo'<li><a href="viewroster.php?classid= '  . $idlink . ' ">View Roster</a></li>';
         
               ?>
 
@@ -339,7 +352,7 @@ vertical-align: middle;
 			<!-- Copyright Area -->
 			<hr>
 			<div class="footer">
-				<p>&copy; 2013</p>
+				
 			</div>
 		</div>
 
