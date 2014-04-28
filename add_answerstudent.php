@@ -42,7 +42,7 @@ $a_answer=$_POST['a_answer'];
 $datetime=date("d/m/y h:i:s"); // create date and time
 
 // Insert answer 
-$sql2="INSERT INTO forum_answer (question_id,, a_name, a_title, a_answer, a_datetime) VALUES('{$id}', '{$a_name}', '{$a_title}', '{$a_answer}', '{$datetime}')";
+$sql2="INSERT INTO forum_answer (question_id, a_name, a_title, a_answer, a_datetime) VALUES('{$id}', '{$a_name}', '{$a_title}', '{$a_answer}', '{$datetime}')";
 
 $result2=mysqli_query($con,$sql2);
 

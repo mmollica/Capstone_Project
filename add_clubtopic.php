@@ -21,7 +21,7 @@ $clubid1=$_POST["clubid"];
 date_default_timezone_set('America/New_York');
 $datetime=date("Y-m-d H:i:s"); //create date time
 
-$sql="INSERT INTO clubforum_question (topic, detail, classid, datetime) VALUES('{$topic1}', ' {$detail1}', ' {$classid1}', ' {$datetime}')";
+$sql="INSERT INTO clubforum_question (topic, detail, clubid, datetime) VALUES('{$topic1}', ' {$detail1}', ' {$clubid1}', ' {$datetime}')";
 
 
 
