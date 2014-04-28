@@ -20,17 +20,9 @@ $id= $user->data()->id;
 
 $name= $user->data()->username;
 
-if ($clubid=$_POST['clubid']==false)
 
-{
+$clubid=$_GET['clubid'];
 
-  $clubid=$_GET['clubid'];
-}
-
-else
-{
-  $clubid=$_POST['clubid'];
-}
  
 $a = mysqli_query($con,"SELECT teacherid FROM club WHERE id= $clubid ");
 $b = mysqli_query($con,"SELECT teacherid FROM club WHERE id= $clubid ");	

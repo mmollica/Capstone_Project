@@ -18,7 +18,7 @@ $user= new User();
     
 $id= $user->data()->id;
 
-$clubid=$_GET['classid'];
+$clubid=$_GET['clubid'];
 
 $username=$user->data()->username;
 
