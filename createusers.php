@@ -120,7 +120,7 @@ if(Input::exists())
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
                                    <link rel="shortcut icon" href="favicon.png">
-  <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+    <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
   <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
   <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css">
   <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
@@ -227,15 +227,15 @@ if(Input::exists())
           <input type="text" name="city" id="city">
           <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
-          
+          <span id="sprytextfield8">
           <label for="state">State:</label>
           <input type="text" name="state" id="state" size="2" maxlength="2">
-          <span class="textfieldRequiredMsg">A value is required.</span>
+          <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
-       
+       	   <span id="sprytextfield9">
           <label for="zip">Zip Code:</label>
           <input type="text" name="zip" id="zip" size="5" maxlength="5">
-          <span class="textfieldRequiredMsg">A value is required.</span>
+          <span class="textfieldRequiredMsg">A value is required.</span></span>
           <br/>
         <span id="spryselect1">
           <label for="type">Account Type:</label>
@@ -303,6 +303,14 @@ if(Input::exists())
   <script type="text/javascript">
 var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
 var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2");
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
+var sprytextfield4 = new Spry.Widget.ValidationTextField("sprytextfield4");
+var sprytextfield5 = new Spry.Widget.ValidationTextField("sprytextfield5");
+var sprytextfield6 = new Spry.Widget.ValidationTextField("sprytextfield6");
+var sprytextfield7 = new Spry.Widget.ValidationTextField("sprytextfield7");
+var sprytextfield8 = new Spry.Widget.ValidationTextField("sprytextfield8");
+var sprytextfield9 = new Spry.Widget.ValidationTextField("sprytextfield9");
+
 var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
   </script>
   </body>
