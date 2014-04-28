@@ -369,7 +369,7 @@ mysqli_close($con);
 <tr>
 
 
-<?php echo '<td width="79%">' . '<input name="a_name" type="hidden" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">' . '</td>'; ?>
+<?php echo  '<input name="a_name" type="hidden" id="a_name" value=" ' . $sname . ' ' . $slname . ' " size="45">'; ?>
 </tr>
 <tr>
 <td valign="top"><strong>Answer:</strong></td>
