@@ -250,7 +250,7 @@ if(Input::exists())
           <br>
           <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
           <input type="submit" value="Add User"class="btn btn-large btn-success">
-          <a href="staffhomepage.html"><input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success"></a>
+          <a href="staffhomepage.php"><input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" ></a>
           </form>
           </div>
           </div><!--/row-->

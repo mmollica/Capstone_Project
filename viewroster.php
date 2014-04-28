@@ -321,33 +321,31 @@ vertical-align: middle;
 			</div> <!-- /widget -->
             </div>
 
-      <hr>
-
-       <div id="footer">
+    <hr>  
+			 <div id="footer">
       <div class="container">
                 
-           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 GitHub Inc. All rights reserved.</p>
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
             <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
                <ul>
              <span class="websitefont">
              </span>
              
-       <?php
+			 <?php
              while ($row = mysqli_fetch_assoc($linkquery))
-       {
-         echo '<div class="span2" style="width:50px;">';
-      
-        echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
-        echo '</div>';
-             //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
-       
-       }
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
          
-          ?>
+         	?>
          </ul>
       </div>
     </div>
-
     </div><!--/.fluid-container-->
 
     <!-- Le javascript

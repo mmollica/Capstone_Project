@@ -203,7 +203,7 @@ if(Input::exists())
           <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
           
           
-          <input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success">
+          <a href="staffhomepage.php"><input name="Cancel" type="button" value="Cancel" class="btn btn-large btn-success" ></a>
           </form>
           </div>
           </div><!--/row-->

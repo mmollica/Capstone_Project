@@ -10,6 +10,15 @@ require_once 'core/init.php';
   echo 'submitted';
 }
 */
+  $con = mysqli_connect("localhost","mmollica","Thepw164","capstone_db");
+
+    if (!$con)
+        {
+             die('Could not connect: ' . mysqli_error($con));
+        }
+		
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
+
 $classid = $_GET['classid'];
 $user = new User();
 $name = $user->data()->username;
@@ -43,7 +52,10 @@ if(Input::exists())
           ));
 
        
+<<<<<<< HEAD
         
+=======
+>>>>>>> 3aa227a8a5647c082df57cd8ab97f285e6879829
       }
       catch(Exception $e)
       {
@@ -71,6 +83,7 @@ if(Input::exists())
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -208,12 +221,31 @@ if(Input::exists())
           </div>
           </div><!--/row-->
 
-      <hr>
-      
-<footer>
-    <p>&copy; Company 2013</p>
-      </footer>
-
+     	<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
     </div><!--/.fluid-container-->
 
     <!-- Le javascript
