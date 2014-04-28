@@ -140,10 +140,10 @@ $name = $user->data()->username;
             <label for="Message ID">Message ID:</label>
             <select name="messageid" id="Message ID">
              <?php $con = mysqli_connect("localhost","mmollica","Thepw164", "capstone_db"); ?> 
-					<?php $result = mysqli_query($con,'SELECT * FROM staffmessage ORDER BY date ASC'); ?> 
+					<?php $result = mysqli_query($con,'SELECT * FROM staffmessage ORDER BY date_added ASC'); ?> 
 					<?php while($row = mysqli_fetch_assoc($result)) { ?> 
 					<option value="<?php echo $row['smsgid'];?>"> 
-					<?php echo htmlspecialchars($row['smsgid']) . " - " . htmlspecialchars($row['title']) . " ( ".  htmlspecialchars($row['date']) . " ) " ; ?> 
+					<?php echo htmlspecialchars($row['smsgid']) . " - " . htmlspecialchars($row['title']) . " ( ".  htmlspecialchars($row['date_added']) . " ) " ; ?> 
 					</option> 
 					<?php } ?>
 					<?php mysqli_close($con);?> 

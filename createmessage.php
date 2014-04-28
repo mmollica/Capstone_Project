@@ -37,8 +37,8 @@ if(Input::exists())
         $msg->create1(array(
           'title' => Input::get('title'),
           'msg' => Input::get('msg'),
-          'date_added' => Input::get('date_added'),
-          'url' => Input::get('url')     
+          'date_added' => Input::get('date_added')
+             
           ));
 
         Session::flash('home', 'You have registered a user');
@@ -195,11 +195,7 @@ if(Input::exists())
           <textarea name="msg" id="Message" cols="45" rows="10" style="width:500px"></textarea>
           <span class="textareaRequiredMsg">A value is required.</span></span><br>
       <br>
-        <span id="sprytextfield2">
-            <label for="Link Name">Image Link:</label>
-            <input type="text" name="url" id="url">
-          <span class="textfieldRequiredMsg">A value is required.</span></span>
-          <br/>
+        
           <input name="Create" type="submit" value="Create" class="btn btn-large btn-success">
           
           
