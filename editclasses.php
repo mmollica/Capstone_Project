@@ -172,8 +172,8 @@ $linkquery = mysqli_query($con,"SELECT * FROM link ");
           <br>
           <input name="process" type="submit" value="Delete" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">
           <br>
+          <a href="staffhomepage.php"><input name="Cancel" type="button" value="Cancel" class="btn btn-med btn-success" style="margin-left:300px; margin-top:-60px" ></a>
           
-          <input name="cancel" id="cancel" type="button" value="Cancel" class="btn btn-med btn-success" style="margin-left:300px; margin-top:-60px">
           </form>
           </div>
           </div><!--/row-->
