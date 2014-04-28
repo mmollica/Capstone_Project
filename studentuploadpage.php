@@ -248,7 +248,7 @@ if(Input::exists())
         </div><!--/span-->
          <div class="span9" style="height:850px">
 
-          <div class="upload" >
+          <div class="login2" >
             <h1 style="margin-top:-30px; margin-left:175px">Upload Assignments</h1>
             <br>
             <br>

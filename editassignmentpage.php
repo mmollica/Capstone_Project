@@ -166,7 +166,7 @@ $linkquery = mysqli_query($con,"SELECT * FROM link ");
 			 echo '<input name="classid" type="hidden" value=' . $classid . '>';
        echo '<input name="assignmentid" type="hidden" value=' . $content . '>';
        echo '<input name="process" type="submit" value="Update Assignment" class="btn btn-med btn-success">';
-       echo '<input name="process" type="submit" value="Delete Assignment" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:-62px">';
+       echo '<input name="process" type="submit" value="Delete Assignment" class="btn btn-med btn-success"  style="margin-left:150px; margin-top:0px">';
 			 echo '</form>';
 			 echo"<br>";
 			} 
