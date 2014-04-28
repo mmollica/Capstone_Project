@@ -161,7 +161,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="52212c70ea4f2.preview-620.jpg" alt="First slide">
+          <img src="test_taking.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
             <?php
@@ -191,7 +191,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-          echo '<img src="file:///C|/Users/Adiyiah/Desktop/Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
+          echo '<img src="studynotes.jpg" alt="Second slide">';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 2 && $row = mysqli_fetch_assoc($result))
@@ -205,7 +205,7 @@ $result2 = mysqli_query($con,"SELECT * FROM link ");
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-         echo ' <img src="file:///C|/Users/Adiyiah/Desktop/test_taking.jpg" alt="Third slide">';
+         echo ' <img src="fieldtrip.jpg" alt="Third slide">';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 3 && $row = mysqli_fetch_assoc($result))

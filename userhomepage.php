@@ -322,7 +322,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="file:///C|/Users/Adiyiah/Desktop/52212c70ea4f2.preview-620.jpg" alt="First slide">
+          <img src="graduation.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
             <?php
@@ -342,7 +342,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-          echo '<img src="file:///C|/Users/Adiyiah/Desktop/Pep_Rally_for_Obama_Poster_by_mattalaio.jpg" alt="Second slide">';
+          echo '<img src="summerbreak.jpg" alt="Second slide">';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 2 && $row = mysqli_fetch_assoc($result))
@@ -356,7 +356,7 @@ $result51 = mysqli_query($con,"SELECT studentid FROM parent_student_match WHERE 
           echo '</div>';
         echo '</div>';
         echo '<div class="item">';
-         echo ' <img src="file:///C|/Users/Adiyiah/Desktop/test_taking.jpg" alt="Third slide">';
+         echo ' <img src="prom.jpg" alt="Third slide">';
           echo '<div class="container">';
             echo '<div class="carousel-caption">';
 			while ($count < 3 && $row = mysqli_fetch_assoc($result))
