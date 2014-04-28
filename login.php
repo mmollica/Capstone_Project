@@ -27,7 +27,7 @@ if(Input::exists())
             }
             else
             {
-                echo "<p>Sorry, logging in failed!</p>";
+                echo "<p >Sorry, logging in failed!</p>";
             }
         }
         else
@@ -54,7 +54,6 @@ if(Input::exists())
         <form action="" method="post">
         Username: <input type="text" name="username" id="username" autocomplete="off"><br>
         Password: <input type="password" name="password" id="password"><br>
-        Remember Me: <input type="checkbox" name="remember" id="remember"><br>
         <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
         <input type="submit" value="Log In">
         
