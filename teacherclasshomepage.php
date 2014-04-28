@@ -28,29 +28,8 @@ $b = mysqli_query($con,"SELECT teacherid FROM class WHERE id= $classid ");
 $c = mysqli_query($con,"SELECT classname FROM class WHERE id= $classid ");	
 	
 $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $classid ");
-	
 
-
-
-    if(!$a)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$b)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$c)
-        {
-        die(mysqli_error($con));
-        }
-		
-	if(!$result3)
-      {
-        die(mysqli_error($con));
-      }
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
     
 ?>
 
@@ -63,6 +42,7 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -250,90 +230,35 @@ $result3 = mysqli_query($con,"SELECT studentid FROM classassign WHERE classid= $
     </div><!-- /.carousel -->
 
 
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-                
-          <div class="row-fluid">
-            <div class="span4" style="margin-left:35px;">
-              <h2 style="margin-top:-60px;">Roster List</h2>
-              <ol type="square" style="padding:10px;">
-              <?php
-			  while ($row = mysqli_fetch_assoc($result3))
-			{
-				$sid= $row['studentid'];
-				$names = mysqli_query($con," SELECT lname, fname FROM users WHERE id= $sid ORDER By lname ASC "); 
-				
-				if(!$names)
-      				{
-       					 die(mysqli_error($con));
-      				}
-				
-				  while ($row = mysqli_fetch_assoc($names))
-				{
-        		 echo "<li>"  . $row['lname'] . ',' .  $row['fname'] .  "</li>" ;
-				 
-				}
-			
-			}
-			  ?>
-        </ol>
-            </div><!--/span-->
-            <div class="span4" style="margin-left:250px;">
-              <h2 style="margin-top:-60px; margin-left:-15px">Notification</h2>
-              <ul type="square">
-          			
-                        
-                    </ul>
-           
-            </div><!--/span-->
-            </div>
-            
-            <div class="row-fluid">
-            
-            
-            </div>
-            
-            <div class="row-fluid">
-            <div class="spanstaff" style="margin-top:50px;">
-              <h2 align="center" style="margin-top:-60px; margin-left:-30px;">Helpful Links</h2>
-               <ul style="margin-left:370px;">
-             <span class="websitefont">
-             </span>
-             <?php
-             while ($row2 = mysqli_fetch_assoc($b))
-			 {
-				 $tid= $row2['teacherid'];
-				 $result2 = mysqli_query($con,"SELECT * FROM teacherlink WHERE teacherid=$tid ");
-				 
-				while ($row = mysqli_fetch_assoc($result2))
-			 { 
-			
-			  echo "<li>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['name'] . "</a>". "</span>" . "</li>" ;
-          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
-		   
-		   
-			 }
-			}
-         
-         	?>
-         </ul>
-            </div><!--/span-->
-            </div>
-            
-      
-      </div><!--/row-->
-
       <hr>
 	      
 
 			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
+			<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 		</div>
 
 

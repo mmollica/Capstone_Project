@@ -21,6 +21,8 @@ $id= $user->data()->id;
 $classid=$_GET['classid'];
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $classid AND type=1"); 
 
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
+
 if(Input::exists())
 {
       $assignmentid = $_POST['assignmentid'];  
@@ -146,6 +148,7 @@ if(Input::exists())
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -275,7 +278,7 @@ if(Input::exists())
             <input name="studentUpload" type="file" >
             <br>
             <br>
-       <input name="submit" type="submit" value="Upload" class="btn btn-large btn-success" onclick="myFunction()">
+       <input name="submit" type="submit" value="Upload" class="btn btn-large btn-success" onClick="myFunction()">
             
              <?php 
               echo '<input name="classid" type="hidden" value=' .$classid .'>';
@@ -290,10 +293,31 @@ if(Input::exists())
 	      
 
 			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
+			<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 		</div>
 
 

@@ -27,6 +27,10 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE classid= $idlink AND
         {
         die(mysqli_error($con));
         }
+		
+
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
+
 if(Input::exists())
 {
 
@@ -108,6 +112,7 @@ if(Input::exists())
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
 <style type="text/css">
       body {
@@ -350,10 +355,31 @@ vertical-align: middle;
 	      
 
 			<!-- Copyright Area -->
-			<hr>
-			<div class="footer">
-				
-			</div>
+			<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 		</div>
 
 

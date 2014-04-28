@@ -23,6 +23,9 @@ $classid=$_GET['classid'];
  
 $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
 
+
+$linkquery = mysqli_query($con,"SELECT * FROM link ");
+
 ?>
   <head>
     <meta charset="utf-8">
@@ -32,7 +35,9 @@ $query1 = mysqli_query($con,"SELECT * FROM users WHERE id= $userid ");
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">    	<style type="text/css">
+    <link href="bootstrap.css" rel="stylesheet">    	
+	<link href="faith.css" rel="stylesheet">
+	<style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -382,11 +387,32 @@ echo '</div>';
           </div>
           </div><!--/row-->
 
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
+   
+						<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 
     </div><!--/.fluid-container-->
 

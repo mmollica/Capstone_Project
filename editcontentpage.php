@@ -25,6 +25,8 @@ $content=$_GET['contentid'];
 
 $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $content");
 
+ $linkquery = mysqli_query($con,"SELECT * FROM link ");
+
 ?>
 
   <head>
@@ -36,6 +38,7 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 
     <!-- Le styles -->
     <link href="bootstrap.css" rel="stylesheet">
+    <link href="faith.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
     <style type="text/css">
       body {
@@ -105,25 +108,34 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
                    <?php 
               echo '<li><a href="teachercontentpage.php?classid= ' . $classid . ' "> Content</a></li>';
               
-              	?>
+                ?>
               
               <?php 
               echo '<li><a href="teacherassignmentpage.php?classid= ' . $classid . ' "> Assignment</a></li>';
               
-              	?>
-                
-                <?php 
+                ?>
+                   <?php 
               echo '<li><a href="create_topic.php?classid= ' . $classid . ' "> Create Topic </a></li>';
               
-              	?>
-                
-                <?php 
+                ?>
+
+              <?php 
               echo '<li><a href="main_forum.php?classid= ' . $classid . ' ">Discussions</a></li>';
               
-              	?>
+                ?>
+                 
+                <?php 
+              echo '<li><a href="teachermessage.php?classid= ' . $classid . ' ">Create Message</a></li>';
               
-              <li><a href="#">Grades</a></li>
-	
+                ?>
+                <?php
+                echo'<li><a href="teachergrade.php?classid= '  . $classid . ' ">Grades</a></li>';
+        
+              ?>
+              <?php
+                echo'<li><a href="viewroster.php?classid= '  . $classid . ' ">View Roster</a></li>';
+        
+              ?>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -169,9 +181,31 @@ $result = mysqli_query($con,"SELECT * FROM assignment WHERE assignmentid= $conte
 
 			<!-- Copyright Area -->
 			<hr>
-			<div class="footer">
-				<p>&copy; 2013</p>
-			</div>
+						<hr>  
+			 <div id="footer">
+      <div class="container">
+                
+           <p align="right"  style="color:#CCCCCC; text-align:right; margin-top:25px;">&copy; 2014 The Hive MS Inc. All rights reserved.</p>
+            <h4 align="left" style="margin-top:-50px; text-align:left; color:#CCCCCC;">Helpful Links</h4>
+               <ul>
+             <span class="websitefont">
+             </span>
+             
+			 <?php
+             while ($row = mysqli_fetch_assoc($linkquery))
+			 {
+				 echo '<div class="span2" style="width:50px;">';
+			
+			  echo "<li  style='text-align:left'>" . "<span class=" .'websitefont' .">" . "<a href =" . $row['url'] .">" . $row['linkname'] . "</a>". "</span>" . "</li>" ;
+			  echo '</div>';
+          	 //<li><span class="websitefont"><a href="http://www.howtostudy.org/">How-to- study</a></span></li>
+		   
+			 }
+         
+         	?>
+         </ul>
+      </div>
+    </div>
 		</div>
 
 
